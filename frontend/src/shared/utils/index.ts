@@ -1,0 +1,1 @@
+export { getFieldsData } from "./getFieldsData";
