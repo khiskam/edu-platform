@@ -23,5 +23,8 @@ const config = {
 };
 
 const app = initializeApp(config);
-export const auth = getAuth(app);
+const auth = getAuth(app);
+auth.languageCode = "ru";
 getAnalytics(app);
+
+export { auth };
