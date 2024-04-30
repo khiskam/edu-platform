@@ -20,3 +20,7 @@ export type FormFieldsArray<T extends StringRecord> = (FieldProps &
   Trigger<T> & {
     key: keyof T;
   })[];
+
+export type ApiError<T extends Record<string, string>> =
+  | { field: keyof T | "root"; message: string }
+  | undefined;

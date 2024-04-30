@@ -1,1 +1,6 @@
-export type { FieldProps, FormFieldsArray, FormFieldsData } from "./input";
+export type {
+  ApiError,
+  FieldProps,
+  FormFieldsArray,
+  FormFieldsData,
+} from "./input";

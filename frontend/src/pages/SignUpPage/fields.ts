@@ -1,33 +1,24 @@
+import { FirebaseError } from "firebase/app";
+import { AuthErrorCodes } from "firebase/auth";
 import { InferType, object, ref, string } from "yup";
 
-import { FormFieldsData } from "@/shared/types";
+import { AUTH_VALIDATION_ERRORS } from "@/shared/constants";
+import { ApiError, FormFieldsData } from "@/shared/types";
 import { getFieldsData } from "@/shared/utils";
-
-export const errorsMap = {
-  EMAIL_REQUIRED: "Поле Email обязательно для заполнения",
-  EMAIL_INVALID: "Неверный формат email",
-  EMAIL_EXISTS: "Пользователь с таким email уже существует",
-  PASSWORD_REQUIRED: "Поле Пароль обязательно для заполнения",
-  PASSWORD_MIN_LENGTH: "Минимальное кол-во символов: 6",
-  CREDENTIALS_INVALID: "Неверный логин или пароль",
-  CONFIRM_PASSWORD_REQUIRED:
-    "Поле Подтвердить пароль обязательно для заполнения",
-  CONFIRM_PASSWORD_UNMATCH: "Пароли не совпадают",
-};
 
 export const schema = object({
   email: string()
     .trim()
-    .required(errorsMap.EMAIL_REQUIRED)
-    .email(errorsMap.EMAIL_INVALID),
+    .required(AUTH_VALIDATION_ERRORS.EMAIL_REQUIRED)
+    .email(AUTH_VALIDATION_ERRORS.EMAIL_INVALID),
   password: string()
     .trim()
-    .required(errorsMap.PASSWORD_REQUIRED)
-    .min(6, errorsMap.PASSWORD_MIN_LENGTH),
+    .required(AUTH_VALIDATION_ERRORS.PASSWORD_REQUIRED)
+    .min(6, AUTH_VALIDATION_ERRORS.PASSWORD_MIN_LENGTH),
   confirmPassword: string()
     .trim()
-    .required(errorsMap.CONFIRM_PASSWORD_REQUIRED)
-    .oneOf([ref("password")], errorsMap.CONFIRM_PASSWORD_UNMATCH),
+    .required(AUTH_VALIDATION_ERRORS.CONFIRM_PASSWORD_REQUIRED)
+    .oneOf([ref("password")], AUTH_VALIDATION_ERRORS.CONFIRM_PASSWORD_UNMATCH),
 });
 
 export type FormData = InferType<typeof schema>;
@@ -48,3 +39,15 @@ const inputsData: FormFieldsData<FormData> = {
 };
 
 export const inputs = getFieldsData<FormData>(inputsData);
+
+export const getError = (e: unknown): ApiError<FormData> => {
+  if (!(e instanceof FirebaseError)) {
+    return;
+  }
+
+  if (e.code === AuthErrorCodes.EMAIL_EXISTS) {
+    return { field: "email", message: AUTH_VALIDATION_ERRORS.EMAIL_EXISTS };
+  } else if (e.code === AuthErrorCodes.INVALID_EMAIL) {
+    return { field: "email", message: AUTH_VALIDATION_ERRORS.EMAIL_INVALID };
+  }
+};
