@@ -1,6 +1,7 @@
 ent/*
 
 !ent/generate.go
+!ent/migrate/migrations/*
 !ent/migrate/main.go
 !ent/schema/*
 
