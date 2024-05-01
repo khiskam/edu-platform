@@ -1,0 +1,7 @@
+.env
+.idea
+tmp
+
+!ent/generate.go
+!ent/migrate/main.go
+!ent/schema/*

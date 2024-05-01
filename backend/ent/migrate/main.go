@@ -68,8 +68,6 @@ func main() {
 		os.Getenv("DB_DATABASE"),
 	)
 
-	log.Println(dsn)
-
 	err = migrate.NamedDiff(ctx, dsn, os.Args[1], opts...)
 	if err != nil {
 		log.Fatalf("failed generating migration file: %v", err)
