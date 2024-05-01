@@ -1,8 +1,14 @@
 ent/*
 
-!ent/migrate/*
+!ent/schema/
 !ent/schema/*
-!ent/migrate/migrations/*
+!ent/migrate/
+ent/migrate/*
+!ent/migrate/main.go
+!ent/migrate/migrations/
+ent/migrate/migrations/*
+!ent/migrate/migrations/*.sql
+!ent/migrate/migrations/atlas.sum
 
 .env
 .idea
