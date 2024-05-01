@@ -7,13 +7,13 @@ DB_CONNECTION := postgres
 DB_DSN := "user=$(DB_USER) password=$(DB_PASSWORD) host=$(DB_HOST) port=$(DB_PORT) dbname=$(DB_DATABASE) sslmode=$(SSLMODE)"
 
 dev:
-	air
+	@air
 
 clean:
-	rm -rf tmp
+	@rm -rf tmp
 
 ent-clean:
-	bash clean.sh
+	@bash clean.sh
 
 model-create:
 	@go run -mod=mod entgo.io/ent/cmd/ent new $(names)

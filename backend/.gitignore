@@ -1,10 +1,8 @@
 ent/*
 
-!ent/generate.go
-!ent/migrate/migrations/*
-!ent/migrate/main.go
+!ent/migrate/*
 !ent/schema/*
-
+!ent/migrate/migrations/*
 
 .env
 .idea
