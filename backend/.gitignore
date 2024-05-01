@@ -1,7 +1,10 @@
-.env
-.idea
-tmp
+ent/*
 
 !ent/generate.go
 !ent/migrate/main.go
 !ent/schema/*
+
+
+.env
+.idea
+tmp
