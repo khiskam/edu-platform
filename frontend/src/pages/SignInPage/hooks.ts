@@ -2,9 +2,11 @@ import { UseFormHandleSubmit, UseFormSetError } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { useSignInMutation } from "@/shared/api";
+import { auth } from "@/shared/config";
 import { ROUTES } from "@/shared/constants";
+import { getAuthError } from "@/shared/utils";
 
-import { FormData, getError } from "./fields";
+import { FormData } from "./fields";
 
 export const useFormSubmit = (
   handleSubmit: UseFormHandleSubmit<FormData>,
@@ -17,9 +19,10 @@ export const useFormSubmit = (
     try {
       await signIn(data);
 
+      console.log(auth.currentUser);
       navigate(ROUTES.main);
     } catch (e) {
-      const error = getError(e);
+      const error = getAuthError(e);
 
       if (error) {
         setError(error.field, { message: error.message });

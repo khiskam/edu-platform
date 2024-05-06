@@ -1,6 +1,6 @@
 import { Form, Input } from "antd";
 import { ChangeEvent } from "react";
-import { Path, useController } from "react-hook-form";
+import { useController } from "react-hook-form";
 
 import { FormItemProps } from "./types";
 
@@ -9,7 +9,7 @@ export const FormField = <T extends Record<string, string>>({
   type = "input",
   label,
   placeholder,
-  trigger,
+  onChange: changeHandler,
 }: FormItemProps<T>) => {
   const { field, fieldState } = useController(controller);
   const { error } = fieldState;
@@ -17,7 +17,7 @@ export const FormField = <T extends Record<string, string>>({
 
   const handleChange = (e: ChangeEvent) => {
     onChange(e);
-    trigger?.fn(trigger.name as Path<T>);
+    changeHandler?.(e);
   };
 
   return (

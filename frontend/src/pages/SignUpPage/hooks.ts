@@ -1,12 +1,19 @@
 import { sendEmailVerification } from "firebase/auth";
-import { UseFormHandleSubmit, UseFormSetError } from "react-hook-form";
+import { useMemo } from "react";
+import {
+  UseFormGetValues,
+  UseFormHandleSubmit,
+  UseFormSetError,
+  UseFormTrigger,
+} from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { useSignUpMutation } from "@/shared/api";
 import { auth } from "@/shared/config";
 import { ROUTES } from "@/shared/constants";
+import { getAuthError } from "@/shared/utils";
 
-import { FormData, getError } from "./fields";
+import { FormData } from "./fields";
 
 export const useFormSubmit = (
   handleSubmit: UseFormHandleSubmit<FormData>,
@@ -26,7 +33,7 @@ export const useFormSubmit = (
 
       navigate(ROUTES.main);
     } catch (e) {
-      const error = getError(e);
+      const error = getAuthError(e);
 
       if (error) {
         setError(error.field, { message: error.message });
@@ -35,4 +42,22 @@ export const useFormSubmit = (
   });
 
   return { onSubmit, isPending };
+};
+
+export const useHandler = (
+  getValues: UseFormGetValues<FormData>,
+  trigger: UseFormTrigger<FormData>
+) => {
+  return useMemo(
+    (): Record<keyof FormData, React.ChangeEventHandler | undefined> => ({
+      email: undefined,
+      confirmPassword: undefined,
+      password: () => {
+        if (getValues("confirmPassword") !== undefined) {
+          trigger("confirmPassword");
+        }
+      },
+    }),
+    [getValues, trigger]
+  );
 };

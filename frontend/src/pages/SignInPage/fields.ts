@@ -1,9 +1,7 @@
-import { FirebaseError } from "firebase/app";
-import { AuthErrorCodes } from "firebase/auth";
 import { InferType, object, string } from "yup";
 
 import { AUTH_VALIDATION_ERRORS } from "@/shared/constants";
-import { ApiError, FormFieldsData } from "@/shared/types";
+import { FormFieldsData } from "@/shared/types";
 import { getFieldsData } from "@/shared/utils";
 
 export const schema = object({
@@ -20,27 +18,6 @@ const inputsData: FormFieldsData<FormData> = {
     placeholder: "Пароль",
     type: "password",
   },
-};
-
-export const getError = (e: unknown): ApiError<FormData> => {
-  if (!(e instanceof FirebaseError)) {
-    return;
-  }
-
-  if (
-    e.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS ||
-    e.code === AuthErrorCodes.INVALID_EMAIL
-  ) {
-    return {
-      field: "root",
-      message: AUTH_VALIDATION_ERRORS.INVALID_LOGIN_CREDENTIALS,
-    };
-  } else if (e.code === AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER) {
-    return {
-      field: "root",
-      message: AUTH_VALIDATION_ERRORS.TOO_MANY_ATTEMPTS_TRY_LATER,
-    };
-  }
 };
 
 export const inputs = getFieldsData<FormData>(inputsData);

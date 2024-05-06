@@ -8,18 +8,13 @@ export type FieldProps = {
   type?: InputType;
 };
 
-type Trigger<T extends StringRecord> = {
-  revalidate?: keyof T;
-};
-
 export type FormFieldsData<T extends StringRecord> = {
-  [K in keyof T]: FieldProps & Trigger<T>;
+  [K in keyof T]: FieldProps;
 };
 
-export type FormFieldsArray<T extends StringRecord> = (FieldProps &
-  Trigger<T> & {
-    key: keyof T;
-  })[];
+export type FormFieldsArray<T extends StringRecord> = (FieldProps & {
+  key: keyof T;
+})[];
 
 export type ApiError<T extends Record<string, string>> =
   | { field: keyof T | "root"; message: string }
