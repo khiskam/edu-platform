@@ -1,25 +1,32 @@
 package main
 
 import (
-	"log"
+	"context"
 
-	"github.com/gofiber/fiber/v2"
-	"github.com/ilyakaznacheev/cleanenv"
+	"github.com/khiskam/edu-platform/backend/internal/app"
+	"github.com/khiskam/edu-platform/backend/internal/config/database"
+	"github.com/khiskam/edu-platform/backend/internal/config/env"
+	"github.com/khiskam/edu-platform/backend/internal/config/firebase"
+	"github.com/khiskam/edu-platform/backend/internal/config/log"
+
+	"go.uber.org/zap"
 )
 
-type DBConfig struct {
-	User string `env:"DB_USER" env-required:"true"`
-}
-
 func main() {
-	config := DBConfig{}
-	err := cleanenv.ReadConfig(".env", &config)
+	ctx := context.Background()
 
+	cnf := env.Must(env.NewConfig())
+	logger := zap.Must(log.NewLogger(cnf.Server.Env))
+	fb := firebase.Must(firebase.NewConfig(ctx))
+	conn := database.Must(database.Connect(&cnf.DB))
+
+	defer conn.Close()
+	defer logger.Sync()
+
+	server := app.NewServer(cnf.Server, conn.Client, fb.Auth, logger)
+
+	err := server.Run(cnf.Server.Host, cnf.Server.Port)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal("server error", zap.Error(err))
 	}
-
-	app := fiber.New()
-
-	app.Listen(":3000")
 }

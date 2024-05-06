@@ -2,6 +2,7 @@ package schema
 
 import (
 	"entgo.io/ent"
+	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
@@ -19,7 +20,9 @@ func (User) Fields() []ent.Field {
 		field.UUID("id", uuid.UUID{}).
 			Annotations(entsql.DefaultExpr("uuid_generate_v4()")),
 		field.Enum("role").Values("user", "admin").Default("user"),
-		field.String("uid").Unique(),
+		field.String("uid").Unique().SchemaType(map[string]string{
+			dialect.Postgres: "varchar(128)",
+		}),
 	}
 }
 

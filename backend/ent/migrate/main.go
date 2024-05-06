@@ -24,7 +24,8 @@ type DBConfig struct {
 	Password string `env:"DB_PASSWORD" env-required:"true"`
 	Host     string `env:"DB_HOST" env-required:"true"`
 	Port     string `env:"DB_PORT" env-required:"true"`
-	Name     string `env:"DB_DATABASE" env-required:"true"`
+	DBName   string `env:"DB_DATABASE" env-required:"true"`
+	SSLMode  string `env:"SSLMODE" env-required:"true"`
 }
 
 func main() {
@@ -60,12 +61,13 @@ func main() {
 	}
 
 	dsn := fmt.Sprintf(
-		"postgres://%v:%v@%v:%v/%v?sslmode=disable",
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_DATABASE"),
+		"postgres://%v:%v@%v:%v/%v?sslmode=%v",
+		config.User,
+		config.Password,
+		config.Host,
+		config.Port,
+		config.DBName,
+		config.SSLMode,
 	)
 
 	err = migrate.NamedDiff(ctx, dsn, os.Args[1], opts...)
