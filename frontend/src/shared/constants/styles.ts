@@ -6,6 +6,7 @@ export const GAP = {
 };
 
 export const PADDING = {
+  32: 32,
   56: 56,
 };
 

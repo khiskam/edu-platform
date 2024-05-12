@@ -4,7 +4,7 @@ export const FormContainer = styled.div`
   padding: ${({ theme }) => theme.paddingXL}px;
   width: 44%;
 
-  border: 1px solid ${({ theme }) => theme.colorBorder};
+  background-color: #ffffff;
 
   border-radius: ${({ theme }) => theme.borderRadius}px;
 

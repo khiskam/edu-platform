@@ -1,4 +1,6 @@
-import { sendEmailVerification } from "firebase/auth";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { onAuthStateChanged, sendEmailVerification } from "firebase/auth";
 import { useMemo } from "react";
 import {
   UseFormGetValues,
@@ -15,11 +17,26 @@ import { getAuthError } from "@/shared/utils";
 
 import { FormData } from "./fields";
 
+const signUp = async (token: string) => {
+  await axios.post(
+    import.meta.env.VITE_API_URL + `/api/users/signup`,
+    undefined,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+export const useSignUp = () => useMutation({ mutationFn: signUp });
+
 export const useFormSubmit = (
   handleSubmit: UseFormHandleSubmit<FormData>,
   setError: UseFormSetError<FormData>
 ) => {
   const { mutateAsync: signUp, isPending } = useSignUpMutation();
+  const { mutateAsync: serverSignUp, isPending: serverIsPending } = useSignUp();
 
   const navigate = useNavigate();
 
@@ -27,11 +44,14 @@ export const useFormSubmit = (
     try {
       await signUp(data);
 
-      if (auth.currentUser) {
-        sendEmailVerification(auth.currentUser);
-      }
-
-      navigate(ROUTES.main);
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const token = await user.getIdToken();
+          sendEmailVerification(user);
+          await serverSignUp(token);
+          navigate(ROUTES.main);
+        }
+      });
     } catch (e) {
       const error = getAuthError(e);
 
@@ -41,7 +61,7 @@ export const useFormSubmit = (
     }
   });
 
-  return { onSubmit, isPending };
+  return { onSubmit, isPending: isPending || serverIsPending };
 };
 
 export const useHandler = (

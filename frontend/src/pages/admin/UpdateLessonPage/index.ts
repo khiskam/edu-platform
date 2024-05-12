@@ -1,0 +1,1 @@
+export { UpdateLessonPage } from "./UpdateLessonPage";

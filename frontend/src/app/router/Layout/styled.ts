@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Layout } from "antd";
 
-import { PADDING } from "@/shared/constants";
+import { GAP, PADDING } from "@/shared/constants";
 
 export const LayoutContainer = styled(Layout)`
   display: flex;
@@ -12,7 +12,15 @@ export const LayoutContainer = styled(Layout)`
 
 export const OutletContainer = styled.div`
   display: grid;
+  flex-grow: 1;
+`;
+
+export const ContentContainer = styled.div`
+  align-content: start;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   padding: ${PADDING[56]}px 0;
 
-  flex-grow: 1;
+  gap: ${GAP[32]}px;
 `;

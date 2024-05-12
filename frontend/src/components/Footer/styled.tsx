@@ -8,6 +8,4 @@ export const footer = (theme: Theme) => css`
   display: flex;
   padding: ${theme.paddingMD}px;
   min-height: ${HEADER_HEIGHT}px;
-
-  border-top: 1px solid ${theme.colorBorder};
 `;
