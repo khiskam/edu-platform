@@ -1,34 +1,41 @@
+import { User } from "firebase/auth";
 import { UseFormHandleSubmit, UseFormSetError } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { useSignInMutation } from "@/shared/api";
-import { auth } from "@/shared/config";
+import { firebase, server } from "@/shared/api";
 import { ROUTES } from "@/shared/constants";
 import { getAuthError } from "@/shared/utils";
 
-import { FormData } from "./fields";
+import { FormData } from "./schema";
 
 export const useFormSubmit = (
   handleSubmit: UseFormHandleSubmit<FormData>,
   setError: UseFormSetError<FormData>
 ) => {
+  const firebaseMutation = firebase.useSignInMutation();
+  const serverMutation = server.useSignInMutation();
+
   const navigate = useNavigate();
-  const { mutateAsync: signIn, isPending } = useSignInMutation();
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      await signIn(data);
+    let user: User | undefined = undefined;
 
-      console.log(auth.currentUser);
+    try {
+      user = await firebaseMutation.mutateAsync(data);
+      await serverMutation.mutateAsync(await user.getIdToken());
+
       navigate(ROUTES.main);
     } catch (e) {
       const error = getAuthError(e);
-
       if (error) {
         setError(error.field, { message: error.message });
       }
     }
   });
 
-  return { onSubmit, isPending };
+  return {
+    onSubmit,
+    isLoading: firebaseMutation.isPending || serverMutation.isPending,
+    isError: firebaseMutation.isError || serverMutation.isError,
+  };
 };

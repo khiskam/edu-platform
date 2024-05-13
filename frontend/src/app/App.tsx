@@ -1,18 +1,17 @@
 import "antd/dist/reset.css";
-import "@/shared/config";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "react-router-dom";
+
+import { queryClient } from "@/shared/api";
 
 import { ThemeProvider } from "../shared/theme";
 import { router } from "./router";
 
-const client = new QueryClient();
-
 export const App = () => {
   return (
     <ThemeProvider>
-      <QueryClientProvider client={client}>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
     </ThemeProvider>

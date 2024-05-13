@@ -1,83 +1,38 @@
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { onAuthStateChanged, sendEmailVerification } from "firebase/auth";
-import { useMemo } from "react";
-import {
-  UseFormGetValues,
-  UseFormHandleSubmit,
-  UseFormSetError,
-  UseFormTrigger,
-} from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { sendEmailVerification, User } from "firebase/auth";
+import { UseFormHandleSubmit, UseFormSetError } from "react-hook-form";
 
-import { useSignUpMutation } from "@/shared/api";
-import { auth } from "@/shared/config";
-import { ROUTES } from "@/shared/constants";
+import { firebase, server } from "@/shared/api";
 import { getAuthError } from "@/shared/utils";
 
-import { FormData } from "./fields";
-
-const signUp = async (token: string) => {
-  await axios.post(
-    import.meta.env.VITE_API_URL + `/api/users/signup`,
-    undefined,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-};
-
-export const useSignUp = () => useMutation({ mutationFn: signUp });
+import { FormData } from "./schema";
 
 export const useFormSubmit = (
   handleSubmit: UseFormHandleSubmit<FormData>,
   setError: UseFormSetError<FormData>
 ) => {
-  const { mutateAsync: signUp, isPending } = useSignUpMutation();
-  const { mutateAsync: serverSignUp, isPending: serverIsPending } = useSignUp();
-
-  const navigate = useNavigate();
+  const firebaseMutation = firebase.useSignUpMutation();
+  const serverMutation = server.useSignUpMutation();
 
   const onSubmit = handleSubmit(async (data) => {
+    let user: User | undefined = undefined;
+
     try {
-      await signUp(data);
-
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          const token = await user.getIdToken();
-          sendEmailVerification(user);
-          await serverSignUp(token);
-          navigate(ROUTES.main);
-        }
-      });
+      user = await firebaseMutation.mutateAsync(data);
+      await serverMutation.mutateAsync(await user.getIdToken());
+      await sendEmailVerification(user);
     } catch (e) {
-      const error = getAuthError(e);
+      if (user) await user.delete();
 
+      const error = getAuthError(e);
       if (error) {
         setError(error.field, { message: error.message });
       }
     }
   });
 
-  return { onSubmit, isPending: isPending || serverIsPending };
-};
-
-export const useHandler = (
-  getValues: UseFormGetValues<FormData>,
-  trigger: UseFormTrigger<FormData>
-) => {
-  return useMemo(
-    (): Record<keyof FormData, React.ChangeEventHandler | undefined> => ({
-      email: undefined,
-      confirmPassword: undefined,
-      password: () => {
-        if (getValues("confirmPassword") !== undefined) {
-          trigger("confirmPassword");
-        }
-      },
-    }),
-    [getValues, trigger]
-  );
+  return {
+    onSubmit,
+    isLoading: firebaseMutation.isPending || serverMutation.isPending,
+    isSuccess: firebaseMutation.isSuccess && serverMutation.isSuccess,
+  };
 };

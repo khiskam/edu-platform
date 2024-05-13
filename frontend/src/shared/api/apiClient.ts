@@ -1,9 +1,12 @@
+import { QueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import { useUserStore } from "@/shared/store";
 
+import { API_URL } from "./constants";
+
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL + "/api",
+  baseURL: API_URL,
 });
 
 axiosClient.interceptors.request.use((config) => {
@@ -13,4 +16,6 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
-export { axiosClient };
+const queryClient = new QueryClient();
+
+export { axiosClient, queryClient };

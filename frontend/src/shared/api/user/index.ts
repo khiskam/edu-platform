@@ -1,2 +1,2 @@
-export { useSignInMutation } from "./useSignInMutation";
-export { useSignUpMutation } from "./useSignUpMutation";
+export * as firebase from "./firebase";
+export * as server from "./server";
