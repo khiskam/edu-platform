@@ -25,7 +25,7 @@ func NewHandler(app fiber.Router, service service.Category) *Handler {
 }
 
 func (h *Handler) GetAll() {
-	h.router.Get("", func(c *fiber.Ctx) error {
+	h.router.Add(fiber.MethodGet, "", func(c *fiber.Ctx) error {
 		limit := c.Query("limit")
 		offset := c.Query("offset")
 
@@ -47,7 +47,7 @@ func (h *Handler) GetAll() {
 }
 
 func (h *Handler) GetByID() {
-	h.router.Get("/:id", func(c *fiber.Ctx) error {
+	h.router.Add(fiber.MethodGet, "/:id", func(c *fiber.Ctx) error {
 		ID, err := uuid.Parse(c.Params("id"))
 		if err != nil {
 			return c.SendStatus(fiber.StatusNotFound)

@@ -50,9 +50,7 @@ export const CategoriesPage = () => {
                 title="Действия"
                 render={(_, record: DataType) => (
                   <Space size="small">
-                    <NavLink
-                      to={`${ROUTES.admin}${ROUTES.categories}/${record.id}/edit`}
-                    >
+                    <NavLink to={`${ROUTES.admin}${ROUTES.categories}/${record.id}/edit`}>
                       <Button icon={<EditOutlined />} />
                     </NavLink>
                     <Button

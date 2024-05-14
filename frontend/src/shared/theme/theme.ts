@@ -8,7 +8,6 @@ export const config: ThemeConfig = {
     colorInfo: "#2b6cb0",
     colorSuccess: "#38a169",
     colorWarning: "#d69e2e",
-    colorError: "#c53030",
     colorTextBase: "#2d3748",
     fontSize: 16,
     colorBgContainer: "#ffffff",

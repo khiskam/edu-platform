@@ -1,13 +1,11 @@
 import { array, boolean, InferType, object, string } from "yup";
 
 export const schema = object({
-  title: string()
-    .trim()
-    .required("Поле Наименование обязательно для заполнения"),
-  description: string()
-    .trim()
-    .required("Поле Описание обязательно для заполнения"),
+  title: string().trim().required("Поле Наименование обязательно для заполнения"),
+  description: string().trim().required("Поле Описание обязательно для заполнения"),
   answers: array()
+    .required("Поле Ответы обязательно для заполнения")
+    .min(2, "Минимальное количество ответов 2")
     .of(
       object({
         isCorrect: boolean().optional(),

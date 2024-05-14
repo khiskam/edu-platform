@@ -43,7 +43,7 @@ func NewServer(srvConfig env.ServerConfig, conn *ent.Client, auth *auth.Client, 
 	s.apiRouter.Use(middleware.Logger(logger))
 	s.apiRouter.Use(middleware.CORS(srvConfig.AllowOrigins))
 
-	s.apiRouter.Get("/health-check", handler.HealthCheck)
+	s.apiRouter.Add(fiber.MethodGet, "/health-check", handler.HealthCheck)
 
 	s.apiRouter.Use(middleware.CheckAuthHeader(auth, logger))
 	s.InitUserRouter()

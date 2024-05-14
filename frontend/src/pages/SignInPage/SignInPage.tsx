@@ -1,53 +1,29 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Flex, Form, Input, message, Spin, Typography } from "antd";
-import { useCallback, useLayoutEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Button, Flex, Form, Spin, Typography } from "antd";
+import { useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
 
-import { Container, FormContainer } from "@/components";
+import { Container, FormContainer, TextField } from "@/components";
+import { ROUTES } from "@/shared/constants";
 
 import { useFormSubmit } from "./hooks";
 import { FormData, schema } from "./schema";
 
 export const SignInPage = () => {
-  const {
-    handleSubmit,
-    control,
-    setError,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { handleSubmit, control, setError } = useForm<FormData>({
     mode: "onChange",
     criteriaMode: "all",
     resolver: yupResolver(schema),
   });
-  const { onSubmit, isLoading, isError } = useFormSubmit(
-    handleSubmit,
-    setError
-  );
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const { onSubmit, isLoading, isSuccess } = useFormSubmit(handleSubmit, setError);
 
-  const error = useCallback(
-    (message?: string) => {
-      if (message) {
-        messageApi.open({
-          type: "error",
-          content: message,
-        });
-      }
-    },
-    [messageApi]
-  );
-
-  useLayoutEffect(() => {
-    // console.log(isError && errors.root);
-    if (isError && errors.root?.message) {
-      error(errors.root?.message);
-    }
-  }, [isError, errors, error]);
+  if (isSuccess) {
+    return <Navigate to={ROUTES.main} />;
+  }
 
   return (
     <>
-      {contextHolder}
       <Container>
         <Flex align="center" justify="center">
           <FormContainer>
@@ -55,36 +31,18 @@ export const SignInPage = () => {
               <Typography.Title level={2}>Регистрация</Typography.Title>
 
               <Form layout="vertical" onFinish={onSubmit}>
-                <Controller
-                  control={control}
-                  name="email"
-                  render={({ field, fieldState: { error } }) => (
-                    <Form.Item
-                      label="Email"
-                      validateStatus={error ? "error" : "validating"}
-                      help={error?.message}
-                    >
-                      <Input placeholder="Email" {...field} />
-                    </Form.Item>
-                  )}
+                <TextField
+                  control={{ control, name: "email" }}
+                  label="Email"
+                  placeholder="Email"
+                  type="input"
                 />
 
-                <Controller
-                  control={control}
-                  name="password"
-                  render={({ field, fieldState: { error } }) => (
-                    <Form.Item
-                      label="Пароль"
-                      validateStatus={error ? "error" : "validating"}
-                      help={error?.message}
-                    >
-                      <Input.Password
-                        placeholder="Пароль"
-                        autoComplete="on"
-                        {...field}
-                      />
-                    </Form.Item>
-                  )}
+                <TextField
+                  control={{ control, name: "password" }}
+                  label="Пароль"
+                  placeholder="Пароль"
+                  type="password"
                 />
 
                 <Button type="primary" htmlType="submit">

@@ -1,44 +1,39 @@
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import { Button, Form, Spin, Typography } from "antd";
-// import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, Form, Spin, Typography } from "antd";
+import { useForm } from "react-hook-form";
 
-// import { Container, FormField } from "@/components";
+import { Container, TextField } from "@/components";
 
-// import { FormData, inputs, schema } from "./fields";
-// import { PageLayout } from "./styled";
-
-// export const UpdateCategoryPage = () => {
-//   const { control } = useForm<FormData>({
-//     mode: "onChange",
-//     criteriaMode: "all",
-//     resolver: yupResolver(schema),
-//   });
-
-//   return (
-//     <Container>
-//       <PageLayout>
-//         <Spin spinning={false}>
-//           <Typography.Title level={2}>Редактировать категорию</Typography.Title>
-
-//           <Form layout="vertical">
-//             {inputs.map(({ key, ...value }) => (
-//               <FormField<FormData>
-//                 key={key}
-//                 controller={{ control, name: key }}
-//                 {...value}
-//               />
-//             ))}
-
-//             <Button type="primary" htmlType="submit">
-//               Редактировать
-//             </Button>
-//           </Form>
-//         </Spin>
-//       </PageLayout>
-//     </Container>
-//   );
-// };
+import { FormData, schema } from "./schema";
+import { PageLayout } from "./styled";
 
 export const UpdateCategoryPage = () => {
-  return <></>;
+  const { control } = useForm<FormData>({
+    mode: "onChange",
+    criteriaMode: "all",
+    resolver: yupResolver(schema),
+  });
+
+  return (
+    <Container>
+      <PageLayout>
+        <Spin spinning={false}>
+          <Typography.Title level={2}>Редактировать категорию</Typography.Title>
+
+          <Form layout="vertical">
+            <TextField
+              control={{ control, name: "name" }}
+              label="Наименование"
+              placeholder="Наименование"
+              type="input"
+            />
+
+            <Button type="primary" htmlType="submit">
+              Сохранить
+            </Button>
+          </Form>
+        </Spin>
+      </PageLayout>
+    </Container>
+  );
 };

@@ -59,6 +59,10 @@ func (ur *Repository) Create(ctx context.Context, UID string) (*model.User, erro
 
 	u, err := ur.client.User.Create().SetUID(UID).Save(ctx)
 
+	if ent.IsConstraintError(err) {
+		return nil, service.ErrUserExists
+	}
+
 	if err != nil {
 		return nil, err
 	}

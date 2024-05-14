@@ -24,17 +24,6 @@ func NewService(repo repository.User, logger *zap.Logger) *Service {
 }
 
 func (s *Service) Register(ctx context.Context, UID string) (*model.User, error) {
-	exist, err := s.repository.ExistByUID(ctx, UID)
-	if err != nil {
-		s.logger.Info(err.Error())
-		return nil, err
-	}
-
-	if exist {
-		s.logger.Info(service.ErrUserExists.Error())
-		return nil, service.ErrUserExists
-	}
-
 	user, err := s.repository.Create(ctx, UID)
 	if err != nil {
 		s.logger.Info(err.Error())

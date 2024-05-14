@@ -79,12 +79,10 @@ func (s *Service) Delete(ctx context.Context, ID uuid.UUID) error {
 	return s.repository.Delete(ctx, ID)
 }
 
-// GetByID implements service.Category.
 func (s *Service) GetByID(ctx context.Context, ID uuid.UUID) (*model.Category, error) {
 	return s.repository.GetByID(ctx, ID)
 }
 
-// Update implements service.Category.
 func (s *Service) Update(ctx context.Context, model *model.Category) (*model.Category, error) {
 	model.Name = strings.ToLower(strings.Trim(model.Name, " "))
 

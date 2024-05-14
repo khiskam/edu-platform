@@ -1,50 +1,55 @@
-import { Editor } from "@tinymce/tinymce-react";
-import { Spin } from "antd";
-import { useRef, useState } from "react";
-import { Editor as TinyMCEEditor, RawEditorOptions } from "tinymce";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, Form, Spin, Typography } from "antd";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-import { Container } from "@/components";
+import { Container, TextEditorField, TextField } from "@/components";
 
+import { FormData as FD, schema } from "./schema";
 import { PageLayout } from "./styled";
 
-export const initConfig: RawEditorOptions &
-  Partial<
-    Record<"selector" | "target" | "readonly" | "license_key", undefined>
-  > = {
-  plugins:
-    "autoresize anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes autocorrect typography inlinecss markdown textcolor hr",
-  toolbar:
-    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | forecolor backcolor | hr",
-  language: "ru",
-  file_picker_types: "image",
-};
-
 export const CreateLessonPage = () => {
+  const { control } = useForm<FD>({
+    mode: "onChange",
+    criteriaMode: "all",
+    resolver: yupResolver(schema),
+  });
   const [isLoading, setIsLoading] = useState(true);
-  const editorRef = useRef<TinyMCEEditor | null>(null);
+
+  const onInit = () => setIsLoading(false);
 
   return (
     <Container>
-      {isLoading && <Spin />}
+      <PageLayout>
+        <Spin spinning={isLoading}>
+          <Typography.Title level={2}>Добавить занятие</Typography.Title>
 
-      <PageLayout style={{ display: isLoading ? "none" : "block" }}>
-        <Editor
-          apiKey={import.meta.env.VITE_MCE_API_KEY}
-          onInit={(_, editor) => {
-            console.log("here");
-            editorRef.current = editor;
-            setIsLoading(false);
-          }}
-          init={{
-            ...initConfig,
-            images_upload_handler: async (blobInfo) => {
-              const data = new FormData();
-              data.append("file", blobInfo.blob(), blobInfo.filename());
-              return "https://images.unsplash.com";
-            },
-          }}
-          initialValue=""
-        />
+          <Form layout="vertical">
+            <TextField
+              control={{ control, name: "title" }}
+              label="Наименование"
+              placeholder="Наименование"
+              type="input"
+            />
+
+            <TextField
+              control={{ control, name: "description" }}
+              label="Описание"
+              placeholder="Описание"
+              type="textarea"
+            />
+
+            <TextEditorField
+              control={{ control, name: "layout" }}
+              label="Разметка"
+              onInit={onInit}
+            />
+
+            <Button type="primary" htmlType="submit">
+              Сохранить
+            </Button>
+          </Form>
+        </Spin>
       </PageLayout>
     </Container>
   );

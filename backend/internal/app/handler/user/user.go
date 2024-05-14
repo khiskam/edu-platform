@@ -31,16 +31,17 @@ func (h *Handler) SignUp() {
 		UID := c.Locals("uid").(string)
 
 		u, err := h.service.Register(c.Context(), UID)
-		if err == nil {
-			return c.Status(fiber.StatusCreated).JSON(UserResponse{User: u})
-		}
 
 		if errors.Is(err, service.ErrUserExists) {
 			return c.Status(fiber.StatusBadRequest).
 				JSON(fiber.Map{"error": model.Errors["userExists"]})
 		}
 
-		return c.SendStatus(fiber.StatusInternalServerError)
+		if err != nil {
+			return c.SendStatus(fiber.StatusInternalServerError)
+		}
+
+		return c.Status(fiber.StatusCreated).JSON(UserResponse{User: u})
 	})
 }
 

@@ -20,8 +20,8 @@ func (Task) Fields() []ent.Field {
 			Annotations(entsql.DefaultExpr("uuid_generate_v4()")),
 		field.String("title"),
 		field.String("description"),
+		field.String("layout"),
 		field.String("answer"),
-		field.UUID("uploaded_file_id", uuid.UUID{}).Optional(),
 		field.UUID("category_id", uuid.UUID{}).Optional(),
 	}
 }
@@ -29,17 +29,12 @@ func (Task) Fields() []ent.Field {
 // Edges of the Task.
 func (Task) Edges() []ent.Edge {
 	return []ent.Edge{
+		edge.To("completed_tasks", CompletedTask.Type).
+			Annotations(entsql.OnDelete(entsql.Cascade)),
+
 		edge.From("task", Category.Type).
 			Ref("tasks").
 			Unique().
 			Field("category_id"),
-
-		edge.From("uploaded_file", UploadedFile.Type).
-			Ref("tasks").
-			Unique().
-			Field("uploaded_file_id"),
-
-		edge.To("completed_tasks", CompletedTask.Type).
-			Annotations(entsql.OnDelete(entsql.Cascade)),
 	}
 }

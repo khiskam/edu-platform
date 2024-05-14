@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"log"
 	"strings"
 
 	"firebase.google.com/go/v4/auth"
@@ -24,6 +25,8 @@ func CheckAuthHeader(auth *auth.Client, logger *zap.Logger) fiber.Handler {
 			logger.Info(err.Error())
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}
+
+		log.Println(token.UID)
 
 		c.Locals("uid", token.UID)
 		return c.Next()

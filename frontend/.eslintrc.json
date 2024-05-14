@@ -14,7 +14,7 @@
       "warn",
       { "allowConstantExport": true }
     ],
-    "max-len": ["error", { "code": 80 }],
+    "max-len": ["warn", { "code": 120 }],
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
   }
