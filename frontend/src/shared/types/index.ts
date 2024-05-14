@@ -1,1 +1,1 @@
-export type { FormFieldProps } from "./form";
+export type { FormFieldProps, FormProps } from "./form";

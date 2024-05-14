@@ -1,19 +1,16 @@
 import { signOut, User } from "firebase/auth";
-import { UseFormHandleSubmit, UseFormSetError } from "react-hook-form";
+import { UseFormSetError } from "react-hook-form";
 
 import { auth, firebase, server } from "@/shared/api";
 import { getAuthError } from "@/shared/utils";
 
 import { FormData } from "./schema";
 
-export const useFormSubmit = (
-  handleSubmit: UseFormHandleSubmit<FormData>,
-  setError: UseFormSetError<FormData>
-) => {
+export const useFormSubmit = () => {
   const firebaseMutation = firebase.useSignInMutation();
   const serverMutation = server.useSignInMutation();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = (setError: UseFormSetError<FormData>) => async (data: FormData) => {
     let user: User | undefined = undefined;
 
     try {
@@ -27,7 +24,7 @@ export const useFormSubmit = (
         setError(error.field, { message: error.message });
       }
     }
-  });
+  };
 
   return {
     onSubmit,
