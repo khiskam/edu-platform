@@ -2,14 +2,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Form } from "antd";
 import { useForm } from "react-hook-form";
 
-import { SelectField, TextField } from "@/components";
-import { categoriesToOptions } from "@/shared/utils/categoriesToOptions";
-import { TaskData, taskSchema } from "@/shared/validation";
+import { FormProps } from "@/features/types";
+import { Fields } from "@/shared";
+import { TaskData } from "@/shared";
+import { taskSchema } from "@/shared/validation";
 
 import { CreateAnswerFields } from "./CreateAnswerFields";
-import { TaskFormProps } from "./types";
 
-export const TaskForm = ({ defaultValues, onSubmit, categories }: TaskFormProps) => {
+export const TaskForm = ({ defaultValues, onSubmit }: FormProps<TaskData>) => {
   const {
     control,
     handleSubmit,
@@ -25,24 +25,18 @@ export const TaskForm = ({ defaultValues, onSubmit, categories }: TaskFormProps)
 
   return (
     <Form layout="vertical" onFinish={onFinish}>
-      <TextField
+      <Fields.Text
         control={{ control, name: "title" }}
         label="Наименование"
         placeholder="Наименование"
         type="input"
       />
 
-      <TextField
+      <Fields.Text
         control={{ control, name: "description" }}
         label="Задание"
         placeholder="Задание"
         type="textarea"
-      />
-
-      <SelectField
-        control={{ control, name: "category_id" }}
-        label="Категории"
-        options={categoriesToOptions(categories)}
       />
 
       <CreateAnswerFields

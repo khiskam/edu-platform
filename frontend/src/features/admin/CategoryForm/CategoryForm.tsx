@@ -2,9 +2,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Form } from "antd";
 import { useForm } from "react-hook-form";
 
-import { TextField } from "@/components";
-import { FormProps } from "@/shared/types";
-import { CategoryData, categorySchema } from "@/shared/validation";
+import { FormProps } from "@/features/types";
+import { Fields } from "@/shared";
+import { CategoryData } from "@/shared";
+import { categorySchema } from "@/shared/validation";
 
 export const CategoryForm = ({ defaultValues, onSubmit }: FormProps<CategoryData>) => {
   const { control, handleSubmit, setError } = useForm<CategoryData>({
@@ -17,7 +18,7 @@ export const CategoryForm = ({ defaultValues, onSubmit }: FormProps<CategoryData
 
   return (
     <Form layout="vertical" onFinish={onFinish}>
-      <TextField
+      <Fields.Text
         control={{ control, name: "name" }}
         label="Наименование"
         placeholder="Наименование"

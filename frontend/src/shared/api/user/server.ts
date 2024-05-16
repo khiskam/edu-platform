@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
+import { User } from "@/shared";
+
 import { API_URL } from "../constants";
-import { User } from "./types";
 
 const USER_API_URL = `${API_URL}/users`;
 

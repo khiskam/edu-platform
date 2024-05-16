@@ -1,1 +1,0 @@
-export { UpdateCategoryPage } from "./UpdateCategoryPage";

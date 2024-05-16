@@ -1,3 +1,2 @@
-export * as Admin from "./admin";
-export { SignInForm } from "./SignInForm";
-export { SignUpForm } from "./SignUpForm";
+export * from "./admin";
+export * from "./auth";

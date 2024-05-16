@@ -1,1 +1,0 @@
-export { LessonsTable } from "./LessonsTable";

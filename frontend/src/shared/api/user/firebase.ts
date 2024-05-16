@@ -1,20 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+import { SignInData, SignUpData } from "@/shared";
 
 import { auth } from "../firebase";
-import { AuthData } from "./types";
 
-const signUp = async (data: AuthData) => {
-  return (await createUserWithEmailAndPassword(auth, data.email, data.password))
-    .user;
+const signUp = async (data: SignUpData) => {
+  return (await createUserWithEmailAndPassword(auth, data.email, data.password)).user;
 };
 
-const signIn = async (data: AuthData) => {
-  return (await signInWithEmailAndPassword(auth, data.email, data.password))
-    .user;
+const signIn = async (data: SignInData) => {
+  return (await signInWithEmailAndPassword(auth, data.email, data.password)).user;
 };
 
 export const useSignUpMutation = () => {

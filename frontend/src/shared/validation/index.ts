@@ -1,2 +1,4 @@
-export { categorySchema, lessonSchema, signInSchema, signUpSchema, taskSchema } from "./schemas";
-export type { CategoryData, LessonData, SignInData, SignUpData, TaskData } from "./types";
+export { categorySchema } from "./category";
+export { lessonSchema } from "./lesson";
+export { taskSchema } from "./task";
+export { AUTH_VALIDATION_ERRORS, signInSchema, signUpSchema } from "./user";

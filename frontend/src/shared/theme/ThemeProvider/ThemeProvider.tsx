@@ -1,14 +1,12 @@
-import { Global, ThemeProvider as StyledThemeProvider } from "@emotion/react";
+import { ThemeProvider as StyledThemeProvider } from "@emotion/react";
 import { ConfigProvider, theme } from "antd";
 
 import { config } from "../theme";
-import { global } from "./styled";
 import { ThemeProviderProps } from "./types";
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   return (
     <ConfigProvider theme={config}>
-      <Global styles={global} />
       <Provider>{children}</Provider>
     </ConfigProvider>
   );

@@ -2,8 +2,7 @@ import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Flex, Form } from "antd";
 import { FieldValues, useFieldArray } from "react-hook-form";
 
-import { CheckboxField, TextField } from "@/components";
-import { GAP } from "@/shared/constants";
+import { Fields, GAP } from "@/shared";
 
 import { CreateAnswerFieldsProps } from "./types";
 
@@ -30,9 +29,9 @@ export const CreateAnswerFields = <T extends FieldValues>({
         >
           {fields.map((field, index) => (
             <Flex align="center" gap={GAP[12]} key={field.id}>
-              <CheckboxField control={{ control, name: checkboxName(index) }} />
+              <Fields.Checkbox control={{ control, name: checkboxName(index) }} />
 
-              <TextField
+              <Fields.Text
                 control={{ control, name: textName(index) }}
                 placeholder={`${placeholder} ${index + 1}`}
                 type="input"

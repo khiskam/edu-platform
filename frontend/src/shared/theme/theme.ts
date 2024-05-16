@@ -1,6 +1,6 @@
 import { theme, ThemeConfig } from "antd";
 
-import { HEADER_HEIGHT } from "../constants";
+import { HEADER_HEIGHT } from "./constants";
 
 export const config: ThemeConfig = {
   token: {
@@ -29,7 +29,7 @@ export const config: ThemeConfig = {
     Layout: {
       headerBg: "#ffffff",
       footerBg: "#ffffff",
-      bodyBg: "transparent",
+      bodyBg: "#f7fafc",
       headerHeight: HEADER_HEIGHT,
       headerPadding: 0,
       footerPadding: 0,
