@@ -1,1 +1,2 @@
-export type { FormFieldProps, FormProps } from "./form";
+export type { Category, Lesson, Task } from "./entities";
+export type { FormFieldProps, FormProps, FormWidgetProps } from "./form";

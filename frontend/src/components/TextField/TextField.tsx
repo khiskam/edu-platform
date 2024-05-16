@@ -1,12 +1,12 @@
 import { Form, Input } from "antd";
-import { useController } from "react-hook-form";
+import { FieldValues, useController } from "react-hook-form";
 
 import { formItem } from "./styled";
 import { TextFieldProps } from "./types";
 
 const { TextArea, Password } = Input;
 
-export const TextField = <T extends object>(props: TextFieldProps<T>) => {
+export const TextField = <T extends FieldValues>(props: TextFieldProps<T>) => {
   const { label, placeholder, type, control, onChange } = props;
 
   const {

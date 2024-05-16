@@ -9,6 +9,7 @@ import {
   TaskPage,
   TasksPage,
 } from "@/pages";
+import { AdminPage } from "@/pages/admin/AdminPage/AdminPage";
 import { ROUTES_NAME } from "@/shared/constants";
 
 import { Layout } from "./Layout";
@@ -65,6 +66,10 @@ export const routesList: RouteObject[] = [
       {
         path: ROUTES_NAME.admin,
         children: [
+          {
+            path: ROUTES_NAME.main,
+            element: <AdminPage />,
+          },
           {
             path: ROUTES_NAME.categories,
             children: [

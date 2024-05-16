@@ -1,55 +1,20 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Form, Spin, Typography } from "antd";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Typography } from "antd";
 
-import { Container, TextEditorField, TextField } from "@/components";
-
-import { FormData as FD, schema } from "./schema";
-import { PageLayout } from "./styled";
+import { Container, PageLayout } from "@/components";
+import { useSuccessSubmit } from "@/shared/utils";
+import { CreateLessonForm } from "@/widgets";
 
 export const CreateLessonPage = () => {
-  const { control } = useForm<FD>({
-    mode: "onChange",
-    criteriaMode: "all",
-    resolver: yupResolver(schema),
-  });
-  const [isLoading, setIsLoading] = useState(true);
+  const { isSuccess, onSuccess } = useSuccessSubmit();
 
-  const onInit = () => setIsLoading(false);
+  console.log(isSuccess);
 
   return (
     <Container>
       <PageLayout>
-        <Spin spinning={isLoading}>
-          <Typography.Title level={2}>Добавить занятие</Typography.Title>
+        <Typography.Title level={2}>Добавить занятие</Typography.Title>
 
-          <Form layout="vertical">
-            <TextField
-              control={{ control, name: "title" }}
-              label="Наименование"
-              placeholder="Наименование"
-              type="input"
-            />
-
-            <TextField
-              control={{ control, name: "description" }}
-              label="Описание"
-              placeholder="Описание"
-              type="textarea"
-            />
-
-            <TextEditorField
-              control={{ control, name: "layout" }}
-              label="Разметка"
-              onInit={onInit}
-            />
-
-            <Button type="primary" htmlType="submit">
-              Сохранить
-            </Button>
-          </Form>
-        </Spin>
+        <CreateLessonForm onSuccess={onSuccess} />
       </PageLayout>
     </Container>
   );

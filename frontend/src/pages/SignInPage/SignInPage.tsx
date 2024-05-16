@@ -19,7 +19,7 @@ export const SignInPage = () => {
         <FormContainer>
           <Typography.Title level={2}>Вход</Typography.Title>
 
-          <SignInForm onSuccess={onSuccess} button="Войти" />
+          <SignInForm onSuccess={onSuccess} />
         </FormContainer>
       </Flex>
     </Container>

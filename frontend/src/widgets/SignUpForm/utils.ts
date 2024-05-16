@@ -3,14 +3,13 @@ import { UseFormSetError } from "react-hook-form";
 
 import { firebase, server } from "@/shared/api";
 import { getAuthError } from "@/shared/utils";
-
-import { FormData } from "./schema";
+import { SignUpData } from "@/shared/validation";
 
 export const useFormSubmit = () => {
   const firebaseMutation = firebase.useSignUpMutation();
   const serverMutation = server.useSignUpMutation();
 
-  const onSubmit = (setError: UseFormSetError<FormData>) => async (data: FormData) => {
+  const onSubmit = (setError: UseFormSetError<SignUpData>) => async (data: SignUpData) => {
     let user: User | undefined = undefined;
 
     try {

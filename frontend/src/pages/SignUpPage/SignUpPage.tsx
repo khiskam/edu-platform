@@ -19,7 +19,7 @@ export const SignUpPage = () => {
         <FormContainer>
           <Typography.Title level={2}>Регистрация</Typography.Title>
 
-          <SignUpForm onSuccess={onSuccess} button="Зарегистрироваться" />
+          <SignUpForm onSuccess={onSuccess} />
         </FormContainer>
       </Flex>
     </Container>

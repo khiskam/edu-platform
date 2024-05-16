@@ -1,9 +1,9 @@
 import { useLayoutEffect } from "react";
 
-import { FormProps } from "../types";
+import { FormWidgetProps } from "../types";
 
-export const useSuccessObserver = (isSuccess: boolean, onSuccess: FormProps["onSuccess"]) => {
+export const useSuccessObserver = (isSuccess: boolean, onSuccess: FormWidgetProps["onSuccess"]) => {
   useLayoutEffect(() => {
-    onSuccess(isSuccess);
+    onSuccess?.(isSuccess);
   }, [isSuccess, onSuccess]);
 };

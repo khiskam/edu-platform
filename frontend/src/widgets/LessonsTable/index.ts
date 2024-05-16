@@ -1,0 +1,1 @@
+export { LessonsTable } from "./LessonsTable";

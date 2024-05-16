@@ -1,14 +1,19 @@
-import { UseControllerProps } from "react-hook-form";
+import { ChangeEvent } from "react";
+import { FieldValues, UseControllerProps, UseFormSetError } from "react-hook-form";
 
-export type FormFieldProps<T extends object> = {
+export type FormFieldProps<T extends FieldValues> = {
   label?: React.ReactNode;
   placeholder?: string;
 
   control: UseControllerProps<T>;
-  onChange?: React.ChangeEventHandler;
+  onChange?: (e?: ChangeEvent) => void;
 };
 
-export type FormProps = {
-  onSuccess: (success: boolean) => void;
-  button: string;
+export type FormWidgetProps = {
+  onSuccess?: (success: boolean) => void;
+};
+
+export type FormProps<T extends FieldValues = FieldValues> = {
+  onSubmit: (setError: UseFormSetError<T>) => (data: T) => Promise<void>;
+  defaultValues?: Partial<T>;
 };
