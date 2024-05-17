@@ -25,3 +25,7 @@ export const taskSchema = object({
       return true;
     }),
 });
+
+export const taskSelectSchema = object({
+  answers: array().required("Необходимо выбрать минимум один правильный ответ").min(1),
+});

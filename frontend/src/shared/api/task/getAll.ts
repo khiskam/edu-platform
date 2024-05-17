@@ -7,7 +7,7 @@ import { queryKeys } from "../keys";
 import { TASKS_API_URL } from "./constants";
 
 const getAll = async () => {
-  return await axiosClient.get<Task[]>(TASKS_API_URL);
+  return (await axiosClient.get<Task[]>(TASKS_API_URL)).data;
 };
 
 export const useGetAllQuery = () => {

@@ -7,7 +7,7 @@ import { queryKeys } from "../keys";
 import { CATEGORIES_API_URL } from "./constants";
 
 const getAll = async () => {
-  return await axiosClient.get<Category[]>(CATEGORIES_API_URL);
+  return (await axiosClient.get<Category[]>(CATEGORIES_API_URL)).data;
 };
 
 export const useGetAllQuery = () => {
