@@ -14,4 +14,6 @@ export type CompletedTask = {
   taskId: string;
 };
 
+export type CompletedTaskWithAnswer = CompletedTask & { answers: string[] };
+
 export type CompletedTaskKeys = keyof CompletedTask;

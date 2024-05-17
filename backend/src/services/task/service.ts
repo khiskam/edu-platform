@@ -1,7 +1,8 @@
 import { ICompletedTaskRepository, ITaskRepository } from "./interfaces";
 import { MutationDTO, MutationDTOWithId } from "./dto";
-import { MutationDTOtoTaskDTO } from "./utils";
-import { CompletedTask } from "@domain/task";
+import { MutationDTOtoTaskDTO, checkAnswers } from "./utils";
+import { CompletedTask, CompletedTaskWithAnswer, TaskKeys } from "@domain/task";
+import { ClientError } from "@services/utils/client.error";
 
 export class TaskService {
   constructor(
@@ -18,6 +19,10 @@ export class TaskService {
 
   async getOne(id: string) {
     return await this._repo.getOne(id);
+  }
+
+  async getOneCompleted(data: CompletedTask) {
+    return await this._repo.getOneCompleted(data);
   }
 
   async create(task: MutationDTO) {
@@ -40,7 +45,17 @@ export class TaskService {
     return await this._repo.delete(id);
   }
 
-  async completedCreate(data: CompletedTask) {
+  async completedCreate(data: CompletedTaskWithAnswer) {
+    const task = await this._repo.getOne(data.taskId);
+
+    if (!task) {
+      throw new ClientError<TaskKeys>("Задания не существует", 404, "id");
+    }
+
+    if (checkAnswers(data.answers, task.correctAnswers)) {
+      throw new ClientError<TaskKeys>("Неверный ответ", 404, "answers");
+    }
+
     return await this._completedRepo.create(data);
   }
 

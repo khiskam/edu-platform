@@ -3,11 +3,19 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { ClientError } from "@services/utils/client.error";
 import { PRISMA_CODES } from "./constants";
 import { ITaskRepository } from "@services/task/interfaces";
-import { Task, TaskKeys } from "@domain/task";
-import { TaskDTO } from "@services/task/dto";
+import { CompletedTask, Task, TaskKeys } from "@domain/task";
+import { TaskDTO, TaskWithCompleted } from "@services/task/dto";
 
 export class TaskRepository implements ITaskRepository {
   constructor(private readonly _client: PrismaClient) {}
+
+  async getOneCompleted(data: CompletedTask): Promise<TaskWithCompleted | null> {
+    return await this._client.task.findFirst({
+      where: { id: data.taskId },
+      include: { completedTask: { where: { ...data } } },
+    });
+  }
+
   async count(): Promise<number> {
     return await this._client.task.count();
   }
@@ -20,7 +28,7 @@ export class TaskRepository implements ITaskRepository {
   }
 
   async getOne(id: string): Promise<Task | null> {
-    return await this._client.task.findFirst({ where: { id }, include: { completedTask: true } });
+    return await this._client.task.findFirst({ where: { id } });
   }
 
   async create(task: TaskDTO): Promise<Task> {

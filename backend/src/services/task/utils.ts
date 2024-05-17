@@ -13,3 +13,19 @@ export const MutationDTOtoTaskDTO = (task: MutationDTO | MutationDTOWithId): Tas
 
   return { title, description, lessonId, correctAnswers, answers: variants };
 };
+
+export const checkAnswers = (answers: string[], correctAnswers: string[]) => {
+  if (answers.length !== correctAnswers.length) {
+    return false;
+  }
+
+  let count = 0;
+
+  for (let i = 0; i < correctAnswers.length; ++i) {
+    if (answers.includes(correctAnswers[i])) {
+      ++count;
+    }
+  }
+
+  return count === correctAnswers.length;
+};

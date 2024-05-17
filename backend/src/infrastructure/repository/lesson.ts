@@ -3,11 +3,12 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { ClientError } from "@services/utils/client.error";
 import { PRISMA_CODES } from "./constants";
 import { ILessonRepository } from "@services/lesson/interfaces";
-import { Lesson, LessonKeys } from "@domain/lesson";
-import { LessonDTO } from "@services/lesson/dto";
+import { CompletedLesson, Lesson, LessonKeys } from "@domain/lesson";
+import { LessonDTO, LessonWithCompleted } from "@services/lesson/dto";
 
 export class LessonRepository implements ILessonRepository {
   constructor(private readonly _client: PrismaClient) {}
+
   async count(): Promise<number> {
     return await this._client.lesson.count();
   }
@@ -24,6 +25,13 @@ export class LessonRepository implements ILessonRepository {
     return await this._client.lesson.findFirst({
       where: { id },
       include: { completedLesson: true },
+    });
+  }
+
+  async getOneCompleted(data: CompletedLesson): Promise<LessonWithCompleted | null> {
+    return await this._client.lesson.findFirst({
+      where: { id: data.lessonId },
+      include: { completedLesson: { where: { ...data } } },
     });
   }
 

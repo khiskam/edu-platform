@@ -68,10 +68,23 @@ export class TaskHandler implements Handler {
     return res.status(200).json({ task });
   };
 
-  private handleCompletedCreate: RequestHandler = async (req, res) => {
+  private handleCompletedGet: RequestHandler = async (req, res) => {
     const { id } = req.params;
 
-    const lesson = await this._service.completedCreate({ taskId: id, userId: res.locals.id });
+    const lesson = await this._service.getOneCompleted({ taskId: id, userId: res.locals.id });
+
+    return res.status(200).json({ lesson });
+  };
+
+  private handleCompletedCreate: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+    const { answers } = req.body;
+
+    const lesson = await this._service.completedCreate({
+      taskId: id,
+      userId: res.locals.id,
+      answers,
+    });
 
     return res.status(200).json({ lesson });
   };
@@ -89,6 +102,7 @@ export class TaskHandler implements Handler {
     this._router.get("/:id", handleError(this.handleGetOne));
     this._router.put("/:id", validateMiddleware(taskSchema), handleError(this.handleUpdate));
     this._router.delete("/:id", handleError(this.handleDelete));
+    this._router.get("/:id/completed", handleError(this.handleCompletedGet));
     this._router.post("/:id/completed", handleError(this.handleCompletedCreate));
     this._router.delete("/:id/completed", handleError(this.handleCompletedDelete));
   };

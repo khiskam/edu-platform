@@ -20,6 +20,10 @@ export class LessonService {
     return await this._repo.getOne(id);
   }
 
+  async getOneCompleted(data: CompletedLesson) {
+    return await this._repo.getOneCompleted(data);
+  }
+
   async create(lesson: LessonDTO) {
     lesson.title = lesson.title.trim();
     lesson.description = lesson.description.trim();
