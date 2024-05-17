@@ -1,0 +1,57 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf ./dist && tsc -p tsconfig.build.json",
+    "start": "node dist/index.js",
+    "dev": "tsc-watch --onSuccess \"node --env-file .env ./dist/index.js\"",
+    "lint": "eslint --ext .ts .",
+    "lint:fix": "yarn lint --fix",
+    "test": "jest",
+    "test:watch": "yarn test --watch",
+    "test:cover": "yarn test --coverage",
+    "migrate": "yarn prisma migrate dev",
+    "prisma:migrate": "prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.2",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "prisma": "^5.12.0",
+    "ts-jest": "^29.1.2",
+    "tsc-watch": "^6.2.0",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.12.0",
+    "cors": "^2.8.5",
+    "envalid": "^8.0.0",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "yup": "^1.4.0"
+  },
+  "_moduleAliases": {
+    "@domain": "./dist/domain",
+    "@services": "./dist/services",
+    "@infrastructure": "./dist/infrastructure",
+    "@app": "./dist/app"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "yarn lint",
+      "yarn test"
+    ]
+  }
+}

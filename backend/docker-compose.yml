@@ -10,15 +10,8 @@ services:
     ports:
       - ${DB_PORT}:5432
     restart: unless-stopped
-    # healthcheck:
-    #   test: ["executable", "arg"]
-    #   interval: 1m30s
-    #   timeout: 30s
-    #   retries: 5
-    #   start_period: 30s
-    # TODO: настроить
     volumes:
-      - edu-platform:/var/lib/postgresql/data
+      - edu-data:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d
 volumes:
-  edu-platform:
+  edu-data:

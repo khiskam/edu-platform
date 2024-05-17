@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "types": ["node", "jest"],
+
+    /* Bundler mode */
+    "baseUrl": "./src",
+    "paths": {
+      "@domain/*": ["domain/*"],
+      "@services/*": ["services/*"],
+      "@infrastructure/*": ["infrastructure/*"],
+      "@app/*": ["app/*"]
+    },
+    "rootDirs": ["src"],
+    "sourceMap": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
