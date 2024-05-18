@@ -30,4 +30,12 @@ export class CategoryService {
   async delete(id: string) {
     return await this._repo.delete(id);
   }
+
+  async getProgress(userId: string, limit: number, page: number) {
+    const offset = (page - 1) * limit;
+    const categories = await this._repo.getProgress(userId, limit, offset);
+    const totalCount = await this._repo.count();
+
+    return { categories, totalCount };
+  }
 }

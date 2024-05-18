@@ -17,7 +17,6 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
 
     /* Linting */
     "strict": true,

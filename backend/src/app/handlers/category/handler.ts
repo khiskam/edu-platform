@@ -28,9 +28,13 @@ export class CategoryHandler implements Handler {
     const { limit, page } = req.query;
     const categories = await this._service.getAll(parseLimit(limit), parsePage(page));
 
-    if (!categories) {
-      return res.sendStatus(404);
-    }
+    return res.status(200).json(categories);
+  };
+
+  private handleGetAllWithProgress: RequestHandler = async (req, res) => {
+    const { limit, page } = req.query;
+    const userId = res.locals.id;
+    const categories = await this._service.getProgress(userId, parseLimit(limit), parsePage(page));
 
     return res.status(200).json(categories);
   };
@@ -70,6 +74,8 @@ export class CategoryHandler implements Handler {
 
   private initRoutes = () => {
     this._router.get("/", handleError(this.handleGetAll));
+    this._router.get("/progress", handleError(this.handleGetAllWithProgress));
+
     this._router.post("/", validateMiddleware(categorySchema), handleError(this.handleCreate));
     this._router.get("/:id", handleError(this.handleGetOne));
     this._router.put("/:id", validateMiddleware(categorySchema), handleError(this.handleUpdate));

@@ -1,10 +1,4 @@
-import {
-  NextFunction,
-  RequestHandler,
-  Router,
-  Request,
-  Response,
-} from "express";
+import { NextFunction, RequestHandler, Router, Request, Response } from "express";
 
 export interface Handler {
   path: string;

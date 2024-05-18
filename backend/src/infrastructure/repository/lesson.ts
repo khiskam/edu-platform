@@ -4,7 +4,7 @@ import { ClientError } from "@services/utils/client.error";
 import { PRISMA_CODES } from "./constants";
 import { ILessonRepository } from "@services/lesson/interfaces";
 import { CompletedLesson, CompletedLessonKeys, Lesson, LessonKeys } from "@domain/lesson";
-import { LessonDTO, LessonWithCompleted } from "@services/lesson/dto";
+import { LessonDTO, LessonWithCompleted, Progress } from "@services/lesson/dto";
 
 export class LessonRepository implements ILessonRepository {
   constructor(private readonly _client: PrismaClient) {}
@@ -17,14 +17,21 @@ export class LessonRepository implements ILessonRepository {
     return await this._client.lesson.findMany({
       skip: offset,
       take: limit,
-      include: { completedLesson: true },
+      include: {
+        _count: {
+          select: {
+            completedLesson: {
+              where: { userId: "1d5faa03-c158-4b45-8be6-73cee73d6af4" },
+            },
+          },
+        },
+      },
     });
   }
 
   async getOne(id: string): Promise<Lesson | null> {
     return await this._client.lesson.findFirst({
       where: { id },
-      include: { completedLesson: true },
     });
   }
 
@@ -95,5 +102,30 @@ export class LessonRepository implements ILessonRepository {
 
       throw e;
     }
+  }
+
+  async getProgress(userId: string, limit: number, offset: number): Promise<Progress[]> {
+    const lessons = await this._client.lesson.findMany({
+      skip: offset,
+      take: limit,
+      include: {
+        task: { select: { completedTask: { where: { userId } } } },
+        completedLesson: { where: { userId } },
+      },
+    });
+
+    return lessons.map((lesson) => {
+      return {
+        id: lesson.id,
+        name: lesson.title,
+        completedCount:
+          lesson.completedLesson.length +
+          lesson.task.reduce((lessonAcc, task) => {
+            return lessonAcc + task.completedTask.length;
+          }, 0),
+
+        totalCount: lesson.task.length + 1,
+      };
+    });
   }
 }

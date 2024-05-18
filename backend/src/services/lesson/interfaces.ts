@@ -1,4 +1,4 @@
-import { LessonDTO, LessonWithCompleted } from "./dto";
+import { LessonDTO, LessonWithCompleted, Progress } from "./dto";
 import { CompletedLesson, Lesson } from "@domain/lesson";
 
 export interface ILessonRepository {
@@ -9,6 +9,8 @@ export interface ILessonRepository {
   update(category: Lesson): Promise<Lesson>;
   delete(id: string): Promise<void>;
   count(): Promise<number>;
+
+  getProgress(userId: string, limit: number, offset: number): Promise<Progress[]>;
 
   createCompleted(data: CompletedLesson): Promise<CompletedLesson>;
   deleteCompleted(data: CompletedLesson): Promise<void>;

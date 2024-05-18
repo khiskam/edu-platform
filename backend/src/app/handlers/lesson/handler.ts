@@ -26,9 +26,13 @@ export class LessonHandler implements Handler {
     const { limit, page } = req.query;
     const lessons = await this._service.getAll(parseLimit(limit), parsePage(page));
 
-    if (!lessons) {
-      return res.sendStatus(404);
-    }
+    return res.status(200).json(lessons);
+  };
+
+  private handleGetAllWithProgress: RequestHandler = async (req, res) => {
+    const { limit, page } = req.query;
+    const userId = res.locals.id;
+    const lessons = await this._service.getProgress(userId, parseLimit(limit), parsePage(page));
 
     return res.status(200).json(lessons);
   };
@@ -91,6 +95,8 @@ export class LessonHandler implements Handler {
 
   private initRoutes = () => {
     this._router.get("/", handleError(this.handleGetAll));
+    this._router.get("/progress", handleError(this.handleGetAllWithProgress));
+
     this._router.post("/", validateMiddleware(lessonSchema), handleError(this.handleCreate));
     this._router.get("/:id", handleError(this.handleGetOne));
     this._router.put("/:id", validateMiddleware(lessonSchema), handleError(this.handleUpdate));

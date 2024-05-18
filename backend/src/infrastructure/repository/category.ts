@@ -1,6 +1,6 @@
 import { Category, CategoryKeys } from "@domain/category";
 import { Prisma, PrismaClient } from "@prisma/client";
-import { CategoryDTO } from "@services/category/dto";
+import { CategoryDTO, Progress } from "@services/category/dto";
 import { ICategoryRepository } from "@services/category/interfaces";
 import { ClientError } from "@services/utils/client.error";
 import { PRISMA_CODES } from "./constants";
@@ -39,7 +39,7 @@ export class CategoryRepository implements ICategoryRepository {
       return await this._client.category.update({ where: { id }, data: { name } });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        console.log(e.code, e.message);
+        // console.log(e.code, e.message);
         if (e.code === PRISMA_CODES.unique) {
           throw new ClientError<CategoryKeys>("Категория уже существует", 400, "name");
         }
@@ -61,5 +61,42 @@ export class CategoryRepository implements ICategoryRepository {
 
       throw e;
     }
+  }
+
+  async getProgress(userId: string, limit: number, offset: number): Promise<Progress[]> {
+    const categories = await this._client.category.findMany({
+      skip: offset,
+      take: limit,
+      include: {
+        lessons: {
+          select: {
+            completedLesson: { where: { userId } },
+            task: { select: { completedTask: { where: { userId } } } },
+          },
+        },
+      },
+    });
+
+    return categories.map((category) => {
+      return {
+        id: category.id,
+        name: category.name,
+        completedCount: category.lessons.reduce((acc, lesson) => {
+          return (
+            acc +
+            lesson.completedLesson.length +
+            lesson.task.reduce((lessonAcc, task) => {
+              return lessonAcc + task.completedTask.length;
+            }, 0)
+          );
+        }, 0),
+
+        totalCount:
+          category.lessons.length +
+          category.lessons.reduce((acc, lesson) => {
+            return acc + lesson.task.length;
+          }, 0),
+      };
+    });
   }
 }

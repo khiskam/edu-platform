@@ -10,7 +10,6 @@ export const tokenMiddleware = (): RequestHandler => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization?.replace("Bearer ", "");
 
-    console.log("here");
     if (!authHeader) {
       return res.sendStatus(401);
     }

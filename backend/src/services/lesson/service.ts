@@ -46,4 +46,12 @@ export class LessonService {
   async completedDelete(data: CompletedLesson) {
     return await this._repo.deleteCompleted(data);
   }
+
+  async getProgress(userId: string, limit: number, page: number) {
+    const offset = (page - 1) * limit;
+    const lessons = await this._repo.getProgress(userId, limit, offset);
+    const totalCount = await this._repo.count();
+
+    return { lessons, totalCount };
+  }
 }

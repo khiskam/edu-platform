@@ -6,9 +6,8 @@ import { CategoryHandler } from "@app/handlers/category/handler";
 import { LessonHandler } from "@app/handlers/lesson/handler";
 import { TaskHandler } from "@app/handlers/task/handler";
 
-// import { TaskHandler } from "@app/handlers/task/handler";
-
 const app = new App(ENV.API_PORT);
 app.addRoutes(new UserHandler());
-app.addAuthRoutes(new CategoryHandler(), new LessonHandler(), new TaskHandler());
+app.addAuthMiddleware();
+app.addRoutes(new CategoryHandler(), new LessonHandler(), new TaskHandler());
 app.listen();

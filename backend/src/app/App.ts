@@ -42,9 +42,8 @@ export class App {
     this.initHandlers(handlers);
   }
 
-  public addAuthRoutes(...handlers: Handler[]) {
+  public addAuthMiddleware() {
     this._router.use(authMiddleware());
-    this.initHandlers(handlers);
   }
 
   private healthCheck() {
