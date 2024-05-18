@@ -7,7 +7,6 @@ import { validateMiddleware } from "@app/middleware/validate";
 import { lessonSchema } from "./validation";
 import { LessonService } from "@services/lesson/service";
 import { LessonRepository } from "@infrastructure/repository/lesson";
-import { CompletedLessonRepository } from "@infrastructure/repository/completedLessonRepository";
 
 export class LessonHandler implements Handler {
   private readonly _path = "/lessons";
@@ -18,8 +17,7 @@ export class LessonHandler implements Handler {
     this._router = Router();
 
     const repo = new LessonRepository(prisma);
-    const completedRepo = new CompletedLessonRepository(prisma);
-    this._service = new LessonService(repo, completedRepo);
+    this._service = new LessonService(repo);
 
     this.initRoutes();
   }

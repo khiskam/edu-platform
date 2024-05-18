@@ -9,9 +9,7 @@ export interface ILessonRepository {
   update(category: Lesson): Promise<Lesson>;
   delete(id: string): Promise<void>;
   count(): Promise<number>;
-}
 
-export interface ICompletedLessonRepository {
-  create(data: CompletedLesson): Promise<CompletedLesson>;
-  delete(data: CompletedLesson): Promise<void>;
+  createCompleted(data: CompletedLesson): Promise<CompletedLesson>;
+  deleteCompleted(data: CompletedLesson): Promise<void>;
 }

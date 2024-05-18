@@ -1,14 +1,11 @@
-import { ICompletedTaskRepository, ITaskRepository } from "./interfaces";
+import { ITaskRepository } from "./interfaces";
 import { MutationDTO, MutationDTOWithId } from "./dto";
 import { MutationDTOtoTaskDTO, checkAnswers } from "./utils";
 import { CompletedTask, CompletedTaskWithAnswer, TaskKeys } from "@domain/task";
 import { ClientError } from "@services/utils/client.error";
 
 export class TaskService {
-  constructor(
-    private readonly _repo: ITaskRepository,
-    private readonly _completedRepo: ICompletedTaskRepository
-  ) {}
+  constructor(private readonly _repo: ITaskRepository) {}
 
   async getAll(limit: number, page: number) {
     const offset = (page - 1) * limit;
@@ -56,10 +53,10 @@ export class TaskService {
       throw new ClientError<TaskKeys>("Неверный ответ", 404, "answers");
     }
 
-    return await this._completedRepo.create(data);
+    return await this._repo.createCompleted(data);
   }
 
   async completedDelete(data: CompletedTask) {
-    return await this._completedRepo.delete(data);
+    return await this._repo.deleteCompleted(data);
   }
 }

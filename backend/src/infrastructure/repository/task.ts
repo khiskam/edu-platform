@@ -5,6 +5,7 @@ import { PRISMA_CODES } from "./constants";
 import { ITaskRepository } from "@services/task/interfaces";
 import { CompletedTask, Task, TaskKeys } from "@domain/task";
 import { TaskDTO, TaskWithCompleted } from "@services/task/dto";
+import { CompletedLessonKeys, LessonKeys } from "@domain/lesson";
 
 export class TaskRepository implements ITaskRepository {
   constructor(private readonly _client: PrismaClient) {}
@@ -50,6 +51,42 @@ export class TaskRepository implements ITaskRepository {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === PRISMA_CODES.notFound) {
           throw new ClientError<TaskKeys>("Занятие не найдено", 404, "id");
+        }
+      }
+
+      throw e;
+    }
+  }
+
+  async createCompleted(data: CompletedTask): Promise<CompletedTask> {
+    try {
+      return await this._client.completedTask.create({ data });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === PRISMA_CODES.unique) {
+          throw new ClientError<CompletedLessonKeys>(
+            "Задание уже выполнено",
+            400,
+            "userId",
+            "lessonId"
+          );
+        }
+      }
+
+      throw e;
+    }
+  }
+
+  async deleteCompleted(data: CompletedTask): Promise<void> {
+    const { userId, taskId } = data;
+    try {
+      await this._client.completedTask.delete({
+        where: { userId_taskId: { userId, taskId } },
+      });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === PRISMA_CODES.notFound) {
+          throw new ClientError<LessonKeys>("Занятие не найдено", 404, "id");
         }
       }
 

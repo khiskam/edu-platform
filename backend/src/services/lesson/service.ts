@@ -1,12 +1,9 @@
-import { ICompletedLessonRepository, ILessonRepository } from "./interfaces";
+import { ILessonRepository } from "./interfaces";
 import { LessonDTO } from "./dto";
 import { CompletedLesson, Lesson } from "@domain/lesson";
 
 export class LessonService {
-  constructor(
-    private readonly _repo: ILessonRepository,
-    private readonly _completedRepo: ICompletedLessonRepository
-  ) {}
+  constructor(private readonly _repo: ILessonRepository) {}
 
   async getAll(limit: number, page: number) {
     const offset = (page - 1) * limit;
@@ -43,10 +40,10 @@ export class LessonService {
   }
 
   async completedCreate(data: CompletedLesson) {
-    return await this._completedRepo.create(data);
+    return await this._repo.createCompleted(data);
   }
 
   async completedDelete(data: CompletedLesson) {
-    return await this._completedRepo.delete(data);
+    return await this._repo.deleteCompleted(data);
   }
 }

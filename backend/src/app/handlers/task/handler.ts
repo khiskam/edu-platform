@@ -7,7 +7,6 @@ import { validateMiddleware } from "@app/middleware/validate";
 import { TaskService } from "@services/task/service";
 import { TaskRepository } from "@infrastructure/repository/task";
 import { taskSchema } from "./validation";
-import { CompletedTaskRepository } from "@infrastructure/repository/completedTaskRepository";
 
 export class TaskHandler implements Handler {
   private readonly _path = "/tasks";
@@ -18,8 +17,7 @@ export class TaskHandler implements Handler {
     this._router = Router();
 
     const repo = new TaskRepository(prisma);
-    const completedRepo = new CompletedTaskRepository(prisma);
-    this._service = new TaskService(repo, completedRepo);
+    this._service = new TaskService(repo);
 
     this.initRoutes();
   }

@@ -9,9 +9,7 @@ export interface ITaskRepository {
   update(category: Task): Promise<Task>;
   delete(id: string): Promise<void>;
   count(): Promise<number>;
-}
 
-export interface ICompletedTaskRepository {
-  create(data: CompletedTask): Promise<CompletedTask>;
-  delete(data: CompletedTask): Promise<void>;
+  createCompleted(data: CompletedTask): Promise<CompletedTask>;
+  deleteCompleted(data: CompletedTask): Promise<void>;
 }
