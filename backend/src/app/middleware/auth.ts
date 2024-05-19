@@ -1,9 +1,7 @@
 import { prisma } from "@app/config/db";
 import { UserRepository } from "@infrastructure/repository/user";
 import { UserService } from "@services/user/service";
-// import { ClientError } from "@services/utils/client.error";
-
-import { app } from "../../config";
+import { app } from "@app/config/auth";
 import { Request, Response, NextFunction, RequestHandler } from "express";
 
 export const tokenMiddleware = (): RequestHandler => {

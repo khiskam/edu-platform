@@ -2,7 +2,7 @@ import express, { Application, json, Request, Response, Router } from "express";
 import cors from "cors";
 import { Handler } from "./handlers/handler";
 import { errorMiddleware } from "./middleware/error";
-import { ENV } from "../config";
+import { ENV } from "../env";
 import { authMiddleware, tokenMiddleware } from "./middleware/auth";
 
 export class App {
