@@ -1,6 +1,6 @@
 import { prisma } from "@app/config/db";
-import { UserRepository } from "@infrastructure/repository/user";
-import { UserService } from "@services/user/service";
+import { UserRepository } from "@repository/user";
+import { UserService } from "@services/user";
 import { app } from "@app/config/auth";
 import { Request, Response, NextFunction, RequestHandler } from "express";
 

@@ -1,5 +1,4 @@
-import { CreateUserDTO } from "@services/user/dto";
-import { IUserRepository } from "./interfaces";
+import { CreateUserDTO, IUserRepository } from "@repository/interfaces";
 
 export class UserService {
   constructor(private readonly _repo: IUserRepository) {}

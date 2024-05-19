@@ -48,7 +48,7 @@
   "_moduleAliases": {
     "@domain": "./dist/domain",
     "@services": "./dist/services",
-    "@infrastructure": "./dist/infrastructure",
+    "@repository": "./dist/repository",
     "@app": "./dist/app"
   },
   "prisma": {

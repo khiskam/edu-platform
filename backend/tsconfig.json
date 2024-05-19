@@ -9,7 +9,7 @@
     "paths": {
       "@domain/*": ["domain/*"],
       "@services/*": ["services/*"],
-      "@infrastructure/*": ["infrastructure/*"],
+      "@repository/*": ["repository/*"],
       "@app/*": ["app/*"]
     },
     "rootDirs": ["src"],

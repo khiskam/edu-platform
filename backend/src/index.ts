@@ -1,13 +1,17 @@
 import "module-alias/register";
 import { App } from "@app/App";
 import { ENV } from "./env";
-import { UserHandler } from "@app/handlers/user/handler";
-import { CategoryHandler } from "@app/handlers/category/handler";
-import { LessonHandler } from "@app/handlers/lesson/handler";
-import { TaskHandler } from "@app/handlers/task/handler";
+import { HealthCheckHandler } from "@app/handlers/healthCheck";
+import { UserHandler } from "@app/handlers/user";
+import { CategoryHandler } from "@app/handlers/category";
 
 const app = new App(ENV.API_PORT);
-app.addRoutes(new UserHandler());
-app.addAuthMiddleware();
-app.addRoutes(new CategoryHandler(), new LessonHandler(), new TaskHandler());
+
+const healthCheckHandler = new HealthCheckHandler();
+const userHandler = new UserHandler();
+const categoryHandler = new CategoryHandler();
+
+app.addRoutes(healthCheckHandler, userHandler);
+app.addAuthRoutes(categoryHandler);
+app.addAdminRoutes(categoryHandler);
 app.listen();

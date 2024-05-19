@@ -1,9 +1,9 @@
-import express, { Application, json, Request, Response, Router } from "express";
+import express, { Application, json, Router } from "express";
 import cors from "cors";
-import { Handler } from "./handlers/handler";
+import { AdminHandler, Handler } from "./handlers/interfaces";
 import { errorMiddleware } from "./middleware/error";
 import { ENV } from "../env";
-import { authMiddleware, tokenMiddleware } from "./middleware/auth";
+import { AdminMiddleware, authMiddleware, tokenMiddleware } from "./middleware/auth";
 
 export class App {
   private _express: Application;
@@ -14,7 +14,6 @@ export class App {
     this._express = express();
     this._port = port;
 
-    this.healthCheck();
     this._express.use(cors({ origin: ENV.CLIENT_ORIGIN }));
     this._express.use(json());
 
@@ -25,9 +24,35 @@ export class App {
 
   private initHandlers = (handlers: Handler[]) => {
     handlers.forEach((handler) => {
-      this._router.use(handler.path, handler.router);
+      this._router.use(handler.path, handler.initRoutes());
     });
   };
+
+  private initAdminHandlers = (handlers: AdminHandler[]) => {
+    const router = Router();
+
+    handlers.forEach((handler) => {
+      console.log(handler.path);
+      router.use(handler.path, handler.initAdminRoutes());
+    });
+
+    this._router.use("/admin", router);
+  };
+
+  public addRoutes(...handlers: Handler[]) {
+    this.initHandlers(handlers);
+  }
+
+  public addAuthRoutes(...handlers: Handler[]) {
+    this._router.use(authMiddleware());
+    console.log("here", "here");
+    this.initHandlers(handlers);
+  }
+
+  public addAdminRoutes(...handlers: AdminHandler[]) {
+    this._router.use(AdminMiddleware());
+    this.initAdminHandlers(handlers);
+  }
 
   public listen() {
     this._express.use("/api", this._router);
@@ -35,22 +60,6 @@ export class App {
 
     this._express.listen(this._port, () => {
       console.log(`listening on the port: ${this._port}`);
-    });
-  }
-
-  public addRoutes(...handlers: Handler[]) {
-    this.initHandlers(handlers);
-  }
-
-  public addAuthMiddleware() {
-    this._router.use(authMiddleware());
-  }
-
-  private healthCheck() {
-    this._express.get("/health-check", (req: Request, res: Response) => {
-      res.json({
-        message: `Server is running on: ${req.protocol}://${req.get("host")}`,
-      });
     });
   }
 }
