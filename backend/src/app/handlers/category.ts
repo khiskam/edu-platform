@@ -44,81 +44,121 @@ export class CategoryHandler implements Handler, AdminHandler {
     return this._path;
   }
 
-  private getAll: RequestHandler = async (req, res) => {
+  private getAll: RequestHandler = async (req, res, next) => {
     const { limit, page } = req.query;
-    const categories = await this._service.getAll(parseLimit(limit), parsePage(page));
 
-    return res.status(200).json(categories);
+    try {
+      const categories = await this._service.getAll(parseLimit(limit), parsePage(page));
+
+      return res.status(200).json(categories);
+    } catch (e) {
+      return next(e);
+    }
   };
 
-  private getAllWithProgress: RequestHandler = async (req, res) => {
+  private getAllWithProgress: RequestHandler = async (req, res, next) => {
     const { limit, page } = req.query;
     const userId = res.locals.id;
-    const categories = await this._service.getAllWithProgress(
-      userId,
-      parseLimit(limit),
-      parsePage(page)
-    );
 
-    return res.status(200).json(categories);
+    try {
+      const categories = await this._service.getAllWithProgress(
+        userId,
+        parseLimit(limit),
+        parsePage(page)
+      );
+
+      return res.status(200).json(categories);
+    } catch (e) {
+      return next(e);
+    }
   };
 
-  private getAllLessonsByCategoryIdWithProgress: RequestHandler = async (req, res) => {
+  private getAllLessonsByCategoryIdWithProgress: RequestHandler = async (req, res, next) => {
     const { limit, page } = req.query;
     const { id: categoryId } = req.params;
     const userId = res.locals.id;
-    const lessons = await this._service.getAllLessonsByCategoryIdWithProgress(
-      categoryId,
-      userId,
-      parseLimit(limit),
-      parsePage(page)
-    );
 
-    return res.status(200).json(lessons);
-  };
+    try {
+      const lessons = await this._service.getAllLessonsByCategoryIdWithProgress(
+        categoryId,
+        userId,
+        parseLimit(limit),
+        parsePage(page)
+      );
 
-  private getOne: RequestHandler = async (req, res) => {
-    const { id } = req.params;
-    const category = await this._service.getOne(id);
-
-    if (!category) {
-      return res.sendStatus(404);
+      return res.status(200).json(lessons);
+    } catch (e) {
+      return next(e);
     }
-
-    return res.status(200).json({ category });
   };
 
-  private getOneWithProgress: RequestHandler = async (req, res) => {
+  private getOne: RequestHandler = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+      const category = await this._service.getOne(id);
+
+      if (!category) {
+        return res.sendStatus(404);
+      }
+
+      return res.status(200).json({ category });
+    } catch (e) {
+      return next(e);
+    }
+  };
+
+  private getOneWithProgress: RequestHandler = async (req, res, next) => {
     const { id: categoryId } = req.params;
     const userId = res.locals.id;
-    const category = await this._service.getOneWithProgress(categoryId, userId);
 
-    if (!category) {
-      return res.sendStatus(404);
+    try {
+      const category = await this._service.getOneWithProgress(categoryId, userId);
+
+      if (!category) {
+        return res.sendStatus(404);
+      }
+
+      return res.status(200).json({ category });
+    } catch (e) {
+      return next(e);
     }
-
-    return res.status(200).json({ category });
   };
 
-  private create: RequestHandler = async (req, res) => {
+  private create: RequestHandler = async (req, res, next) => {
     const { name } = req.body;
-    const category = await this._service.create({ name });
 
-    return res.status(200).json({ category });
+    try {
+      const category = await this._service.create({ name });
+
+      return res.status(200).json({ category });
+    } catch (e) {
+      return next(e);
+    }
   };
 
-  private update: RequestHandler = async (req, res) => {
+  private update: RequestHandler = async (req, res, next) => {
     const { name } = req.body;
     const { id } = req.params;
-    const category = await this._service.update({ id, name });
 
-    return res.status(200).json({ category });
+    try {
+      const category = await this._service.update({ id, name });
+
+      return res.status(200).json({ category });
+    } catch (e) {
+      return next(e);
+    }
   };
 
-  private delete: RequestHandler = async (req, res) => {
+  private delete: RequestHandler = async (req, res, next) => {
     const { id } = req.params;
-    const category = await this._service.delete(id);
 
-    return res.status(200).json({ category });
+    try {
+      const category = await this._service.delete(id);
+
+      return res.status(200).json({ category });
+    } catch (e) {
+      return next(e);
+    }
   };
 }

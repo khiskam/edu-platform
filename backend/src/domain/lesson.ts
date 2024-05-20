@@ -13,4 +13,4 @@ export type CompletedLesson = {
   lessonId: string;
 };
 
-export type CompletedLessonKeys = keyof CompletedLesson;
+export type CompletedLessonKeys = "userIdLessonId";

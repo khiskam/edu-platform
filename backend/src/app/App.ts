@@ -32,7 +32,6 @@ export class App {
     const router = Router();
 
     handlers.forEach((handler) => {
-      console.log(handler.path);
       router.use(handler.path, handler.initAdminRoutes());
     });
 
@@ -45,7 +44,7 @@ export class App {
 
   public addAuthRoutes(...handlers: Handler[]) {
     this._router.use(authMiddleware());
-    console.log("here", "here");
+
     this.initHandlers(handlers);
   }
 

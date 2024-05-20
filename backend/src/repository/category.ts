@@ -16,9 +16,9 @@ export class CategoryRepository implements ICategoryRepository {
     return await this._client.category.count();
   }
 
-  lessonsCountByCategoryId = async (categoryId: string): Promise<number> => {
+  async lessonsCountByCategoryId(categoryId: string): Promise<number> {
     return await this._client.lesson.count({ where: { categoryId } });
-  };
+  }
 
   async getAll(limit: number, offset: number): Promise<Category[]> {
     return await this._client.category.findMany({ skip: offset, take: limit });
@@ -65,12 +65,12 @@ export class CategoryRepository implements ICategoryRepository {
     });
   }
 
-  getAllLessonsByCategoryIdWithProgress = async (
+  async getAllLessonsByCategoryIdWithProgress(
     categoryId: string,
     userId: string,
     limit: number,
     offset: number
-  ): Promise<LessonProgress[]> => {
+  ): Promise<LessonProgress[]> {
     const lessons = await this._client.lesson.findMany({
       where: { categoryId },
       skip: offset,
@@ -95,12 +95,9 @@ export class CategoryRepository implements ICategoryRepository {
         totalCount: lesson.task.length + 1,
       };
     });
-  };
+  }
 
-  getOneWithProgress = async (
-    categoryId: string,
-    userId: string
-  ): Promise<CategoryProgress | null> => {
+  async getOneWithProgress(categoryId: string, userId: string): Promise<CategoryProgress | null> {
     const category = await this._client.category.findFirst({
       where: { id: categoryId },
       include: {
@@ -134,10 +131,10 @@ export class CategoryRepository implements ICategoryRepository {
           return acc + lesson.task.length;
         }, 0),
     };
-  };
+  }
 
-  async getOne(id: string): Promise<Category | null> {
-    return await this._client.category.findFirst({ where: { id } });
+  async getOne(categoryId: string): Promise<Category | null> {
+    return await this._client.category.findFirst({ where: { id: categoryId } });
   }
 
   async create(category: CreateCategoryDTO): Promise<Category> {
@@ -169,9 +166,9 @@ export class CategoryRepository implements ICategoryRepository {
     }
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(categoryId: string): Promise<void> {
     try {
-      await this._client.category.delete({ where: { id } });
+      await this._client.category.delete({ where: { id: categoryId } });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === PRISMA_CODES.notFound) {
