@@ -1,7 +1,9 @@
 import { TableProps } from "antd";
 import { useMemo } from "react";
 
-import { Lesson, ROUTES, TableButtons } from "@/shared";
+import { ROUTES } from "@/shared/routes";
+import { Lesson } from "@/shared/types";
+import { TableButtons } from "@/shared/ui";
 
 import { useColumnsProps } from "./types";
 

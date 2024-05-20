@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 
 import { LessonForm } from "@/features";
-import { LessonApi } from "@/shared";
+import { LessonApi } from "@/shared/api";
 
 import { useFormSubmit } from "./utils";
 

@@ -3,8 +3,8 @@ import { Button, Form } from "antd";
 import { useForm } from "react-hook-form";
 
 import { FormProps } from "@/features/types";
-import { Fields } from "@/shared";
-import { TaskData } from "@/shared";
+import { TaskData } from "@/shared/types";
+import { Fields } from "@/shared/ui";
 import { taskSchema } from "@/shared/validation";
 
 import { CreateAnswerFields } from "./CreateAnswerFields";

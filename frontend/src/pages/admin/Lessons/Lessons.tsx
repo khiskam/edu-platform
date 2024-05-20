@@ -1,4 +1,4 @@
-import { Container, PageLayout, TitleWithButton } from "@/shared";
+import { Container, PageLayout, TitleWithButton } from "@/shared/ui";
 import { LessonsTable } from "@/widgets";
 
 import { CREATE_LESSON_ROUTE } from "./constants";

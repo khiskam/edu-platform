@@ -1,13 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { Category } from "@/shared";
-import { CategoryData } from "@/shared";
+import { CategoryData } from "@/shared/types";
 
 import { axiosClient } from "../client";
-import { CATEGORIES_API_URL } from "./constants";
+import { CategoryResponse } from "./types";
 
 const create = async (data: CategoryData) => {
-  return await axiosClient.post<Category>(`${CATEGORIES_API_URL}`, data);
+  return await axiosClient.post<CategoryResponse>("/admin/categories", data);
 };
 
 export const useCreateMutation = () => {

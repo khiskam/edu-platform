@@ -1,8 +1,9 @@
 import { Space, Typography } from "antd";
 import { useForm } from "react-hook-form";
 
-import { Fields, Task as TaskType } from "@/shared";
+import { Task as TaskType } from "@/shared/types";
 import { TaskSelectData } from "@/shared/types/task";
+import { Fields } from "@/shared/ui";
 
 import { DataType } from "../types";
 import { Variant } from "./styled";

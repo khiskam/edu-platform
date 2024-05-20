@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 import { Theme } from "@emotion/react";
 
-import { HEADER_HEIGHT } from "@/shared";
+import { HEADER_HEIGHT } from "@/shared/theme";
 
 export const footer = (theme: Theme) => css`
   align-items: center;

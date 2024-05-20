@@ -3,4 +3,14 @@ export const queryKeys = {
     all: "categories",
     one: "category",
   },
+  lesson: {
+    all: "lessons",
+    one: "lesson",
+  },
+  task: {
+    all: "tasks",
+    one: "task",
+  },
+
+  userCheck: "userCheck",
 };

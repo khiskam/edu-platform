@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { Lesson } from "@/shared";
-import { LessonData } from "@/shared";
+import { Lesson, LessonData } from "@/shared/types";
 
 import { axiosClient } from "../client";
 import { LESSONS_API_URL } from "./constants";

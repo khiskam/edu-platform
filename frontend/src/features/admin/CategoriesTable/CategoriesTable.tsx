@@ -1,10 +1,11 @@
 import { ConfigProvider, Table } from "antd";
 import { useState } from "react";
 
-import { Category, DeleteModal } from "@/shared";
+import { Category } from "@/shared/types";
+import { DeleteModal } from "@/shared/ui";
 
 import { TableProps } from "../types";
-import { useColumns } from "./utils";
+import { useColumns } from "./hooks";
 
 export const CategoriesTable = ({ data }: TableProps<Category>) => {
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);

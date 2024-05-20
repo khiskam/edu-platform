@@ -1,8 +1,9 @@
 import { signOut, User } from "firebase/auth";
 import { UseFormSetError } from "react-hook-form";
 
-import { SignInData } from "@/shared";
-import { auth, firebase, server } from "@/shared";
+import { auth, firebase, server } from "@/shared/api";
+import { useUserStore } from "@/shared/store";
+import { SignInData } from "@/shared/types";
 
 import { getAuthError } from "../utils";
 
@@ -11,11 +12,16 @@ export const useFormSubmit = () => {
   const serverMutation = server.useSignInMutation();
 
   const onSubmit = (setError: UseFormSetError<SignInData>) => async (data: SignInData) => {
-    let user: User | undefined = undefined;
+    let userCred: User | undefined = undefined;
 
     try {
-      user = await firebaseMutation.mutateAsync(data);
-      await serverMutation.mutateAsync(await user.getIdToken());
+      userCred = await firebaseMutation.mutateAsync(data);
+      const token = await userCred.getIdToken();
+      const {
+        data: { user },
+      } = await serverMutation.mutateAsync(token);
+
+      useUserStore.setState({ auth: { token, role: user.role } });
     } catch (e) {
       await signOut(auth);
 

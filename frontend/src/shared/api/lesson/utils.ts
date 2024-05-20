@@ -1,7 +1,7 @@
-import { Lesson, LessonData } from "@/shared";
+import { Lesson, LessonData } from "@/shared/types";
 
 export const lessonToLessonData = (data: Lesson): LessonData => {
-  const { title, description, category_id, layout } = data;
+  const { title, description, categoryId, layout } = data;
 
-  return { title, description, category_id, layout };
+  return { title, description, categoryId, layout };
 };

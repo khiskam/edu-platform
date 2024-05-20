@@ -3,7 +3,7 @@ import { array, boolean, object, string } from "yup";
 export const taskSchema = object({
   title: string().trim().required("Поле Наименование обязательно для заполнения"),
   description: string().trim().required("Поле Описание обязательно для заполнения"),
-  lesson_id: string().required("Поле категория обязательна для заполнения"),
+  lessonId: string().required("Поле категория обязательна для заполнения"),
   answers: array()
     .required("Поле Ответы обязательно для заполнения")
     .of(

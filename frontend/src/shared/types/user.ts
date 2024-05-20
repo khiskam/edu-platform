@@ -8,4 +8,6 @@ export type SignInData = InferType<typeof signInSchema>;
 
 export type UserRole = "user" | "admin";
 
-export type User = Id & { uid: string; role: UserRole };
+export type User = {
+  user: Id & { uid: string; role: UserRole };
+};

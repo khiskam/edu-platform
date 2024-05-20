@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 
-import { Container, ROUTES } from "@/shared";
+import { ROUTES } from "@/shared/routes";
+import { Container } from "@/shared/ui";
 import { Footer, Header } from "@/widgets";
 
 import { Breadcrumb } from "../Breadcrumb";

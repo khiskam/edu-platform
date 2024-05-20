@@ -3,7 +3,8 @@ import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { auth } from "@/shared";
+import { auth } from "@/shared/api";
+import { useUserStore } from "@/shared/store";
 
 export const SignOutLink = () => {
   const [open, setOpen] = useState(false);
@@ -12,6 +13,7 @@ export const SignOutLink = () => {
   const handleCancel = () => setOpen(false);
   const handleOk = async () => {
     await signOut(auth);
+    useUserStore.setState({ auth: undefined });
     handleCancel();
   };
 

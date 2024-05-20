@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 
 import { LessonsList as LessonsListLayout } from "@/features";
-import { LessonApi } from "@/shared";
+import { LessonApi } from "@/shared/api";
 
 export const LessonsList = () => {
   const { isLoading, data } = LessonApi.useGetAllQuery();

@@ -1,11 +1,17 @@
 import { Spin } from "antd";
+import { Navigate } from "react-router-dom";
 
 import { SignInForm as SignInFormLayout } from "@/features";
+import { ROUTES } from "@/shared/routes";
 
-import { useFormSubmit } from "./utils";
+import { useFormSubmit } from "./hooks";
 
 export const SignInForm = () => {
-  const { onSubmit, isLoading } = useFormSubmit();
+  const { onSubmit, isLoading, isSuccess } = useFormSubmit();
+
+  if (isSuccess) {
+    return <Navigate to={ROUTES.main.path} />;
+  }
 
   return (
     <Spin spinning={isLoading}>

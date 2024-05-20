@@ -2,7 +2,7 @@ import { css } from "@emotion/css";
 import { Theme } from "@emotion/react";
 
 export const icon = (theme: Theme) => css`
-  height: 24px;
+  height: 20px;
 
   & > path {
     stroke-width: 24;

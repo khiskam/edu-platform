@@ -11,5 +11,5 @@ const getAll = async () => {
 };
 
 export const useGetAllQuery = () => {
-  return useQuery({ queryKey: [queryKeys.category.all], queryFn: getAll });
+  return useQuery({ queryKey: [queryKeys.lesson.all], queryFn: getAll });
 };

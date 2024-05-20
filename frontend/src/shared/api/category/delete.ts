@@ -1,12 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { Category } from "@/shared";
+import { Category } from "@/shared/types";
 
 import { axiosClient } from "../client";
-import { CATEGORIES_API_URL } from "./constants";
 
 const remove = async (id: string) => {
-  return await axiosClient.delete<Category>(`${CATEGORIES_API_URL}/${id}`, undefined);
+  return await axiosClient.delete<Category>(`/admin/categories/${id}`, undefined);
 };
 
 export const useDeleteMutation = () => {

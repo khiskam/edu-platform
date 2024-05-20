@@ -1,6 +1,6 @@
 import { Space, Typography } from "antd";
 
-import { Lesson as LessonType } from "@/shared";
+import { Lesson as LessonType } from "@/shared/types";
 
 import { DataType } from "../types";
 

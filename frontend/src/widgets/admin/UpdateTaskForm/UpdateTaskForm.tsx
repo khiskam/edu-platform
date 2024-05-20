@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 
 import { TaskForm } from "@/features";
-import { TaskApi } from "@/shared";
+import { TaskApi } from "@/shared/api";
 
 import { useFormSubmit } from "./utils";
 

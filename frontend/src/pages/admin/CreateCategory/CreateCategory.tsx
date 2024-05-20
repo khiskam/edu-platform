@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 
-import { Container, PageLayout } from "@/shared";
+import { Container, PageLayout } from "@/shared/ui";
 import { CreateCategoryForm } from "@/widgets";
 
 export const CreateCategory = () => {

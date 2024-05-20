@@ -1,15 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Category } from "@/shared/types";
-
 import { axiosClient } from "../client";
 import { queryKeys } from "../keys";
-import { CATEGORIES_API_URL } from "./constants";
+import { CategoriesResponse } from "./types";
 
 const getOne = async (id: string) => {
-  return (await axiosClient.get<Category>(`${CATEGORIES_API_URL}/${id}`)).data;
+  return (await axiosClient.get<CategoriesResponse>(`/admin/categories/${id}`)).data;
 };
 
 export const useGetOneQuery = (id: string) => {
-  return useQuery({ queryKey: [queryKeys.category.all], queryFn: () => getOne(id) });
+  return useQuery({ queryKey: [queryKeys.category.one], queryFn: () => getOne(id) });
 };

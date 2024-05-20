@@ -1,7 +1,7 @@
 import { MenuProps } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { ROUTES } from "@/shared";
+import { ROUTES } from "@/shared/routes";
 
 import { ProfileLink } from "./ProfileLink";
 import { SignOutLink } from "./SignOutLink";

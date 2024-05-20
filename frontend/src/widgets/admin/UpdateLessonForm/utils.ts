@@ -1,6 +1,7 @@
 import { UseFormSetError } from "react-hook-form";
 
-import { LessonApi, LessonData } from "@/shared";
+import { LessonApi } from "@/shared/api";
+import { LessonData } from "@/shared/types";
 
 export const useFormSubmit = (id: string) => {
   const { mutateAsync, isSuccess, isPending } = LessonApi.useUpdateMutation();

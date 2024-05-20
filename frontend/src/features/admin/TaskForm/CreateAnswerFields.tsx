@@ -2,7 +2,8 @@ import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Flex, Form } from "antd";
 import { FieldValues, useFieldArray } from "react-hook-form";
 
-import { Fields, GAP } from "@/shared";
+import { GAP } from "@/shared/theme";
+import { Fields } from "@/shared/ui";
 
 import { CreateAnswerFieldsProps } from "./types";
 

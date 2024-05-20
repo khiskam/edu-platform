@@ -1,8 +1,8 @@
 import { useTheme } from "@emotion/react";
 import { Flex, Layout, Typography } from "antd";
 
-import { Container, Logo } from "@/shared";
-import { GAP } from "@/shared";
+import { GAP } from "@/shared/theme";
+import { Container, Logo } from "@/shared/ui";
 
 import { footer } from "./styled";
 
@@ -15,7 +15,7 @@ export const Footer = () => {
         <Flex align="center" justify="space-between" gap={GAP[12]} wrap="wrap">
           <Logo />
 
-          <Typography.Text>&#169; Copyright РАЗВИТИЕ</Typography.Text>
+          <Typography.Text>&#169; Copyright УМНЯША</Typography.Text>
         </Flex>
       </Container>
     </Layout.Footer>

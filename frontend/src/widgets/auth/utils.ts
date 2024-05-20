@@ -1,7 +1,7 @@
 import { FirebaseError } from "firebase/app";
 import { AuthErrorCodes } from "firebase/auth";
 
-import { AUTH_VALIDATION_ERRORS } from "@/shared";
+import { AUTH_VALIDATION_ERRORS } from "@/shared/validation";
 
 export type AuthError = { field: "email" | "password" | "root"; message: string } | undefined;
 
@@ -17,7 +17,7 @@ export const getAuthError = (e: unknown): AuthError => {
       return { field: "email", message: AUTH_VALIDATION_ERRORS.EMAIL_INVALID };
     case AuthErrorCodes.INVALID_LOGIN_CREDENTIALS:
       return {
-        field: "email",
+        field: "root",
         message: AUTH_VALIDATION_ERRORS.INVALID_LOGIN_CREDENTIALS,
       };
     case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:

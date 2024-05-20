@@ -1,7 +1,7 @@
 import { ConfigProvider, List, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { Task } from "@/shared";
+import { Task } from "@/shared/types";
 
 import { ListProps } from "../types";
 import { toTaskPage } from "./utils";

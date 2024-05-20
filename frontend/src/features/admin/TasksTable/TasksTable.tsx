@@ -1,10 +1,11 @@
 import { ConfigProvider, Table } from "antd";
 import { useState } from "react";
 
-import { DeleteModal, Task } from "@/shared";
+import { Task } from "@/shared/types";
+import { DeleteModal } from "@/shared/ui";
 
 import { TableProps } from "../types";
-import { useColumns } from "./utils";
+import { useColumns } from "./hooks";
 
 export const TasksTable = ({ data }: TableProps<Task>) => {
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);

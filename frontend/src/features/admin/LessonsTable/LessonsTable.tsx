@@ -1,10 +1,11 @@
 import { ConfigProvider, Table } from "antd";
 import { useState } from "react";
 
-import { DeleteModal, Lesson } from "@/shared";
+import { Lesson } from "@/shared/types";
+import { DeleteModal } from "@/shared/ui";
 
 import { TableProps } from "../types";
-import { useColumns } from "./utils";
+import { useColumns } from "./hooks";
 
 export const LessonsTable = ({ data }: TableProps<Lesson>) => {
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);

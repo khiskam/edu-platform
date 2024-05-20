@@ -1,7 +1,7 @@
 import { ConfigProvider, List, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { Lesson } from "@/shared";
+import { Lesson } from "@/shared/types";
 
 import { ListProps } from "../types";
 import { toLessonPage } from "./utils";

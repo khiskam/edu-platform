@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
-import { SignInData, SignUpData } from "@/shared";
+import { SignInData, SignUpData } from "@/shared/types";
 
 import { auth } from "../firebase";
 

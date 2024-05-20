@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Layout } from "antd";
 
-import { GAP, PADDING } from "@/shared";
+import { GAP, PADDING } from "@/shared/theme";
 
 export const LayoutContainer = styled(Layout)`
   display: flex;

@@ -1,4 +1,4 @@
-import { Container } from "@/shared";
+import { Container } from "@/shared/ui";
 
 export const Main = () => {
   return <Container></Container>;

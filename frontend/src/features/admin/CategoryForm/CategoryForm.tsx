@@ -3,8 +3,8 @@ import { Button, Form } from "antd";
 import { useForm } from "react-hook-form";
 
 import { FormProps } from "@/features/types";
-import { Fields } from "@/shared";
-import { CategoryData } from "@/shared";
+import { CategoryData } from "@/shared/types";
+import { Fields } from "@/shared/ui";
 import { categorySchema } from "@/shared/validation";
 
 export const CategoryForm = ({ defaultValues, onSubmit }: FormProps<CategoryData>) => {

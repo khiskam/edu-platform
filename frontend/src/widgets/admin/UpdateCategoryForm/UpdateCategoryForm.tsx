@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 
 import { CategoryForm } from "@/features";
-import { CategoryApi } from "@/shared";
+import { CategoryApi } from "@/shared/api";
 
 import { useFormSubmit } from "./utils";
 
@@ -13,5 +13,5 @@ export const UpdateCategoryForm = () => {
     return <Spin />;
   }
 
-  return <CategoryForm onSubmit={onSubmit} defaultValues={data} />;
+  return <CategoryForm onSubmit={onSubmit} defaultValues={data?.category} />;
 };

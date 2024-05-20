@@ -1,6 +1,6 @@
 import { Flex, Typography } from "antd";
 
-import { Container } from "@/shared";
+import { Container } from "@/shared/ui";
 import { SignUpForm } from "@/widgets";
 
 import { FormContainer } from "../styled";

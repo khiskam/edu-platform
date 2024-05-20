@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 
 import { TasksTable as TasksTableLayout } from "@/features";
-import { TaskApi } from "@/shared";
+import { TaskApi } from "@/shared/api";
 
 export const TasksTable = () => {
   const { isLoading, data } = TaskApi.useGetAllQuery();
@@ -10,5 +10,5 @@ export const TasksTable = () => {
     return <Spin />;
   }
 
-  return <TasksTableLayout data={data} />;
+  return <TasksTableLayout data={data?.tasks} />;
 };

@@ -1,6 +1,7 @@
 import { UseFormSetError } from "react-hook-form";
 
-import { CategoryApi, CategoryData } from "@/shared";
+import { CategoryApi } from "@/shared/api";
+import { CategoryData } from "@/shared/types";
 
 export const useFormSubmit = (id: string) => {
   const { mutateAsync, isSuccess, isPending } = CategoryApi.useUpdateMutation();

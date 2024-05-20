@@ -11,5 +11,5 @@ const getOne = async (id: string) => {
 };
 
 export const useGetOneQuery = (id: string) => {
-  return useQuery({ queryKey: [queryKeys.category.all], queryFn: () => getOne(id) });
+  return useQuery({ queryKey: [queryKeys.task.one], queryFn: () => getOne(id) });
 };

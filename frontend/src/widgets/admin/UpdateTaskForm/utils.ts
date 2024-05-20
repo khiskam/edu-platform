@@ -1,6 +1,7 @@
 import { UseFormSetError } from "react-hook-form";
 
-import { TaskApi, TaskData } from "@/shared";
+import { TaskApi } from "@/shared/api";
+import { TaskData } from "@/shared/types";
 
 export const useFormSubmit = (id: string) => {
   const { mutateAsync, isSuccess, isPending } = TaskApi.useUpdateMutation();

@@ -1,4 +1,5 @@
-import { ROUTES, useUserStore } from "@/shared";
+import { ROUTES } from "@/shared/routes";
+import { useUserStore } from "@/shared/store";
 
 export const getUserKey = () => {
   const auth = useUserStore.getState().auth;

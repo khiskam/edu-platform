@@ -2,7 +2,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import { BreadcrumbProps } from "antd";
 import { matchRoutes, NavLink, useLocation } from "react-router-dom";
 
-import { ROUTES_TITLE, RoutesTitleKeys } from "@/shared";
+import { ROUTES_TITLE, RoutesTitleKeys } from "@/shared/routes";
 
 import { routesList } from "../router";
 

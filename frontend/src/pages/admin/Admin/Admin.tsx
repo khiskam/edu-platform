@@ -1,7 +1,7 @@
 import { List, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { Container, PageLayout } from "@/shared";
+import { Container, PageLayout } from "@/shared/ui";
 
 import { ADMIN_PAGES } from "./constants";
 

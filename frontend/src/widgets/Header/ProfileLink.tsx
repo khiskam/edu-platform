@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
-import { ROUTES, useUserStore } from "@/shared";
+import { ROUTES } from "@/shared/routes";
+import { useUserStore } from "@/shared/store";
 
 export const ProfileLink = () => {
   const auth = useUserStore(({ auth }) => auth);

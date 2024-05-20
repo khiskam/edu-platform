@@ -1,7 +1,7 @@
 import { ConfigProvider, List, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { Category } from "@/shared";
+import { Category } from "@/shared/types";
 
 import { ListProps } from "../types";
 import { toCategoryPage } from "./utils";
