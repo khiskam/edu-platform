@@ -5,15 +5,16 @@ import { CategoryData } from "@/shared/types";
 
 import { getCategoryError } from "../utils";
 
-export const useFormSubmit = () => {
-  const { mutateAsync, isSuccess, isPending } = CategoryApi.useCreateMutation();
+export const useFormSubmit = (id: string) => {
+  const { mutateAsync, isSuccess, isPending } = CategoryApi.useUpdateMutation();
 
   const onSubmit =
     (setError: UseFormSetError<CategoryData>, reset?: (data?: CategoryData) => void) =>
-    async (category: CategoryData) => {
+    async (data: CategoryData) => {
       try {
-        await mutateAsync(category);
-        reset?.();
+        const category = await mutateAsync({ id, ...data });
+
+        reset?.(category.data.category);
       } catch (e) {
         const errors = getCategoryError<CategoryData>(e);
 

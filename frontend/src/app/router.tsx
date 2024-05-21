@@ -64,28 +64,47 @@ export const routesList: RouteObject[] = [
                     element: <CreateCategory />,
                   },
                   {
-                    path: ":categoryId/edit",
-                    element: <UpdateCategory />,
-                  },
-                  {
-                    path: `:categoryId/${ROUTES.lessons.name}`,
+                    path: ":categoryId",
                     children: [
                       {
                         path: ROUTES.main.name,
-                        element: <Admin.Lessons />,
+                        element: <Admin.Category />,
                       },
                       {
-                        path: `create`,
-                        element: <CreateLesson />,
+                        path: ROUTES.edit.name,
+                        element: <UpdateCategory />,
                       },
                       {
-                        path: `:lessonId/edit`,
-                        element: <UpdateLesson />,
+                        path: ROUTES.lessons.name,
+                        children: [
+                          {
+                            path: ROUTES.main.name,
+                            element: <Admin.Lessons></Admin.Lessons>,
+                          },
+                          {
+                            path: "create",
+                            element: <CreateLesson />,
+                          },
+                          {
+                            path: ":lessonId",
+                            children: [
+                              {
+                                path: ROUTES.main.name,
+                                element: <></>,
+                              },
+                              {
+                                path: ROUTES.edit.name,
+                                element: <UpdateLesson />,
+                              },
+                            ],
+                          },
+                        ],
                       },
                     ],
                   },
                 ],
               },
+
               {
                 path: `${ROUTES.lessons.name}/:lessonId/tasks`,
                 children: [

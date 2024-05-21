@@ -1,1 +1,1 @@
-export { useUserStore } from "./store";
+export { useMessageStore, useUserStore } from "./store";

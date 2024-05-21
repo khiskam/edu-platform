@@ -7,7 +7,7 @@ export const UpdateCategory = () => {
   return (
     <Container>
       <PageLayout>
-        <Typography.Title level={2}>Добавить категорию</Typography.Title>
+        <Typography.Title level={2}>Редактировать категорию</Typography.Title>
         <UpdateCategoryForm />
       </PageLayout>
     </Container>

@@ -7,7 +7,7 @@ export const UpdateLesson = () => {
   return (
     <Container>
       <PageLayout>
-        <Typography.Title level={2}>Добавить занятие</Typography.Title>
+        <Typography.Title level={2}>Редактировать занятие</Typography.Title>
 
         <UpdateLessonForm />
       </PageLayout>

@@ -1,5 +1,6 @@
 export * from "./Admin";
 export * from "./Categories";
+export * from "./Category";
 export * from "./CreateCategory";
 export * from "./CreateLesson";
 export * from "./CreateTask";

@@ -1,19 +1,10 @@
 import { TableProps } from "antd";
 import { useMemo } from "react";
 
-import { ROUTES } from "@/shared/routes";
 import { Lesson } from "@/shared/types";
 import { TableButtons } from "@/shared/ui";
 
 import { useColumnsProps } from "./types";
-
-const getEditRoute = (id: string) => {
-  return `${ROUTES.admin.path}${ROUTES.categories.path}/${id}/edit`;
-};
-
-const getPageRoute = (id: string) => {
-  return `${ROUTES.admin.path}${ROUTES.lessons.path}/${id}/edit`;
-};
 
 export const useColumns = ({ onDelete }: useColumnsProps) => {
   const columns: TableProps["columns"] = useMemo(
@@ -26,8 +17,8 @@ export const useColumns = ({ onDelete }: useColumnsProps) => {
         render: (_, record: Lesson) => (
           <TableButtons
             onDelete={() => onDelete(record.id)}
-            editTo={getEditRoute(record.id)}
-            pageTo={getPageRoute(record.id)}
+            editTo={`${record.id}/edit`}
+            pageTo={record.id}
           />
         ),
       },

@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Lesson } from "@/shared/types";
-
 import { axiosClient } from "../client";
 import { queryKeys } from "../keys";
-import { LESSONS_API_URL } from "./constants";
+import { LessonResponse } from "../types";
 
 const getOne = async (id: string) => {
-  return (await axiosClient.get<Lesson>(`${LESSONS_API_URL}/${id}`)).data;
+  return (await axiosClient.get<LessonResponse>(`/admin/lessons/${id}`)).data;
 };
 
 export const useGetOneQuery = (id: string) => {

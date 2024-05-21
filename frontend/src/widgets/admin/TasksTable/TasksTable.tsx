@@ -10,5 +10,5 @@ export const TasksTable = () => {
     return <Spin />;
   }
 
-  return <TasksTableLayout data={data?.tasks} />;
+  return <TasksTableLayout data={data?.tasks} onDelete={() => {}} pagesCount={1} />;
 };

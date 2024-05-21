@@ -13,9 +13,4 @@ export const initConfig: RawEditorOptions &
     " | emoticons charmap | removeformat | forecolor backcolor | hr",
   language: "ru",
   file_picker_types: "image",
-  images_upload_handler: async (blobInfo) => {
-    const data = new FormData();
-    data.append("file", blobInfo.blob(), blobInfo.filename());
-    return "https://images.unsplash.com";
-  },
 };

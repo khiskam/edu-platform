@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Form } from "antd";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { FormProps } from "@/features/types";
@@ -8,13 +9,19 @@ import { Fields } from "@/shared/ui";
 import { lessonSchema } from "@/shared/validation";
 
 export const LessonForm = ({ defaultValues, onSubmit }: FormProps<LessonData>) => {
-  const { control, handleSubmit, setError } = useForm<LessonData>({
+  const { control, handleSubmit, setError, reset } = useForm<LessonData>({
     mode: "onChange",
     resolver: yupResolver(lessonSchema),
     defaultValues,
   });
+  const [resetValue, setResetValue] = useState<string>();
 
-  const onFinish = handleSubmit(onSubmit(setError));
+  const onFinish = handleSubmit(
+    onSubmit(setError, (data) => {
+      reset(data);
+      setResetValue(data?.layout);
+    })
+  );
 
   return (
     <Form layout="vertical" onFinish={onFinish}>
@@ -36,6 +43,8 @@ export const LessonForm = ({ defaultValues, onSubmit }: FormProps<LessonData>) =
         control={{ control, name: "layout" }}
         label="Разметка"
         initValue={defaultValues?.layout}
+        resetValue={resetValue}
+        onReset={() => setResetValue(undefined)}
       />
 
       <Button type="primary" htmlType="submit">

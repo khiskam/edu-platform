@@ -1,17 +1,34 @@
 import { Spin } from "antd";
+import { Navigate, useParams } from "react-router-dom";
 
 import { CategoryForm } from "@/features";
 import { CategoryApi } from "@/shared/api";
+import { ROUTES } from "@/shared/routes";
+import { Id } from "@/shared/types";
 
-import { useFormSubmit } from "./utils";
+import { useFormSubmit } from "./hooks";
 
 export const UpdateCategoryForm = () => {
-  const { isLoading, onSubmit } = useFormSubmit("1");
-  const { data, isLoading: isDataLoading } = CategoryApi.useGetOneQuery("1");
+  const { categoryId } = useParams();
 
-  if (isDataLoading || isLoading) {
+  if (!categoryId) {
+    return <Navigate to={`${ROUTES.admin.path}${ROUTES.categories.path}`} />;
+  }
+
+  return <UpdateCategoryFormById id={categoryId} />;
+};
+
+export const UpdateCategoryFormById = ({ id }: Id) => {
+  const { isLoading, onSubmit } = useFormSubmit(id);
+  const { data, isLoading: isDataLoading, isRefetching } = CategoryApi.useGetOneQuery(id);
+
+  if (isDataLoading) {
     return <Spin />;
   }
 
-  return <CategoryForm onSubmit={onSubmit} defaultValues={data?.category} />;
+  return (
+    <Spin spinning={isRefetching || isLoading}>
+      <CategoryForm onSubmit={onSubmit} defaultValues={data?.category} />
+    </Spin>
+  );
 };

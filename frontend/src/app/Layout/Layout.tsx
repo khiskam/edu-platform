@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import { ROUTES } from "@/shared/routes";
 import { Container } from "@/shared/ui";
-import { Footer, Header } from "@/widgets";
+import { Footer, Header, MessageProvider } from "@/widgets";
 
 import { Breadcrumb } from "../Breadcrumb";
 import { ContentContainer, LayoutContainer, OutletContainer } from "./styled";
@@ -15,6 +15,7 @@ export const Layout = () => {
 
   return (
     <LayoutContainer>
+      <MessageProvider />
       <Header />
       <ContentContainer>
         {needBreadcrumb ? (

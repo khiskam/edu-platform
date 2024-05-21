@@ -4,12 +4,20 @@ import { useState } from "react";
 import { Lesson } from "@/shared/types";
 import { DeleteModal } from "@/shared/ui";
 
+import { usePageParam } from "../hooks";
 import { TableProps } from "../types";
+import { getCurrentPage } from "../utils";
 import { useColumns } from "./hooks";
 
-export const LessonsTable = ({ data }: TableProps<Lesson>) => {
+export const LessonsTable = ({ data, onDelete, pagesCount }: TableProps<Lesson>) => {
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);
   const columns = useColumns({ onDelete: (id) => setDeleteId(id) });
+  const { searchParams, onChange } = usePageParam<Lesson>(data);
+
+  const onOk = () => {
+    setDeleteId(undefined);
+    onDelete(deleteId);
+  };
 
   return (
     <>
@@ -20,7 +28,12 @@ export const LessonsTable = ({ data }: TableProps<Lesson>) => {
           rowKey="id"
           scroll={{ x: true }}
           bordered
-          pagination={{ hideOnSinglePage: true }}
+          pagination={{
+            hideOnSinglePage: true,
+            total: pagesCount,
+            defaultCurrent: getCurrentPage(searchParams.get("page")),
+            onChange: onChange,
+          }}
         />
       </ConfigProvider>
 
@@ -28,7 +41,7 @@ export const LessonsTable = ({ data }: TableProps<Lesson>) => {
         open={!!deleteId}
         title="Удаление занятия"
         body="Вы уверены, что хотите удалить занятие?"
-        onOk={() => setDeleteId(undefined)}
+        onOk={onOk}
         onCancel={() => setDeleteId(undefined)}
       />
     </>

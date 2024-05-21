@@ -8,13 +8,13 @@ import { Fields } from "@/shared/ui";
 import { categorySchema } from "@/shared/validation";
 
 export const CategoryForm = ({ defaultValues, onSubmit }: FormProps<CategoryData>) => {
-  const { control, handleSubmit, setError } = useForm<CategoryData>({
+  const { control, handleSubmit, setError, reset } = useForm<CategoryData>({
     mode: "onChange",
     resolver: yupResolver(categorySchema),
     defaultValues,
   });
 
-  const onFinish = handleSubmit(onSubmit(setError));
+  const onFinish = handleSubmit(onSubmit(setError, reset));
 
   return (
     <Form layout="vertical" onFinish={onFinish}>

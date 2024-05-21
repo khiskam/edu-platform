@@ -4,11 +4,20 @@ import { useState } from "react";
 import { Category } from "@/shared/types";
 import { DeleteModal } from "@/shared/ui";
 
+import { usePageParam } from "../hooks";
 import { TableProps } from "../types";
+import { getCurrentPage } from "../utils";
 import { useColumns } from "./hooks";
 
-export const CategoriesTable = ({ data }: TableProps<Category>) => {
+export const CategoriesTable = ({ data, onDelete, pagesCount }: TableProps<Category>) => {
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);
+  const { searchParams, onChange } = usePageParam<Category>(data);
+
+  const onOk = () => {
+    setDeleteId(undefined);
+    onDelete(deleteId);
+  };
+
   const columns = useColumns({ onDelete: (id) => setDeleteId(id) });
 
   return (
@@ -20,7 +29,12 @@ export const CategoriesTable = ({ data }: TableProps<Category>) => {
           rowKey="id"
           scroll={{ x: true }}
           bordered
-          pagination={{ hideOnSinglePage: true }}
+          pagination={{
+            hideOnSinglePage: true,
+            total: pagesCount,
+            defaultCurrent: getCurrentPage(searchParams.get("page")),
+            onChange: onChange,
+          }}
         />
       </ConfigProvider>
 
@@ -28,7 +42,7 @@ export const CategoriesTable = ({ data }: TableProps<Category>) => {
         open={!!deleteId}
         title="Удаление категории"
         body="Вы уверены, что хотите удалить категорию?"
-        onOk={() => setDeleteId(undefined)}
+        onOk={onOk}
         onCancel={() => setDeleteId(undefined)}
       />
     </>

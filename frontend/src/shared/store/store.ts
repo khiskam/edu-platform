@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
-import { User } from "./types";
+import { Message, User } from "./types";
 
 export const useUserStore = create<User>(() => ({}));
+
+export const useMessageStore = create<Message>(() => ({}));

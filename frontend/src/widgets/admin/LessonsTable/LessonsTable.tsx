@@ -1,14 +1,45 @@
 import { Spin } from "antd";
+import { Navigate, useParams, useSearchParams } from "react-router-dom";
 
 import { LessonsTable as LessonsTableLayout } from "@/features";
-import { LessonApi } from "@/shared/api";
+import { CategoryApi, LessonApi } from "@/shared/api";
+import { ROUTES } from "@/shared/routes";
+import { Id } from "@/shared/types";
 
 export const LessonsTable = () => {
-  const { isLoading, data } = LessonApi.useGetAllQuery();
+  const { categoryId } = useParams();
+
+  if (!categoryId) {
+    return <Navigate to={`${ROUTES.admin.path}${ROUTES.categories.path}`} />;
+  }
+
+  return <LessonTableByCategoryId id={categoryId} />;
+};
+
+export const LessonTableByCategoryId = ({ id }: Id) => {
+  const [searchParams] = useSearchParams();
+
+  const { isLoading, data } = CategoryApi.useGetAllLessonsQuery(
+    id,
+    searchParams.get("page") ?? "1"
+  );
+  const { mutateAsync, isPending } = LessonApi.useDeleteMutation();
+
+  const onDelete = (id: string | undefined) => {
+    if (id) mutateAsync(id);
+  };
 
   if (isLoading) {
     return <Spin />;
   }
 
-  return <LessonsTableLayout data={data} />;
+  return (
+    <Spin spinning={isPending}>
+      <LessonsTableLayout
+        data={data?.lessons}
+        onDelete={onDelete}
+        pagesCount={data?.totalCount ?? 1}
+      />
+    </Spin>
+  );
 };

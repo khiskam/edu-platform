@@ -1,13 +1,12 @@
+import { ROUTES } from "@/shared/routes";
 import { Container, PageLayout, TitleWithButton } from "@/shared/ui";
 import { LessonsTable } from "@/widgets";
-
-import { CREATE_LESSON_ROUTE } from "./constants";
 
 export const Lessons = () => {
   return (
     <Container>
       <PageLayout>
-        <TitleWithButton title="Задания" to={CREATE_LESSON_ROUTE} />
+        <TitleWithButton title="Задания" to={ROUTES.create.name} />
 
         <LessonsTable />
       </PageLayout>

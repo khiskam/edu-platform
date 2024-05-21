@@ -12,6 +12,9 @@ export const useFormSubmit = () => {
   const serverMutation = server.useSignInMutation();
 
   const onSubmit = (setError: UseFormSetError<SignInData>) => async (data: SignInData) => {
+    data.email = data.email.trim();
+    data.password = data.password.trim();
+
     let userCred: User | undefined = undefined;
 
     try {

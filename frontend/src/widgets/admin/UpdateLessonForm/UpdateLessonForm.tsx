@@ -1,17 +1,34 @@
 import { Spin } from "antd";
+import { Navigate, useParams } from "react-router-dom";
 
 import { LessonForm } from "@/features";
 import { LessonApi } from "@/shared/api";
+import { ROUTES } from "@/shared/routes";
+import { Id } from "@/shared/types";
 
-import { useFormSubmit } from "./utils";
+import { useFormSubmit } from "./hooks";
 
 export const UpdateLessonForm = () => {
-  const { isLoading, onSubmit } = useFormSubmit("1");
-  const { data, isLoading: isDataLoading } = LessonApi.useGetOneQuery("1");
+  const { lessonId } = useParams();
 
-  if (isDataLoading || isLoading) {
+  if (!lessonId) {
+    return <Navigate to={`${ROUTES.admin.path}${ROUTES.categories.path}`} />;
+  }
+
+  return <UpdateLessonFormById id={lessonId} />;
+};
+
+export const UpdateLessonFormById = ({ id }: Id) => {
+  const { isLoading, onSubmit } = useFormSubmit(id);
+  const { data, isLoading: isDataLoading, isRefetching } = LessonApi.useGetOneQuery(id);
+
+  if (isDataLoading) {
     return <Spin />;
   }
 
-  return <LessonForm onSubmit={onSubmit} defaultValues={data} />;
+  return (
+    <Spin spinning={isRefetching || isLoading}>
+      <LessonForm onSubmit={onSubmit} defaultValues={data?.lesson} />
+    </Spin>
+  );
 };

@@ -1,14 +1,13 @@
-import { Spin } from "antd";
+// import { Spin } from "antd";
 
-import { CategoriesList as CategoriesListLayout } from "@/features";
-import { CategoryApi } from "@/shared/api";
+// import { CategoriesList as CategoriesListLayout } from "@/features";
+// import { CategoryApi } from "@/shared/api";
 
 export const CategoriesList = () => {
-  const { isLoading, data } = CategoryApi.useGetAllQuery(1, 10);
-
-  if (isLoading) {
-    return <Spin />;
-  }
-
-  return <CategoriesListLayout data={data?.categories} />;
+  // const { isLoading, data } = CategoryApi.useGetAllQuery();
+  // if (isLoading) {
+  //   return <Spin />;
+  // }
+  // return <CategoriesListLayout data={data?.categories} />;
+  return <></>;
 };
