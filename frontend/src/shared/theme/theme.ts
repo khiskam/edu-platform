@@ -36,6 +36,7 @@ export const config: ThemeConfig = {
     },
     Card: {
       colorBorderSecondary: theme.getDesignToken().colorBorder,
+      headerBg: "#f7fafc",
     },
     Checkbox: {
       borderRadiusSM: 4,

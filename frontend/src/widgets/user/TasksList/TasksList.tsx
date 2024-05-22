@@ -1,14 +1,23 @@
 import { Spin } from "antd";
+import { useSearchParams } from "react-router-dom";
 
-import { TasksList as TasksListLayout } from "@/features";
-import { TaskApi } from "@/shared/api";
+import { User } from "@/features";
+import { LessonApi } from "@/shared/api";
+import { Id } from "@/shared/types";
 
-export const TasksList = () => {
-  const { isLoading, data } = TaskApi.useGetAllQuery();
+const { TasksList: TasksListLayout } = User;
 
-  if (isLoading) {
-    return <Spin />;
-  }
+export const TasksList = ({ id }: Id) => {
+  const [searchParams] = useSearchParams();
 
-  return <TasksListLayout data={data?.tasks} />;
+  const { isLoading, data } = LessonApi.useGetAllTasksWithProgressQuery(
+    id,
+    searchParams.get("page") ?? "1"
+  );
+
+  return (
+    <Spin spinning={isLoading}>
+      <TasksListLayout data={data?.tasks} totalCount={data?.totalCount} />
+    </Spin>
+  );
 };

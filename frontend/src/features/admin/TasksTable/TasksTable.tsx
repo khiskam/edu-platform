@@ -1,14 +1,22 @@
 import { ConfigProvider, Table } from "antd";
 import { useState } from "react";
 
+import { getCurrentPage, usePageParam } from "@/shared/hooks";
 import { Task } from "@/shared/types";
 import { DeleteModal } from "@/shared/ui";
 
 import { TableProps } from "../types";
 import { useColumns } from "./hooks";
 
-export const TasksTable = ({ data }: TableProps<Task>) => {
+export const TasksTable = ({ data, onDelete, pagesCount }: TableProps<Task>) => {
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);
+  const { searchParams, onChange } = usePageParam<Task>(data);
+
+  const onOk = () => {
+    setDeleteId(undefined);
+    onDelete(deleteId);
+  };
+
   const columns = useColumns({ onDelete: (id) => setDeleteId(id) });
 
   return (
@@ -20,7 +28,12 @@ export const TasksTable = ({ data }: TableProps<Task>) => {
           rowKey="id"
           scroll={{ x: true }}
           bordered
-          pagination={{ hideOnSinglePage: true }}
+          pagination={{
+            hideOnSinglePage: true,
+            total: pagesCount,
+            defaultCurrent: getCurrentPage(searchParams),
+            onChange: onChange,
+          }}
         />
       </ConfigProvider>
 
@@ -28,7 +41,7 @@ export const TasksTable = ({ data }: TableProps<Task>) => {
         open={!!deleteId}
         title="Удаление задания"
         body="Вы уверены, что хотите удалить задание?"
-        onOk={() => setDeleteId(undefined)}
+        onOk={onOk}
         onCancel={() => setDeleteId(undefined)}
       />
     </>

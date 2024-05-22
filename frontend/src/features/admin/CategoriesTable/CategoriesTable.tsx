@@ -1,12 +1,11 @@
 import { ConfigProvider, Table } from "antd";
 import { useState } from "react";
 
+import { getCurrentPage, usePageParam } from "@/shared/hooks";
 import { Category } from "@/shared/types";
 import { DeleteModal } from "@/shared/ui";
 
-import { usePageParam } from "../hooks";
 import { TableProps } from "../types";
-import { getCurrentPage } from "../utils";
 import { useColumns } from "./hooks";
 
 export const CategoriesTable = ({ data, onDelete, pagesCount }: TableProps<Category>) => {
@@ -32,7 +31,7 @@ export const CategoriesTable = ({ data, onDelete, pagesCount }: TableProps<Categ
           pagination={{
             hideOnSinglePage: true,
             total: pagesCount,
-            defaultCurrent: getCurrentPage(searchParams.get("page")),
+            defaultCurrent: getCurrentPage(searchParams),
             onChange: onChange,
           }}
         />

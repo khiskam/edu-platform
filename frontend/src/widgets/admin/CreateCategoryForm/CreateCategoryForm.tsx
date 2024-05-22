@@ -1,8 +1,10 @@
 import { Spin } from "antd";
 
-import { CategoryForm } from "@/features";
+import { Admin } from "@/features";
 
 import { useFormSubmit } from "./hooks";
+
+const { CategoryForm } = Admin;
 
 export const CreateCategoryForm = () => {
   const { isLoading, onSubmit } = useFormSubmit();

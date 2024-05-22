@@ -1,7 +1,9 @@
 import { Typography } from "antd";
 
 import { Container, PageLayout } from "@/shared/ui";
-import { CreateLessonForm } from "@/widgets";
+import { Admin } from "@/widgets";
+
+const { CreateLessonForm } = Admin;
 
 export const CreateLesson = () => {
   return (

@@ -8,3 +8,7 @@ export type FormProps<T extends FieldValues = FieldValues> = {
 
   defaultValues?: Partial<T>;
 };
+
+export type Data<T> = {
+  data: T;
+};

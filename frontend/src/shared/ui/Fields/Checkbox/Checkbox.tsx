@@ -12,7 +12,7 @@ export const Checkbox = <T extends FieldValues>(props: CheckboxFieldProps<T>) =>
   };
 
   return (
-    <AntdCheckbox className={classname} onChange={handleChange}>
+    <AntdCheckbox className={classname} onChange={handleChange} checked={field.value}>
       {label}
     </AntdCheckbox>
   );

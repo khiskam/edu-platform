@@ -1,28 +1,73 @@
-import { Space, Typography } from "antd";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, Flex, Form, Tag, Typography } from "antd";
 import { useForm } from "react-hook-form";
 
-import { Task as TaskType } from "@/shared/types";
-import { TaskSelectData } from "@/shared/types/task";
+import { GAP } from "@/shared/theme";
+import { AnswerData } from "@/shared/types";
 import { Fields } from "@/shared/ui";
+import { answersSchema } from "@/shared/validation";
 
-import { DataType } from "../types";
-import { Variant } from "./styled";
+import { TaskProps } from "./types";
 
-export const Task = ({ data }: DataType<TaskType>) => {
-  const { control } = useForm<TaskSelectData>();
+export const Task = ({ data, onSubmit }: TaskProps) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<AnswerData>({
+    mode: "onChange",
+    resolver: yupResolver(answersSchema),
+    defaultValues: {
+      answers: data.answers.map((item) => ({ isCorrect: false, value: item })),
+    },
+  });
+
+  const onFinish = handleSubmit(onSubmit(data.id, reset));
 
   return (
-    <Space direction="vertical" size="large">
-      <Typography.Title level={3}>{data.title}</Typography.Title>
+    <Flex vertical gap={GAP[24]}>
+      <Flex vertical gap={GAP[4]} align="start">
+        <Typography.Text type="secondary">Название</Typography.Text>
+        <Typography.Text>{data.title}</Typography.Text>
+      </Flex>
 
-      <Typography.Text>{data.description}</Typography.Text>
+      <Flex vertical gap={GAP[4]} align="start">
+        <Typography.Text type="secondary">Описание</Typography.Text>
+        <Typography.Text>{data.description}</Typography.Text>
+      </Flex>
 
-      {data.answers.map((item) => (
-        <Fields.Checkbox
-          control={{ control, name: "answers" }}
-          label={<Variant>{item.value}</Variant>}
-        />
-      ))}
-    </Space>
+      <Flex vertical gap={GAP[4]} align="start">
+        {data.isCompleted ? (
+          <>
+            <Typography.Text type="secondary">Выполнение</Typography.Text>
+            <Tag color="blue">Выполнено</Tag>
+          </>
+        ) : (
+          <>
+            <Typography.Text type="secondary">Варианты ответов</Typography.Text>
+            <Form layout="vertical" onFinish={onFinish}>
+              <Form.Item
+                validateStatus={errors.answers ? "error" : "validating"}
+                help={errors.answers?.root?.message}
+              >
+                <Flex vertical>
+                  {data.answers.map((item, idx) => (
+                    <Fields.Checkbox
+                      key={idx}
+                      control={{ control, name: `answers.${idx}.isCorrect` }}
+                      label={item}
+                    />
+                  ))}
+                </Flex>
+              </Form.Item>
+              <Button type="primary" htmlType="submit">
+                Ответить
+              </Button>
+            </Form>
+          </>
+        )}
+      </Flex>
+    </Flex>
   );
 };

@@ -1,9 +1,7 @@
 import { UseFormSetError } from "react-hook-form";
 
-import { CategoryApi } from "@/shared/api";
+import { CategoryApi, getApiError } from "@/shared/api";
 import { CategoryData } from "@/shared/types";
-
-import { getCategoryError } from "../utils";
 
 export const useFormSubmit = (id: string) => {
   const { mutateAsync, isSuccess, isPending } = CategoryApi.useUpdateMutation();
@@ -16,7 +14,7 @@ export const useFormSubmit = (id: string) => {
 
         reset?.(category.data.category);
       } catch (e) {
-        const errors = getCategoryError<CategoryData>(e);
+        const errors = getApiError<CategoryData>(e);
 
         if (errors) {
           errors.forEach((item) => {

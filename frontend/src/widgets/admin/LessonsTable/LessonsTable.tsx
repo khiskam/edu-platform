@@ -1,10 +1,12 @@
 import { Spin } from "antd";
 import { Navigate, useParams, useSearchParams } from "react-router-dom";
 
-import { LessonsTable as LessonsTableLayout } from "@/features";
+import { Admin } from "@/features";
 import { CategoryApi, LessonApi } from "@/shared/api";
 import { ROUTES } from "@/shared/routes";
 import { Id } from "@/shared/types";
+
+const { LessonsTable: LessonsTableLayout } = Admin;
 
 export const LessonsTable = () => {
   const { categoryId } = useParams();

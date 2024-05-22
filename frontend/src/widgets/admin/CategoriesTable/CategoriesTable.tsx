@@ -1,8 +1,10 @@
 import { Spin } from "antd";
 import { useSearchParams } from "react-router-dom";
 
-import { CategoriesTable as CategoriesTableLayout } from "@/features";
+import { Admin } from "@/features";
 import { CategoryApi } from "@/shared/api";
+
+const { CategoriesTable: CategoriesTableLayout } = Admin;
 
 export const CategoriesTable = () => {
   const [searchParams] = useSearchParams();

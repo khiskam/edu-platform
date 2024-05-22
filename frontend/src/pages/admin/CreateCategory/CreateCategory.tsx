@@ -1,7 +1,9 @@
 import { Typography } from "antd";
 
 import { Container, PageLayout } from "@/shared/ui";
-import { CreateCategoryForm } from "@/widgets";
+import { Admin } from "@/widgets";
+
+const { CreateCategoryForm } = Admin;
 
 export const CreateCategory = () => {
   return (

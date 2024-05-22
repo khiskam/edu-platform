@@ -1,9 +1,7 @@
 import { UseFormSetError } from "react-hook-form";
 
-import { LessonApi } from "@/shared/api";
+import { getApiError, LessonApi } from "@/shared/api";
 import { LessonData } from "@/shared/types";
-
-import { getCategoryError } from "../utils";
 
 export const useFormSubmit = (id: string) => {
   const { mutateAsync, isSuccess, isPending } = LessonApi.useUpdateMutation();
@@ -16,7 +14,7 @@ export const useFormSubmit = (id: string) => {
 
         reset?.(response.data.lesson);
       } catch (e) {
-        const errors = getCategoryError<LessonData>(e);
+        const errors = getApiError<LessonData>(e);
         if (errors) {
           errors.forEach((item) => {
             setError(item.field, { message: item.message });

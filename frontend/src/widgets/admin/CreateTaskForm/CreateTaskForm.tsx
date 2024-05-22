@@ -1,23 +1,32 @@
 import { Spin } from "antd";
+import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 
-import { TaskForm } from "@/features";
+import { Admin } from "@/features";
 
-import { useFormSubmit } from "./utils";
+import { useFormSubmit } from "./hooks";
+
+const { TaskForm } = Admin;
 
 export const CreateTaskForm = () => {
-  const { isLoading, onSubmit } = useFormSubmit();
+  const { lessonId } = useParams();
+
+  const dafaultValues = useMemo(
+    () => ({
+      lessonId,
+      answers: [
+        { isCorrect: false, value: "" },
+        { isCorrect: false, value: "" },
+      ],
+    }),
+    [lessonId]
+  );
+
+  const { isLoading, onSubmit } = useFormSubmit(dafaultValues);
 
   return (
     <Spin spinning={isLoading}>
-      <TaskForm
-        onSubmit={onSubmit}
-        defaultValues={{
-          answers: [
-            { isCorrect: false, value: "" },
-            { isCorrect: false, value: "" },
-          ],
-        }}
-      />
+      <TaskForm onSubmit={onSubmit} defaultValues={dafaultValues} />
     </Spin>
   );
 };

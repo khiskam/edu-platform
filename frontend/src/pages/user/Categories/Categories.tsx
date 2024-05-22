@@ -1,7 +1,9 @@
 import { Typography } from "antd";
 
 import { Container, PageLayout } from "@/shared/ui";
-import { CategoriesList } from "@/widgets";
+import { User } from "@/widgets";
+
+const { CategoriesList } = User;
 
 export const Categories = () => {
   return (

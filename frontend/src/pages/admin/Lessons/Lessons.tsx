@@ -1,6 +1,8 @@
 import { ROUTES } from "@/shared/routes";
 import { Container, PageLayout, TitleWithButton } from "@/shared/ui";
-import { LessonsTable } from "@/widgets";
+import { Admin } from "@/widgets";
+
+const { LessonsTable } = Admin;
 
 export const Lessons = () => {
   return (

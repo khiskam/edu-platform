@@ -1,24 +1,36 @@
-import { ConfigProvider, List, Typography } from "antd";
+import { Card, Empty, Flex, Pagination, Tag } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { Task } from "@/shared/types";
+import { TaskWithProgress } from "@/shared/api";
+import { usePageParam } from "@/shared/hooks";
+import { GAP } from "@/shared/theme";
 
 import { ListProps } from "../types";
-import { toTaskPage } from "./utils";
 
-export const TasksList = ({ data }: ListProps<Task>) => {
+export const TasksList = ({ data, totalCount }: ListProps<TaskWithProgress>) => {
+  const { config } = usePageParam(data, totalCount);
+
+  if (data?.length === 0) {
+    return <Empty description="Здесь пока нет заданий" />;
+  }
+
   return (
-    <ConfigProvider renderEmpty={() => "Здесь пока нет заданий..."}>
-      <List
-        bordered
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item>
-            <Typography.Text>{item.title}</Typography.Text>
-            <NavLink to={toTaskPage(item.id)}>Перейти</NavLink>
-          </List.Item>
-        )}
-      />
-    </ConfigProvider>
+    <Flex vertical gap={GAP[32]}>
+      <Flex vertical gap={GAP[12]}>
+        {data?.map((item) => (
+          <Card key={item.id} title={item.title} extra={<NavLink to={item.id}>Парейти</NavLink>}>
+            {item.isCompleted ? (
+              <Tag color="blue">Выполнено</Tag>
+            ) : (
+              <Tag color="red">Необходимо выполнить</Tag>
+            )}
+          </Card>
+        ))}
+      </Flex>
+
+      <Flex justify="end">
+        <Pagination {...config} />
+      </Flex>
+    </Flex>
   );
 };

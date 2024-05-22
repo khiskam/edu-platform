@@ -1,12 +1,14 @@
 import { Spin } from "antd";
 import { Navigate, useParams } from "react-router-dom";
 
-import { LessonForm } from "@/features";
+import { Admin } from "@/features";
 import { LessonApi } from "@/shared/api";
 import { ROUTES } from "@/shared/routes";
 import { Id } from "@/shared/types";
 
 import { useFormSubmit } from "./hooks";
+
+const { LessonForm } = Admin;
 
 export const UpdateLessonForm = () => {
   const { lessonId } = useParams();

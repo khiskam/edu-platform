@@ -1,13 +1,21 @@
-// import { Spin } from "antd";
+import { Spin } from "antd";
+import { useSearchParams } from "react-router-dom";
 
-// import { CategoriesList as CategoriesListLayout } from "@/features";
-// import { CategoryApi } from "@/shared/api";
+import { User } from "@/features";
+import { CategoryApi } from "@/shared/api";
+
+const { CategoriesList: CategoriesListLayout } = User;
 
 export const CategoriesList = () => {
-  // const { isLoading, data } = CategoryApi.useGetAllQuery();
-  // if (isLoading) {
-  //   return <Spin />;
-  // }
-  // return <CategoriesListLayout data={data?.categories} />;
-  return <></>;
+  const [searchParams] = useSearchParams();
+
+  const { isLoading, data } = CategoryApi.useGetAllWithProgressQuery(
+    searchParams.get("page") ?? "1"
+  );
+
+  return (
+    <Spin spinning={isLoading}>
+      <CategoriesListLayout data={data?.categories} totalCount={data?.totalCount} />
+    </Spin>
+  );
 };

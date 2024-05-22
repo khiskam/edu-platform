@@ -15,13 +15,14 @@ export const TaskForm = ({ defaultValues, onSubmit }: FormProps<TaskData>) => {
     handleSubmit,
     setError,
     formState: { errors },
+    reset,
   } = useForm<TaskData>({
     mode: "onChange",
     resolver: yupResolver(taskSchema),
     defaultValues,
   });
 
-  const onFinish = handleSubmit(onSubmit(setError));
+  const onFinish = handleSubmit(onSubmit(setError, reset));
 
   return (
     <Form layout="vertical" onFinish={onFinish}>

@@ -1,17 +1,46 @@
-import { Space, Typography } from "antd";
+import { Button, Flex, Tag, Typography } from "antd";
+import parse from "html-react-parser";
+import { forwardRef } from "react";
+import { NavLink } from "react-router-dom";
 
-import { Lesson as LessonType } from "@/shared/types";
+import { Data } from "@/features/types";
+import { LessonWithProgress } from "@/shared/api/types";
+import { ROUTES } from "@/shared/routes";
+import { GAP } from "@/shared/theme";
+import { ProgressBar } from "@/shared/ui";
 
-import { DataType } from "../types";
-
-export const Lesson = ({ data }: DataType<LessonType>) => {
+export const Lesson = forwardRef<HTMLDivElement, Data<LessonWithProgress>>(({ data }, ref) => {
   return (
-    <Space direction="vertical" size="large">
-      <Typography.Title level={3}>{data.title}</Typography.Title>
+    <>
+      <Flex vertical ref={ref} gap={GAP[24]}>
+        <Flex vertical gap={GAP[4]} align="start">
+          <Typography.Text type="secondary">Просмотр</Typography.Text>
+          <Tag color="blue">{data.isCompleted ? "Просмотрено" : "Не просмотрено"}</Tag>
+        </Flex>
 
-      <Typography.Text>{data.description}</Typography.Text>
+        <Flex vertical gap={GAP[4]}>
+          <Typography.Text type="secondary">Прогресс</Typography.Text>
+          <ProgressBar completedCount={data.completedCount} totalCount={data.totalCount} />
+        </Flex>
 
-      <Typography.Text>{data.layout}</Typography.Text>
-    </Space>
+        <Flex vertical gap={GAP[4]}>
+          <Typography.Text type="secondary">Название</Typography.Text>
+          <Typography.Text>{data.title}</Typography.Text>
+        </Flex>
+
+        <Flex vertical gap={GAP[4]}>
+          <Typography.Text type="secondary">Описание</Typography.Text>
+          <Typography.Text>{data.description}</Typography.Text>
+        </Flex>
+
+        <Flex vertical gap={GAP[4]}>
+          <Typography.Text type="secondary">Описание</Typography.Text>
+          <div>{parse(data.layout)}</div>
+        </Flex>
+      </Flex>
+      <NavLink to={`${ROUTES.tasks.name}`}>
+        <Button>Перейти к заданиям</Button>
+      </NavLink>
+    </>
   );
-};
+});

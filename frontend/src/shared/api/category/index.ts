@@ -2,5 +2,8 @@ export { useCreateMutation } from "./create";
 export { useDeleteMutation } from "./delete";
 export { useGetAllQuery } from "./getAll";
 export { useGetAllLessonsQuery } from "./getAllLessons";
+export { useGetAllLessonsWithProgressQuery } from "./getAllLessonsWithProgress";
+export { useGetAllWithProgressQuery } from "./getAllWithProgress";
 export { useGetOneQuery } from "./getOne";
+export { useGetOneWithProgressQuery } from "./getOneWithProgress";
 export { useUpdateMutation } from "./update";

@@ -1,7 +1,9 @@
 import { Typography } from "antd";
 
 import { Container, PageLayout } from "@/shared/ui";
-import { UpdateLessonForm } from "@/widgets";
+import { Admin } from "@/widgets";
+
+const { UpdateLessonForm } = Admin;
 
 export const UpdateLesson = () => {
   return (

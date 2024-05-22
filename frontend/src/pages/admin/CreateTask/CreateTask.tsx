@@ -1,7 +1,9 @@
 import { Typography } from "antd";
 
 import { Container, PageLayout } from "@/shared/ui";
-import { CreateTaskForm } from "@/widgets";
+import { Admin } from "@/widgets";
+
+const { CreateTaskForm } = Admin;
 
 export const CreateTask = () => {
   return (

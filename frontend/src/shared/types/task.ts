@@ -1,9 +1,9 @@
 import { InferType } from "yup";
 
-import { taskSchema, taskSelectSchema } from "../validation";
+import { answersSchema, taskSchema } from "../validation";
 import { Id } from "./id";
 
 export type TaskData = InferType<typeof taskSchema>;
-export type TaskSelectData = InferType<typeof taskSelectSchema>;
+export type AnswerData = InferType<typeof answersSchema>;
 
 export type Task = Id & TaskData;

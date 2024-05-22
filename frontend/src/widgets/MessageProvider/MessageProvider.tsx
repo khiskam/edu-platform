@@ -13,7 +13,7 @@ export const MessageProvider = () => {
       messageApi.open({
         type,
         content: message,
-        duration: 2,
+        duration: 4,
       });
       useMessageStore.setState({ content: undefined });
     },

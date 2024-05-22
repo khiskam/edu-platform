@@ -26,6 +26,27 @@ export const taskSchema = object({
     }),
 });
 
-export const taskSelectSchema = object({
-  answers: array().required("Необходимо выбрать минимум один правильный ответ").min(1),
+export const answersSchema = object({
+  answers: array()
+    .required("Поле Ответы обязательно для заполнения")
+    .of(
+      object({
+        isCorrect: boolean().optional(),
+        value: string().required("Поле обязательно для заполнения"),
+      })
+    )
+    .required("Необходимо выбрать минимум один правильный ответ")
+    .min(1)
+    .test("correctAnswer", (value, ctx) => {
+      const result = value?.find((item) => item.isCorrect);
+
+      if (!result) {
+        return ctx.createError({
+          message: "Должен быть минимум один верный ответ",
+          path: "answers",
+        });
+      }
+
+      return true;
+    }),
 });

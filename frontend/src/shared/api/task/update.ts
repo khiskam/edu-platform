@@ -1,15 +1,30 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { useMessageStore } from "@/shared/store";
 import { Task } from "@/shared/types";
 
 import { axiosClient } from "../client";
-import { TASKS_API_URL } from "./constants";
+import { queryKeys } from "../keys";
+import { TaskWithAnswersReponse } from "../types";
 import { taskToTaskData } from "./utils";
 
-const remove = async (data: Task) => {
-  return await axiosClient.put<Task>(`${TASKS_API_URL}/${data.id}`, taskToTaskData(data));
+const update = async (data: Task) => {
+  return await axiosClient.put<TaskWithAnswersReponse>(
+    `/admin/tasks/${data.id}`,
+    taskToTaskData(data)
+  );
 };
 
 export const useUpdateMutation = () => {
-  return useMutation({ mutationFn: remove });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: update,
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.task.one, response.data.task.id] });
+      useMessageStore.setState({
+        content: { message: "Задание успешно изменено", type: "success" },
+      });
+    },
+  });
 };

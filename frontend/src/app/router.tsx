@@ -90,35 +90,43 @@ export const routesList: RouteObject[] = [
                             children: [
                               {
                                 path: ROUTES.main.name,
-                                element: <></>,
+                                element: <Admin.Lesson></Admin.Lesson>,
                               },
                               {
                                 path: ROUTES.edit.name,
                                 element: <UpdateLesson />,
+                              },
+                              {
+                                path: ROUTES.tasks.name,
+                                children: [
+                                  {
+                                    path: ROUTES.main.name,
+                                    element: <Admin.Tasks />,
+                                  },
+                                  {
+                                    path: "create",
+                                    element: <CreateTask />,
+                                  },
+                                  {
+                                    path: ":taskId",
+                                    children: [
+                                      {
+                                        path: ROUTES.main.name,
+                                        element: <Admin.Task></Admin.Task>,
+                                      },
+                                      {
+                                        path: "edit",
+                                        element: <UpdateTask />,
+                                      },
+                                    ],
+                                  },
+                                ],
                               },
                             ],
                           },
                         ],
                       },
                     ],
-                  },
-                ],
-              },
-
-              {
-                path: `${ROUTES.lessons.name}/:lessonId/tasks`,
-                children: [
-                  {
-                    path: ROUTES.main.name,
-                    element: <Admin.Tasks />,
-                  },
-                  {
-                    path: "create",
-                    element: <CreateTask />,
-                  },
-                  {
-                    path: ":taskId/edit",
-                    element: <UpdateTask />,
                   },
                 ],
               },
@@ -145,30 +153,39 @@ export const routesList: RouteObject[] = [
                     element: <User.Categories />,
                   },
                   {
-                    path: `:categoryId/${ROUTES.lessons.name}`,
+                    path: ":categoryId",
                     children: [
                       {
                         path: ROUTES.main.name,
-                        element: <User.Lessons />,
+                        element: <User.Category />,
                       },
                       {
-                        path: ":lessonId",
-                        element: <User.Lesson />,
+                        path: ROUTES.lessons.name,
+                        children: [
+                          {
+                            path: ROUTES.main.name,
+                            element: <User.Lessons />,
+                          },
+                          {
+                            path: ":lessonId",
+                            children: [
+                              {
+                                path: ROUTES.main.name,
+                                element: <User.Lesson />,
+                              },
+                              {
+                                path: ROUTES.tasks.name,
+                                element: <User.Tasks />,
+                              },
+                              {
+                                path: `${ROUTES.tasks.name}/:taskId`,
+                                element: <User.Task />,
+                              },
+                            ],
+                          },
+                        ],
                       },
                     ],
-                  },
-                ],
-              },
-              {
-                path: `${ROUTES.lessons.name}/:lessonId/tasks`,
-                children: [
-                  {
-                    path: ROUTES.main.name,
-                    element: <User.Tasks />,
-                  },
-                  {
-                    path: ":userId",
-                    element: <User.Task />,
                   },
                 ],
               },

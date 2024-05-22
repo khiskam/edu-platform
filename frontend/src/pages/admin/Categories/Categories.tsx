@@ -1,7 +1,9 @@
 import { Container, PageLayout, TitleWithButton } from "@/shared/ui";
-import { CategoriesTable } from "@/widgets";
+import { Admin } from "@/widgets";
 
 import { CREATE_CATEGORY_ROUTE } from "./contstants";
+
+const { CategoriesTable } = Admin;
 
 export const Categories = () => {
   return (

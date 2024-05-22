@@ -1,14 +1,24 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { Task } from "@/shared/types";
+import { useMessageStore } from "@/shared/store";
 
 import { axiosClient } from "../client";
-import { TASKS_API_URL } from "./constants";
+import { queryKeys } from "../keys";
 
 const remove = async (id: string) => {
-  return await axiosClient.delete<Task>(`${TASKS_API_URL}/${id}`, undefined);
+  return await axiosClient.delete<void>(`/admin/tasks/${id}`, undefined);
 };
 
 export const useDeleteMutation = () => {
-  return useMutation({ mutationFn: remove });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: remove,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [queryKeys.task.all] });
+      useMessageStore.setState({
+        content: { message: "Задание успешно удалено", type: "success" },
+      });
+    },
+  });
 };

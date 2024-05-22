@@ -1,14 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { Task, TaskData } from "@/shared/types";
+import { useMessageStore } from "@/shared/store";
+import { TaskData } from "@/shared/types";
 
 import { axiosClient } from "../client";
-import { TASKS_API_URL } from "./constants";
+import { TaskResponse } from "../types";
 
 const create = async (data: TaskData) => {
-  return await axiosClient.post<Task>(`${TASKS_API_URL}`, data);
+  return await axiosClient.post<TaskResponse>("/admin/tasks", data);
 };
 
 export const useCreateMutation = () => {
-  return useMutation({ mutationFn: create });
+  return useMutation({
+    mutationFn: create,
+    onSuccess: () => {
+      useMessageStore.setState({
+        content: { message: "Задание успешно добавлено", type: "success" },
+      });
+    },
+  });
 };

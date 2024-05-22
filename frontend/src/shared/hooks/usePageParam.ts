@@ -1,10 +1,14 @@
+import { PaginationProps } from "antd";
 import { useLayoutEffect } from "react";
 import { FieldValues } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 
-import { setCurrentPage } from "./utils";
+import { getCurrentPage, setCurrentPage } from "./utils";
 
-export const usePageParam = <T extends FieldValues>(data: T[] | undefined) => {
+export const usePageParam = <T extends FieldValues>(
+  data: T[] | undefined,
+  totalCount: number | undefined
+) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useLayoutEffect(() => {
@@ -20,5 +24,12 @@ export const usePageParam = <T extends FieldValues>(data: T[] | undefined) => {
     setSearchParams((prev) => setCurrentPage(prev, page));
   };
 
-  return { searchParams, onChange };
+  const config: PaginationProps = {
+    hideOnSinglePage: true,
+    total: totalCount,
+    defaultCurrent: getCurrentPage(searchParams),
+    onChange: onChange,
+  };
+
+  return { searchParams, config };
 };

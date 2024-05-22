@@ -7,18 +7,10 @@ import { TableButtons } from "@/shared/ui";
 
 import { useColumnsProps } from "./types";
 
-const getEditRoute = (id: string) => {
-  return `${ROUTES.admin.path}${ROUTES.tasks.path}/${id}/edit`;
-};
-
-const getPageRoute = (id: string) => {
-  return `${ROUTES.admin.path}${ROUTES.tasks.path}/${id}`;
-};
-
 export const useColumns = ({ onDelete }: useColumnsProps) => {
   const columns: TableProps["columns"] = useMemo(
     () => [
-      { title: "Наименование", dataIndex: "name" },
+      { title: "Наименование", dataIndex: "title" },
       { title: "Описание", dataIndex: "description" },
       {
         title: "Действия",
@@ -26,8 +18,8 @@ export const useColumns = ({ onDelete }: useColumnsProps) => {
         render: (_, record: Task) => (
           <TableButtons
             onDelete={() => onDelete(record.id)}
-            editTo={getEditRoute(record.id)}
-            pageTo={getPageRoute(record.id)}
+            editTo={`${record.id}/${ROUTES.edit.name}`}
+            pageTo={record.id}
           />
         ),
       },

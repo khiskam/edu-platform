@@ -1,24 +1,39 @@
-import { ConfigProvider, List, Typography } from "antd";
+import { Card, Empty, Flex, Pagination } from "antd";
 import { NavLink } from "react-router-dom";
 
-import { Category } from "@/shared/types";
+import { CategoryWithProgress } from "@/shared/api/types";
+import { usePageParam } from "@/shared/hooks";
+import { GAP } from "@/shared/theme";
+import { ProgressBar } from "@/shared/ui";
 
 import { ListProps } from "../types";
-import { toCategoryPage } from "./utils";
 
-export const CategoriesList = ({ data }: ListProps<Category>) => {
+export const CategoriesList = ({ data, totalCount }: ListProps<CategoryWithProgress>) => {
+  const { config } = usePageParam(data, totalCount);
+
+  if (data?.length === 0) {
+    return <Empty description="Здесь пока нет категорий" />;
+  }
+
   return (
-    <ConfigProvider renderEmpty={() => "Здесь пока нет категорий..."}>
-      <List
-        bordered
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item>
-            <Typography.Text>{item.name}</Typography.Text>
-            <NavLink to={toCategoryPage(item.id)}>Перейти</NavLink>
-          </List.Item>
-        )}
-      />
-    </ConfigProvider>
+    <Flex vertical gap={GAP[32]}>
+      <Flex vertical gap={GAP[12]}>
+        {data?.map((item) => (
+          <Card key={item.id} title={item.name} extra={<NavLink to={item.id}>Парейти</NavLink>}>
+            <Flex vertical gap={GAP[12]}>
+              <ProgressBar
+                fullWidth
+                completedCount={item.completedCount}
+                totalCount={item.totalCount}
+              />
+            </Flex>
+          </Card>
+        ))}
+      </Flex>
+
+      <Flex justify="end">
+        <Pagination {...config} />
+      </Flex>
+    </Flex>
   );
 };

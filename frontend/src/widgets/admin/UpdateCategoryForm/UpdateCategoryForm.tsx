@@ -1,12 +1,14 @@
 import { Spin } from "antd";
 import { Navigate, useParams } from "react-router-dom";
 
-import { CategoryForm } from "@/features";
+import { Admin } from "@/features";
 import { CategoryApi } from "@/shared/api";
 import { ROUTES } from "@/shared/routes";
 import { Id } from "@/shared/types";
 
 import { useFormSubmit } from "./hooks";
+
+const { CategoryForm } = Admin;
 
 export const UpdateCategoryForm = () => {
   const { categoryId } = useParams();

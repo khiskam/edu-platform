@@ -1,17 +1,38 @@
 import { Spin } from "antd";
+import { Navigate, useParams } from "react-router-dom";
 
-import { TaskForm } from "@/features";
-import { TaskApi } from "@/shared/api";
+import { Admin } from "@/features";
+import { getTask, TaskApi } from "@/shared/api";
+import { ROUTES } from "@/shared/routes";
+import { Id } from "@/shared/types";
 
-import { useFormSubmit } from "./utils";
+import { useFormSubmit } from "./hooks";
+
+const { TaskForm } = Admin;
 
 export const UpdateTaskForm = () => {
-  const { isLoading, onSubmit } = useFormSubmit("1");
-  const { data, isLoading: isDataLoading } = TaskApi.useGetOneQuery("1");
+  const { taskId } = useParams();
 
-  if (isLoading || isDataLoading) {
+  if (!taskId) {
+    return <Navigate to={`${ROUTES.admin.path}${ROUTES.categories.path}`} />;
+  }
+
+  return <UpdateTaskFormByTaskId id={taskId} />;
+};
+
+export const UpdateTaskFormByTaskId = ({ id }: Id) => {
+  const { isLoading, onSubmit } = useFormSubmit(id);
+  const { data, isLoading: isDataLoading, isRefetching } = TaskApi.useGetOneQuery(id);
+
+  if (isDataLoading) {
     return <Spin />;
   }
 
-  return <TaskForm onSubmit={onSubmit} defaultValues={data} />;
+  const task = getTask(data);
+
+  return (
+    <Spin spinning={isRefetching || isLoading}>
+      <TaskForm onSubmit={onSubmit} defaultValues={task} />
+    </Spin>
+  );
 };
