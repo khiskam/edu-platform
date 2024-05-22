@@ -14,10 +14,6 @@ export const Category = ({ data }: Data<CategoryType>) => {
           <Typography.Text type="secondary">Название</Typography.Text>
           <Typography.Text>{data.name}</Typography.Text>
         </Flex>
-
-        <Flex vertical gap={GAP[4]}>
-          <Typography.Text type="secondary">Прогресс</Typography.Text>
-        </Flex>
       </Flex>
       <NavLink to={`${ROUTES.lessons.name}`}>
         <Button>Перейти к занятиям</Button>

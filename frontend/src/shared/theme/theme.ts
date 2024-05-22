@@ -1,6 +1,6 @@
 import { theme, ThemeConfig } from "antd";
 
-import { HEADER_HEIGHT } from "./constants";
+import { BG_COLOR, HEADER_HEIGHT } from "./constants";
 
 export const config: ThemeConfig = {
   token: {
@@ -29,14 +29,17 @@ export const config: ThemeConfig = {
     Layout: {
       headerBg: "#ffffff",
       footerBg: "#ffffff",
-      bodyBg: "#f7fafc",
+      bodyBg: BG_COLOR,
       headerHeight: HEADER_HEIGHT,
       headerPadding: 0,
       footerPadding: 0,
     },
     Card: {
-      colorBorderSecondary: theme.getDesignToken().colorBorder,
-      headerBg: "#f7fafc",
+      colorBorderSecondary: theme.getDesignToken().colorPrimary,
+    },
+    Collapse: {
+      headerBg: "transparent",
+      colorBorder: theme.getDesignToken()["blue-4"],
     },
     Checkbox: {
       borderRadiusSM: 4,

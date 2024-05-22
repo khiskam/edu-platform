@@ -1,5 +1,7 @@
 export const HEADER_HEIGHT = 64;
 
+export const BG_COLOR = "#f7fafc";
+
 export const GAP = {
   4: 4,
   8: 8,

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { TaskApi } from "@/shared/api";
 import { AnswerData } from "@/shared/types";
 
+import correctSound from "./assets/correct.wav";
+import incorrectSound from "./assets/incorrect.mp3";
 import { toAnswers } from "./utils";
 
 export const useSubmit = () => {
@@ -22,14 +24,10 @@ export const useSubmit = () => {
     }
   };
 
-  return {
-    onSubmit,
-    isPending,
-    success,
-    failure,
-    onSuccess: () => setSuccess(false),
-    onFailure: () => setFailure(false),
-  };
+  const onSuccess = () => setSuccess(false);
+  const onFailure = () => setFailure(false);
+
+  return { onSubmit, isPending, success, failure, onSuccess, onFailure };
 };
 
 export const useTasksPage = () => {
@@ -39,4 +37,17 @@ export const useTasksPage = () => {
   routes.pop();
 
   return routes.join("/");
+};
+
+export const useSound = (success: boolean, failure: boolean, onFailure: () => void) => {
+  useLayoutEffect(() => {
+    if (success) {
+      new Audio(correctSound).play();
+    }
+
+    if (failure) {
+      new Audio(incorrectSound).play();
+      onFailure();
+    }
+  }, [success, failure, onFailure]);
 };
