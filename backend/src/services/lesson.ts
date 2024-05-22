@@ -5,12 +5,12 @@ import { CreateLesson, getImageIdsFromLayout } from "./utils";
 export class LessonService {
   constructor(private readonly _repo: ILessonRepository) {}
 
-  async getAll(limit: number, page: number) {
+  async getAllTasksByLessonId(lessonId: string, limit: number, page: number) {
     const offset = (page - 1) * limit;
-    const lessons = await this._repo.getAll(limit, offset);
-    const totalCount = await this._repo.count();
+    const tasks = await this._repo.getAllTasksByLessonId(lessonId, limit, offset);
+    const totalCount = await this._repo.tasksCountByLessonId(lessonId);
 
-    return { lessons, totalCount };
+    return { tasks, totalCount };
   }
 
   async getAllTasksByLessonIdWithProgress(

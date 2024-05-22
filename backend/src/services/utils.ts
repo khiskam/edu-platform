@@ -54,8 +54,7 @@ export const getImageIdsFromLayout = (layout: string): string[] => {
 
   const regex = new RegExp(
     ENV.BASE_URL +
-      /\/api\/images\/uploads\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi
-        .source
+      /\/api\/images\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi.source
   );
 
   const imgTags = layout.match(imgTagRegex);

@@ -29,6 +29,14 @@ export class CategoryService {
     return { categories, totalCount };
   }
 
+  async getAllLessonsByCategoryId(categoryId: string, limit: number, page: number) {
+    const offset = (page - 1) * limit;
+    const lessons = await this._repo.getAllLessonsByCategoryId(categoryId, limit, offset);
+    const totalCount = await this._repo.lessonsCountByCategoryId(categoryId);
+
+    return { lessons, totalCount };
+  }
+
   async getAllLessonsByCategoryIdWithProgress(
     categoryId: string,
     userId: string,
@@ -36,7 +44,7 @@ export class CategoryService {
     page: number
   ) {
     const offset = (page - 1) * limit;
-    const categories = await this._repo.getAllLessonsByCategoryIdWithProgress(
+    const lessons = await this._repo.getAllLessonsByCategoryIdWithProgress(
       categoryId,
       userId,
       limit,
@@ -44,7 +52,7 @@ export class CategoryService {
     );
     const totalCount = await this._repo.lessonsCountByCategoryId(categoryId);
 
-    return { categories, totalCount };
+    return { lessons, totalCount };
   }
 
   async getOne(id: string) {

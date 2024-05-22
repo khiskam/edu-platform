@@ -37,6 +37,8 @@ export class TaskRepository implements ITaskRepository {
       id: task.id,
       title: task.title,
       isCompleted: !!task.completedTask.length,
+      answers: task.answers,
+      description: task.description,
     };
   }
 

@@ -30,6 +30,8 @@ const upload = multer({
 const whitelist = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/svg+xml"];
 
 function checkFileType(file: Express.Multer.File, cb: multer.FileFilterCallback) {
+  file.originalname = Buffer.from(file.originalname, "latin1").toString("utf8");
+
   for (let i = 0; i < whitelist.length; ++i) {
     if (whitelist[i] === file.mimetype) {
       if (file.size > 1024 * 1024 * 3) {
@@ -83,7 +85,10 @@ export class ImageHandler implements Handler, AdminHandler {
 
       res.set("Content-Type", image.contentType);
       res.set("Content-Length", `${image.size}`);
-      res.set("Content-Disposition", image.fileName);
+      res.set(
+        "Content-Disposition",
+        `inline; filename*=UTF-8''${encodeURIComponent(image.fileName)}`
+      );
 
       return res.sendFile(cwd() + `/${image.path}`);
     } catch (e) {

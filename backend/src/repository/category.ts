@@ -8,6 +8,7 @@ import {
 } from "@repository/interfaces";
 import { PRISMA_CODES } from "./constants";
 import { DatabaseError } from "./DatabaseError";
+import { Lesson } from "@domain/lesson";
 
 export class CategoryRepository implements ICategoryRepository {
   constructor(private readonly _client: PrismaClient) {}
@@ -65,6 +66,18 @@ export class CategoryRepository implements ICategoryRepository {
     });
   }
 
+  async getAllLessonsByCategoryId(
+    categoryId: string,
+    limit: number,
+    offset: number
+  ): Promise<Lesson[]> {
+    return await this._client.lesson.findMany({
+      where: { categoryId },
+      skip: offset,
+      take: limit,
+    });
+  }
+
   async getAllLessonsByCategoryIdWithProgress(
     categoryId: string,
     userId: string,
@@ -86,6 +99,8 @@ export class CategoryRepository implements ICategoryRepository {
         id: lesson.id,
         title: lesson.title,
         description: lesson.description,
+        layout: lesson.layout,
+        isCompleted: !!lesson.completedLesson.length,
         completedCount:
           lesson.completedLesson.length +
           lesson.task.reduce((lessonAcc, task) => {

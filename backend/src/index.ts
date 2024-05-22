@@ -17,7 +17,9 @@ const lessonHandler = new LessonHandler();
 const taksHandler = new TaskHandler();
 const imageHandler = new ImageHandler();
 
-app.addRoutes(healthCheckHandler, userHandler);
-app.addAuthRoutes(categoryHandler, lessonHandler, taksHandler, imageHandler);
+app.addRoutes(healthCheckHandler, imageHandler);
+app.addTokenMiddleware();
+app.addRoutes(userHandler);
+app.addAuthRoutes(categoryHandler, lessonHandler, taksHandler);
 app.addAdminRoutes(categoryHandler, lessonHandler, taksHandler, imageHandler);
 app.listen();

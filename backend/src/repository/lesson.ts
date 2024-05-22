@@ -10,6 +10,7 @@ import {
 } from "@repository/interfaces";
 import { CompletedLesson, CompletedLessonKeys, Lesson, LessonKeys } from "@domain/lesson";
 import { DatabaseError } from "./DatabaseError";
+import { Task } from "@domain/task";
 
 export class LessonRepository implements ILessonRepository {
   constructor(private readonly _client: PrismaClient) {}
@@ -22,10 +23,11 @@ export class LessonRepository implements ILessonRepository {
     return await this._client.task.count({ where: { lessonId } });
   }
 
-  async getAll(limit: number, offset: number): Promise<Lesson[]> {
-    return await this._client.lesson.findMany({
-      skip: offset,
+  async getAllTasksByLessonId(lessonId: string, limit: number, offset: number): Promise<Task[]> {
+    return await this._client.task.findMany({
+      where: { lessonId },
       take: limit,
+      skip: offset,
     });
   }
 
@@ -43,7 +45,13 @@ export class LessonRepository implements ILessonRepository {
     });
 
     return tasks.map((item) => {
-      return { id: item.id, title: item.title, isCompleted: !!item.completedTask.length };
+      return {
+        id: item.id,
+        title: item.title,
+        isCompleted: !!item.completedTask.length,
+        answers: item.answers,
+        description: item.description,
+      };
     });
   }
 
@@ -70,6 +78,8 @@ export class LessonRepository implements ILessonRepository {
       id: lesson.id,
       title: lesson.title,
       description: lesson.description,
+      layout: lesson.layout,
+      isCompleted: !!lesson.completedLesson.length,
       completedCount:
         lesson.completedLesson.length +
         lesson.task.reduce((lessonAcc, task) => {

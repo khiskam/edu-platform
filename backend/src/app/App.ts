@@ -18,8 +18,6 @@ export class App {
     this._express.use(json());
 
     this._router = Router();
-
-    this._router.use(tokenMiddleware());
   }
 
   private initHandlers = (handlers: Handler[]) => {
@@ -37,6 +35,10 @@ export class App {
 
     this._router.use("/admin", router);
   };
+
+  public addTokenMiddleware() {
+    this._router.use(tokenMiddleware());
+  }
 
   public addRoutes(...handlers: Handler[]) {
     this.initHandlers(handlers);

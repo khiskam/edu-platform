@@ -20,7 +20,9 @@ export const parsePage = (offset: QueryString) => {
 
 export const toNumber = (num: QueryString, def: number) => {
   if (typeof num === "string" && Number.isInteger(+num)) {
-    return +num;
+    const result = +num;
+
+    return result > 0 ? result : def;
   }
 
   return def;

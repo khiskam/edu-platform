@@ -32,6 +32,7 @@ export class CategoryHandler implements Handler, AdminHandler {
 
     router.get("/", this.getAll);
     router.get("/:id", this.getOne);
+    router.get("/:id/lessons", this.getAllLessonsByCategoryId);
 
     router.post("/", validateMiddleware(categorySchema), this.create);
     router.put("/:id", validateMiddleware(categorySchema), this.update);
@@ -73,6 +74,23 @@ export class CategoryHandler implements Handler, AdminHandler {
     }
   };
 
+  private getAllLessonsByCategoryId: RequestHandler = async (req, res, next) => {
+    const { limit, page } = req.query;
+    const { id: categoryId } = req.params;
+
+    try {
+      const lessons = await this._service.getAllLessonsByCategoryId(
+        categoryId,
+        parseLimit(limit),
+        parsePage(page)
+      );
+
+      return res.status(200).json(lessons);
+    } catch (e) {
+      return next(e);
+    }
+  };
+
   private getAllLessonsByCategoryIdWithProgress: RequestHandler = async (req, res, next) => {
     const { limit, page } = req.query;
     const { id: categoryId } = req.params;
@@ -85,6 +103,8 @@ export class CategoryHandler implements Handler, AdminHandler {
         parseLimit(limit),
         parsePage(page)
       );
+
+      console.log(lessons);
 
       return res.status(200).json(lessons);
     } catch (e) {
@@ -131,7 +151,7 @@ export class CategoryHandler implements Handler, AdminHandler {
     try {
       const category = await this._service.create({ name });
 
-      return res.status(200).json({ category });
+      return res.status(201).json({ category });
     } catch (e) {
       return next(e);
     }

@@ -30,8 +30,8 @@ export class LessonHandler implements Handler, AdminHandler {
   initAdminRoutes(): Router {
     const router = Router();
 
-    router.get("/", this.getAll);
     router.get("/:id", this.getOne);
+    router.get("/:id/tasks", this.getAllTasksByLessonId);
 
     router.post("/", validateMiddleware(lessonSchema), this.create);
     router.put("/:id", validateMiddleware(lessonSchema), this.update);
@@ -44,11 +44,16 @@ export class LessonHandler implements Handler, AdminHandler {
     return this._path;
   }
 
-  private getAll: RequestHandler = async (req, res, next) => {
+  private getAllTasksByLessonId: RequestHandler = async (req, res, next) => {
     const { limit, page } = req.query;
+    const { id: lessonId } = req.params;
 
     try {
-      const lessons = await this._service.getAll(parseLimit(limit), parsePage(page));
+      const lessons = await this._service.getAllTasksByLessonId(
+        lessonId,
+        parseLimit(limit),
+        parsePage(page)
+      );
 
       return res.status(200).json(lessons);
     } catch (e) {
@@ -114,7 +119,7 @@ export class LessonHandler implements Handler, AdminHandler {
     try {
       const lesson = await this._service.create({ title, description, layout, categoryId });
 
-      return res.status(200).json({ lesson });
+      return res.status(201).json({ lesson });
     } catch (e) {
       return next(e);
     }

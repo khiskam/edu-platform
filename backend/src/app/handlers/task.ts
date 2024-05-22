@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import { Router } from "express";
 import { prisma } from "@app/config/db";
-import { parseLimit, parsePage } from "./utils";
 import { validateMiddleware } from "@app/middleware/validate";
 import { TaskService } from "@services/task";
 import { TaskRepository } from "@repository/task";
@@ -29,7 +28,6 @@ export class TaskHandler implements Handler, AdminHandler {
   initAdminRoutes(): Router {
     const router = Router();
 
-    router.get("/", this.getAll);
     router.get("/:id", this.getOne);
 
     router.post("/", validateMiddleware(taskSchema), this.create);
@@ -42,22 +40,6 @@ export class TaskHandler implements Handler, AdminHandler {
   get path() {
     return this._path;
   }
-
-  private getAll: RequestHandler = async (req, res, next) => {
-    const { limit, page } = req.query;
-
-    try {
-      const tasks = await this._service.getAll(parseLimit(limit), parsePage(page));
-
-      if (!tasks) {
-        return res.sendStatus(404);
-      }
-
-      return res.status(200).json(tasks);
-    } catch (e) {
-      return next(e);
-    }
-  };
 
   private getOne: RequestHandler = async (req, res, next) => {
     const { id } = req.params;
@@ -98,7 +80,7 @@ export class TaskHandler implements Handler, AdminHandler {
     try {
       const task = await this._service.create({ title, description, lessonId, answers });
 
-      return res.status(200).json({ task });
+      return res.status(201).json({ task });
     } catch (e) {
       return next(e);
     }
@@ -134,13 +116,13 @@ export class TaskHandler implements Handler, AdminHandler {
     const { answers } = req.body;
 
     try {
-      const lesson = await this._service.completedCreate({
+      const task = await this._service.completedCreate({
         taskId: id,
         userId: res.locals.id,
         answers,
       });
 
-      return res.status(200).json({ lesson });
+      return res.status(200).json({ task });
     } catch (e) {
       return next(e);
     }

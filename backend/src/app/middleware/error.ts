@@ -17,5 +17,6 @@ export const errorMiddleware: func = (err, req, res, next) => {
     return res.status(400).json({ errors: { [err.field]: err.message } });
   }
 
+  console.log(err);
   return res.sendStatus(500);
 };

@@ -14,6 +14,7 @@ export type CategoryProgress = Pick<Category, "id" | "name"> & {
 export interface ICategoryRepository {
   getAll(limit: number, offset: number): Promise<Category[]>;
   getAllWithProgress(userId: string, pageSize: number, page: number): Promise<CategoryProgress[]>;
+  getAllLessonsByCategoryId(categoryId: string, limit: number, offset: number): Promise<Lesson[]>;
   getAllLessonsByCategoryIdWithProgress(
     categoryId: string,
     userId: string,
@@ -44,15 +45,18 @@ export interface IUserRepository {
 export type CreateLessonDTO = Omit<Lesson, "id"> & { images: string[] };
 export type UpdateLessonDTO = Lesson & { images: string[] };
 
-export type LessonProgress = Pick<Lesson, "id" | "title" | "description"> & {
+export type LessonProgress = Pick<Lesson, "id" | "title" | "description" | "layout"> & {
   completedCount: number;
   totalCount: number;
+  isCompleted: boolean;
 };
 
-export type TaskWithProgress = Pick<Task, "id" | "title"> & { isCompleted: boolean };
+export type TaskWithProgress = Pick<Task, "id" | "title" | "answers" | "description"> & {
+  isCompleted: boolean;
+};
 
 export interface ILessonRepository {
-  getAll(limit: number, offset: number): Promise<Lesson[]>;
+  getAllTasksByLessonId(lessonId: string, limit: number, offset: number): Promise<Task[]>;
   getAllTasksByLessonIdWithProgress(
     lessonId: string,
     userId: string,
@@ -78,8 +82,6 @@ export interface ILessonRepository {
 export type CreateTaskDTO = Omit<Task, "id">;
 
 export interface ITaskRepository {
-  getAll(limit: number, offset: number): Promise<Task[]>;
-
   getOne(id: string): Promise<Task | null>;
   getOneWithProgress(taskId: string, userId: string): Promise<TaskWithProgress | null>;
 

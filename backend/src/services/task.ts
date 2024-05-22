@@ -6,13 +6,6 @@ import { CreateTask, UpdateTask, checkAnswers, createTaskDTO, updateTaskDTO } fr
 export class TaskService {
   constructor(private readonly _repo: ITaskRepository) {}
 
-  async getAll(limit: number, page: number) {
-    const offset = (page - 1) * limit;
-    const tasks = await this._repo.getAll(limit, offset);
-    const totalCount = await this._repo.count();
-    return { tasks, totalCount };
-  }
-
   async getOne(id: string) {
     return await this._repo.getOne(id);
   }
@@ -52,10 +45,10 @@ export class TaskService {
       throw new ClientError<TaskKeys>("Задания не существует", "id");
     }
 
-    if (checkAnswers(data.answers, task.correctAnswers)) {
+    if (!checkAnswers(data.answers, task.correctAnswers)) {
       throw new ClientError<TaskKeys>("Неверный ответ", "answers");
     }
 
-    return await this._repo.createCompleted(data);
+    return await this._repo.createCompleted({ taskId: data.taskId, userId: data.userId });
   }
 }
