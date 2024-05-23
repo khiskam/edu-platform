@@ -8,6 +8,8 @@ export const GAP = {
   12: 12,
   24: 24,
   32: 32,
+  64: 64,
+  128: 128,
 };
 
 export const PADDING = {

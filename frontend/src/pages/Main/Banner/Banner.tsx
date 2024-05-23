@@ -13,7 +13,7 @@ import { Badge, Layout } from "./styled";
 export const Banner = () => {
   const theme = useTheme();
   return (
-    <Row gutter={[GAP[32], GAP[32]]} align="middle">
+    <Row gutter={[GAP[128], GAP[32]]} align="middle">
       <Col xs={24} lg={12}>
         <Layout>
           <Badge>
