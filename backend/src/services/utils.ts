@@ -29,20 +29,24 @@ export const updateTaskDTO = (task: UpdateTask): Task => {
   return { id, title, description, lessonId, correctAnswers, answers: variants };
 };
 
-export const checkAnswers = (answers: string[], correctAnswers: string[]) => {
+export const checkAnswers = (answers: number[], correctAnswers: number[]) => {
   if (answers.length !== correctAnswers.length) {
     return false;
   }
 
-  let count = 0;
-
   for (let i = 0; i < correctAnswers.length; ++i) {
-    if (answers.includes(correctAnswers[i])) {
-      ++count;
+    if (!answers.includes(correctAnswers[i])) {
+      return false
     }
   }
 
-  return count === correctAnswers.length;
+  for (let i = 0; i < correctAnswers.length; ++i) {
+    if (!correctAnswers.includes(answers[i])) {
+      return false
+    }
+  }
+
+  return true;
 };
 
 export type CreateLesson = Omit<Lesson, "id">;
