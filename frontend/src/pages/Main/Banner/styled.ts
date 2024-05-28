@@ -1,23 +1,40 @@
+import { css } from "@emotion/css";
+import { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 import { GAP } from "@/shared/theme";
+import { COLORS } from "@/shared/theme/constants";
 
-export const Layout = styled.div`
+export const ContentLayout = styled.div`
   display: grid;
   justify-items: start;
 
   gap: ${GAP[24]}px;
 `;
 
-export const Badge = styled.div`
-  padding: 4px 8px;
+export const title = (theme: Theme) => css`
+  margin: 0 !important;
 
-  color: ${({ theme }) => theme.colorPrimary};
+  font-size: 40px !important;
+  font-weight: 700 !important;
 
-  border: 1px solid ${({ theme }) => theme.colorPrimary};
-  border-radius: ${({ theme }) => theme.borderRadius}px;
+  .orange {
+    color: ${COLORS.orange};
+  }
 
-  span {
-    color: ${({ theme }) => theme.colorPrimary};
+  @media screen and (max-width: ${theme.screenXL}px) {
+    font-size: 32px !important;
+  }
+
+  @media screen and (max-width: ${theme.screenMD}px) {
+    font-size: 28px !important;
+  }
+`;
+
+export const subtitle = (theme: Theme) => css`
+  font-size: 20px;
+
+  @media screen and (max-width: ${theme.screenMD}px) {
+    font-size: 16px;
   }
 `;

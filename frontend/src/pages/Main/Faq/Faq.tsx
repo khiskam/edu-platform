@@ -1,19 +1,26 @@
-import { useTheme } from "@emotion/react";
+import { PlusOutlined } from "@ant-design/icons";
 import { Collapse, Typography } from "antd";
 
-import { title } from "../styled";
+import { Section } from "../styled";
 import { FAQ } from "./constants";
-import { Layout } from "./styled";
+import { accordionIcon, AccordionsContainer } from "./styled";
 
 export const Faq = () => {
-  const theme = useTheme();
-
   return (
-    <Layout>
-      <Typography.Title level={2} className={title(theme)}>
-        Вопросы и ответы
-      </Typography.Title>
-      <Collapse items={FAQ} size="large" />
-    </Layout>
+    <Section>
+      <Typography.Title level={2}>Вопросы и ответы</Typography.Title>
+      <AccordionsContainer>
+        {FAQ?.map((item) => (
+          <Collapse
+            key={item.key}
+            items={[item]}
+            expandIconPosition="end"
+            expandIcon={({ isActive }) => (
+              <PlusOutlined className={accordionIcon} rotate={isActive ? 45 : 0} />
+            )}
+          />
+        ))}
+      </AccordionsContainer>
+    </Section>
   );
 };

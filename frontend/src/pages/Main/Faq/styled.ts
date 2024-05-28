@@ -1,11 +1,14 @@
+import { css } from "@emotion/css";
 import styled from "@emotion/styled";
 
 import { GAP } from "@/shared/theme";
 
-export const Layout = styled.div`
-  align-items: center;
+export const AccordionsContainer = styled.div`
   display: grid;
 
-  border-radius: ${({ theme }) => theme.borderRadiusLG}px;
-  gap: ${GAP[32]}px;
+  gap: ${GAP[8]}px;
+`;
+
+export const accordionIcon = css`
+  font-size: 16px !important;
 `;

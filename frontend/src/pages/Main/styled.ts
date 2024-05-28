@@ -1,14 +1,17 @@
-import { css } from "@emotion/css";
-import { Theme } from "@emotion/react";
 import styled from "@emotion/styled";
+
+import { GAP } from "@/shared/theme";
 
 export const Layout = styled.div`
   display: grid;
   margin: 64px 0;
 
-  gap: 64px;
+  gap: ${GAP[80]}px;
 `;
 
-export const title = (theme: Theme) => css`
-  color: ${theme.colorPrimary} !important;
+export const Section = styled.section`
+  display: grid;
+  overflow: hidden;
+
+  gap: ${GAP[32]}px;
 `;
