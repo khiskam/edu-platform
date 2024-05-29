@@ -1,10 +1,10 @@
 import { Card, Empty, Flex, Pagination } from "antd";
 import { NavLink } from "react-router-dom";
 
+import { ProgressBar } from "@/components";
 import { CategoryWithProgress } from "@/shared/api/types";
 import { usePageParam } from "@/shared/hooks";
 import { GAP } from "@/shared/theme";
-import { ProgressBar } from "@/shared/ui";
 
 import { ListProps } from "../types";
 

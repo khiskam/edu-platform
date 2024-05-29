@@ -2,9 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Form } from "antd";
 import { useForm } from "react-hook-form";
 
+import { Fields } from "@/components";
 import { FormProps } from "@/features/types";
 import { SignUpData } from "@/shared/types";
-import { Fields } from "@/shared/ui";
 import { signUpSchema } from "@/shared/validation";
 
 export const SignUpForm = ({ onSubmit }: FormProps<SignUpData>) => {
@@ -24,6 +24,20 @@ export const SignUpForm = ({ onSubmit }: FormProps<SignUpData>) => {
 
   return (
     <Form layout="vertical" onFinish={onFinish}>
+      <Fields.Text
+        control={{ control, name: "firstName" }}
+        label="Имя"
+        placeholder="Имя"
+        type="input"
+      />
+
+      <Fields.Text
+        control={{ control, name: "lastName" }}
+        label="Фамилия"
+        placeholder="Фамилия"
+        type="input"
+      />
+
       <Fields.Text
         control={{ control, name: "email" }}
         label="Email"

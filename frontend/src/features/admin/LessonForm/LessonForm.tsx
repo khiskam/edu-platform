@@ -3,9 +3,9 @@ import { Button, Form } from "antd";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { Fields } from "@/components";
 import { FormProps } from "@/features/types";
 import { LessonData } from "@/shared/types";
-import { Fields } from "@/shared/ui";
 import { lessonSchema } from "@/shared/validation";
 
 export const LessonForm = ({ defaultValues, onSubmit }: FormProps<LessonData>) => {

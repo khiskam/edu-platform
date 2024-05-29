@@ -1,7 +1,5 @@
 export const HEADER_HEIGHT = 64;
 
-export const BG_COLOR = "#f7fafc";
-
 export const GAP = {
   4: 4,
   8: 8,
@@ -9,10 +7,17 @@ export const GAP = {
   24: 24,
   32: 32,
   64: 64,
-  128: 128,
+  80: 80,
 };
 
 export const PADDING = {
+  8: 8,
+  12: 12,
   32: 32,
   56: 56,
+};
+
+export const COLORS = {
+  orange: "#E75300",
+  bg: "#f7fafc",
 };

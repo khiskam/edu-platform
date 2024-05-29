@@ -1,9 +1,9 @@
 import { ConfigProvider, Table } from "antd";
 import { useState } from "react";
 
+import { DeleteModal } from "@/components";
 import { getCurrentPage, usePageParam } from "@/shared/hooks";
 import { Lesson } from "@/shared/types";
-import { DeleteModal } from "@/shared/ui";
 
 import { TableProps } from "../types";
 import { useColumns } from "./hooks";

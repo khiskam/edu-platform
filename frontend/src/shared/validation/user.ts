@@ -19,6 +19,8 @@ export const signInSchema = object({
 });
 
 export const signUpSchema = object({
+  firstName: string().trim().required("Поле Имя пароль обязательно для заполнения"),
+  lastName: string().trim().required("Поле Фамилия пароль обязательно для заполнения"),
   email: string()
     .trim()
     .required(AUTH_VALIDATION_ERRORS.EMAIL_REQUIRED)

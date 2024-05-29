@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from "react-router-dom";
 
+import { Container, Footer, Header } from "@/components";
 import { ROUTES } from "@/shared/routes";
-import { Container } from "@/shared/ui";
-import { Footer, Header, MessageProvider } from "@/widgets";
+import { MessageProvider } from "@/widgets";
 
 import { Breadcrumb } from "../Breadcrumb";
 import { ContentContainer, LayoutContainer, OutletContainer } from "./styled";

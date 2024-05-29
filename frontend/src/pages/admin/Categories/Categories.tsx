@@ -1,4 +1,4 @@
-import { Container, PageLayout, TitleWithButton } from "@/shared/ui";
+import { Container, PageLayout, TitleWithButton } from "@/components";
 import { Admin } from "@/widgets";
 
 import { CREATE_CATEGORY_ROUTE } from "./contstants";

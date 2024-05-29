@@ -1,10 +1,10 @@
 import { Col, List, Row, Space, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 
+import { Container, PageLayout } from "@/components";
 import { auth } from "@/shared/api";
 import { useUserStore } from "@/shared/store";
 import { GAP } from "@/shared/theme";
-import { Container, PageLayout } from "@/shared/ui";
 
 import { ADMIN_PAGES } from "./constants";
 

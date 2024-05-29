@@ -1,5 +1,5 @@
 import { PaginationProps } from "antd";
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useMemo } from "react";
 import { FieldValues } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 
@@ -20,16 +20,17 @@ export const usePageParam = <T extends FieldValues>(
     }
   }, [searchParams, setSearchParams, data]);
 
-  const onChange = (page: number) => {
-    setSearchParams((prev) => setCurrentPage(prev, page));
-  };
-
-  const config: PaginationProps = {
-    hideOnSinglePage: true,
-    total: totalCount,
-    defaultCurrent: getCurrentPage(searchParams),
-    onChange: onChange,
-  };
+  const config: PaginationProps = useMemo(
+    () => ({
+      hideOnSinglePage: true,
+      total: totalCount,
+      defaultCurrent: getCurrentPage(searchParams),
+      onChange: (page: number) => {
+        setSearchParams((prev) => setCurrentPage(prev, page));
+      },
+    }),
+    [searchParams, setSearchParams, totalCount]
+  );
 
   return { searchParams, config };
 };

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { GAP } from "@/shared/theme";
 import { AnswerData } from "@/shared/types";
-import { Fields } from "@/shared/ui";
+import { Fields } from "@/components";
 import { answersSchema } from "@/shared/validation";
 
 import { TaskProps } from "./types";

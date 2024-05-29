@@ -1,11 +1,11 @@
 import { Button, Flex, Typography } from "antd";
 import { NavLink } from "react-router-dom";
 
+import { ProgressBar } from "@/components";
 import { Data } from "@/features/types";
 import { CategoryWithProgress } from "@/shared/api/types";
 import { ROUTES } from "@/shared/routes";
 import { GAP } from "@/shared/theme";
-import { ProgressBar } from "@/shared/ui";
 
 export const Category = ({ data }: Data<CategoryWithProgress>) => {
   return (

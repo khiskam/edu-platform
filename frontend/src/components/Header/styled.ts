@@ -13,3 +13,7 @@ export const menu = css`
 
   border-bottom: none;
 `;
+
+export const logo = css`
+  display: flex;
+`;

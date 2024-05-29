@@ -1,9 +1,9 @@
 import { TableProps } from "antd";
 import { useMemo } from "react";
 
+import { TableButtons } from "@/components";
 import { ROUTES } from "@/shared/routes";
 import { Task } from "@/shared/types";
-import { TableButtons } from "@/shared/ui";
 
 import { useColumnsProps } from "./types";
 

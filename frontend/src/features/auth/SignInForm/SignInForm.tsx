@@ -3,10 +3,10 @@ import { Button, Form } from "antd";
 import { useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 
+import { Fields } from "@/components";
 import { FormProps } from "@/features/types";
 import { useMessageStore } from "@/shared/store";
 import { SignInData } from "@/shared/types";
-import { Fields } from "@/shared/ui";
 import { signInSchema } from "@/shared/validation";
 
 export const SignInForm = ({ onSubmit }: FormProps<SignInData>) => {

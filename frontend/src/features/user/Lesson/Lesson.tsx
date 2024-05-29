@@ -3,11 +3,11 @@ import parse from "html-react-parser";
 import { forwardRef } from "react";
 import { NavLink } from "react-router-dom";
 
+import { ProgressBar } from "@/components";
 import { Data } from "@/features/types";
 import { LessonWithProgress } from "@/shared/api/types";
 import { ROUTES } from "@/shared/routes";
 import { GAP } from "@/shared/theme";
-import { ProgressBar } from "@/shared/ui";
 
 export const Lesson = forwardRef<HTMLDivElement, Data<LessonWithProgress>>(({ data }, ref) => {
   return (

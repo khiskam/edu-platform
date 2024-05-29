@@ -2,10 +2,9 @@ import { MenuProps } from "antd";
 import { NavLink } from "react-router-dom";
 
 import { ROUTES } from "@/shared/routes";
+import { useUserStore } from "@/shared/store";
 
-import { ProfileLink } from "./ProfileLink";
-import { SignOutLink } from "./SignOutLink";
-import { getUserKey } from "./utils";
+import { ProfileLink, SignOutLink } from "./components";
 
 export const COMMON_NAV_LINKS: MenuProps["items"] = [
   {
@@ -29,7 +28,7 @@ export const UNAUTH_NAV_LINKS: MenuProps["items"] = [
 export const AUTH_NAV_LINKS = [
   ...COMMON_NAV_LINKS,
   {
-    key: getUserKey(),
+    key: useUserStore.getState().auth?.role === "user" ? ROUTES.profile.path : ROUTES.admin.path,
     label: <ProfileLink />,
   },
   {

@@ -1,6 +1,6 @@
 import { theme, ThemeConfig } from "antd";
 
-import { BG_COLOR, HEADER_HEIGHT } from "./constants";
+import { COLORS, HEADER_HEIGHT } from "./constants";
 
 export const config: ThemeConfig = {
   token: {
@@ -19,6 +19,7 @@ export const config: ThemeConfig = {
     fontSizeXL: 24,
     borderRadius: 8,
     borderRadiusLG: 16,
+    fontFamily: "Nunito",
   },
   components: {
     Menu: {
@@ -29,7 +30,7 @@ export const config: ThemeConfig = {
     Layout: {
       headerBg: "#ffffff",
       footerBg: "#ffffff",
-      bodyBg: BG_COLOR,
+      bodyBg: "transparent",
       headerHeight: HEADER_HEIGHT,
       headerPadding: 0,
       footerPadding: 0,
@@ -39,10 +40,19 @@ export const config: ThemeConfig = {
     },
     Collapse: {
       headerBg: "transparent",
+      contentBg: "transparent",
       colorBorder: theme.getDesignToken()["blue-4"],
+      colorIcon: theme.getDesignToken().blue4,
     },
     Checkbox: {
       borderRadiusSM: 4,
+    },
+    Statistic: {
+      contentFontSize: 24,
+      colorTextHeading: theme.getDesignToken().colorPrimary,
+    },
+    Carousel: {
+      colorBgContainer: COLORS.orange,
     },
   },
 } as const;

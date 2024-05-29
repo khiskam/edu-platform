@@ -13,7 +13,7 @@ export const Advantages = () => {
   return (
     <Section>
       <Typography.Title level={2}>Причины начать учиться здесь</Typography.Title>
-      <Row gutter={[GAP[64], GAP[64]]} align="middle">
+      <Row gutter={[GAP[64], GAP[64]]}>
         {ADVANTAGES.map(({ key, icon: Icon, title, description }) => (
           <Col xs={24} lg={12} key={key}>
             <Flex vertical align="start" gap={GAP[12]}>

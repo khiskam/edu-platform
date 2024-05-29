@@ -1,8 +1,8 @@
 import { Typography } from "antd";
 import { Navigate, useParams } from "react-router-dom";
 
+import { Container, PageLayout } from "@/components";
 import { ROUTES } from "@/shared/routes";
-import { Container, PageLayout } from "@/shared/ui";
 import { User } from "@/widgets";
 
 const { TasksList } = User;

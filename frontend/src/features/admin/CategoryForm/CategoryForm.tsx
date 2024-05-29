@@ -2,9 +2,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Form } from "antd";
 import { useForm } from "react-hook-form";
 
+import { Fields } from "@/components";
 import { FormProps } from "@/features/types";
 import { CategoryData } from "@/shared/types";
-import { Fields } from "@/shared/ui";
 import { categorySchema } from "@/shared/validation";
 
 export const CategoryForm = ({ defaultValues, onSubmit }: FormProps<CategoryData>) => {

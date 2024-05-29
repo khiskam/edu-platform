@@ -1,5 +1,5 @@
+import { Container, PageLayout, TitleWithButton } from "@/components";
 import { ROUTES } from "@/shared/routes";
-import { Container, PageLayout, TitleWithButton } from "@/shared/ui";
 import { Admin } from "@/widgets";
 
 const { TasksTable } = Admin;

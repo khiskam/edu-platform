@@ -1,8 +1,8 @@
 import { TableProps } from "antd";
 import { useMemo } from "react";
 
+import { TableButtons } from "@/components";
 import { Lesson } from "@/shared/types";
-import { TableButtons } from "@/shared/ui";
 
 import { useColumnsProps } from "./types";
 

@@ -4,9 +4,14 @@ import { GAP } from "@/shared/theme";
 
 export const Layout = styled.div`
   display: grid;
-  margin: 64px 0;
+  margin-top: 32px;
 
   gap: ${GAP[80]}px;
+
+  @media screen and (max-width: ${({ theme }) => theme.screenXL}px) {
+    width: 100%;
+    margin: 32px auto 0;
+  }
 `;
 
 export const Section = styled.section`

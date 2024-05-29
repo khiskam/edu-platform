@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 
-import { Container, PageLayout } from "@/shared/ui";
+import { Container, PageLayout } from "@/components";
 import { User } from "@/widgets";
 
 const { CategoriesList } = User;

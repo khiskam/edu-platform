@@ -1,11 +1,11 @@
 import { Spin, Typography } from "antd";
 import { Navigate } from "react-router-dom";
 
+import { Container, PageLayout } from "@/components";
 import { Admin } from "@/features";
 import { getTask, TaskApi } from "@/shared/api";
 import { ROUTES } from "@/shared/routes";
 import { Id } from "@/shared/types";
-import { Container, PageLayout } from "@/shared/ui";
 const { Task: TaskLayout } = Admin;
 
 export const Task = ({ id }: Id) => {

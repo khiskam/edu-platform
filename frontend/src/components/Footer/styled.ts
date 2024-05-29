@@ -9,3 +9,7 @@ export const footer = (theme: Theme) => css`
   padding: ${theme.paddingMD}px;
   min-height: ${HEADER_HEIGHT}px;
 `;
+
+export const logo = css`
+  display: flex;
+`;
