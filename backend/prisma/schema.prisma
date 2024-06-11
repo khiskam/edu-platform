@@ -18,14 +18,17 @@ model User {
   id              String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   role            Role              @default(user)
   uid             String            @unique
+  firstName       String
+  lastName        String
   completedLesson CompletedLesson[]
   completedTask   CompletedTask[]
 }
 
 model Category {
-  id      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name    String   @unique
-  lessons Lesson[]
+  id          String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name        String   @unique
+  description String
+  lessons     Lesson[]
 }
 
 model Lesson {
@@ -38,7 +41,7 @@ model Lesson {
   categoryId      String            @db.Uuid
   task            Task[]
   completedLesson CompletedLesson[]
-  image           Image[]
+  image           LessonImage[]
 }
 
 model Task {
@@ -54,24 +57,26 @@ model Task {
 }
 
 model CompletedLesson {
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String @db.Uuid
-  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  lessonId String @db.Uuid
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String   @db.Uuid
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId    String   @db.Uuid
+  completedAt DateTime @default(now())
 
   @@id([userId, lessonId])
 }
 
 model CompletedTask {
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String @db.Uuid
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  taskId String @db.Uuid
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String   @db.Uuid
+  task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  taskId      String   @db.Uuid
+  completedAt DateTime @default(now())
 
   @@id([userId, taskId])
 }
 
-model Image {
+model LessonImage {
   id          String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   path        String
   fileName    String

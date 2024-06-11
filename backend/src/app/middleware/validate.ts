@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { ObjectSchema, ValidationError } from "yup";
 
 export const validateMiddleware = (schema: ObjectSchema<object>): RequestHandler => {

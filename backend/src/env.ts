@@ -1,5 +1,5 @@
-import { cleanEnv, port, str } from "envalid";
 import { PrismaClient } from "@prisma/client";
+import { cleanEnv, port, str } from "envalid";
 
 export const prisma = new PrismaClient();
 

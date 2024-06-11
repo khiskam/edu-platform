@@ -1,7 +1,21 @@
 export type User = {
   id: string;
-  role: "user" | "admin";
   uid: string;
+
+  firstName: string;
+  lastName: string;
+
+  role: "user" | "admin";
 };
 
-export type UserKeys = keyof User;
+export type UnitProgress = {
+  lessonsCompleted: number;
+  tasksCompleted: number;
+};
+
+export type MontlyUnitProgress = { date: string } & UnitProgress;
+
+export type UserDetails = User & {
+  statistics: UnitProgress;
+  monthlyActions: MontlyUnitProgress;
+};

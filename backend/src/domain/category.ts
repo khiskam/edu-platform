@@ -1,6 +1,5 @@
 export type Category = {
   id: string;
   name: string;
+  description: string;
 };
-
-export type CategoryKeys = keyof Category;

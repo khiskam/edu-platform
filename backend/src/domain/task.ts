@@ -7,13 +7,12 @@ export type Task = {
   correctAnswers: string[];
 };
 
-export type TaskKeys = keyof Task;
-
 export type CompletedTask = {
   userId: string;
   taskId: string;
+  completedAt: Date;
 };
 
-export type CompletedTaskWithAnswer = CompletedTask & { answers: string[] };
-
-export type CompletedTaskKeys = "userIdTaskId";
+export type TaskProgress = Pick<Task, "id" | "title" | "answers" | "description"> & {
+  isCompleted: boolean;
+};

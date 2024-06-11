@@ -1,5 +1,6 @@
-import { ENV } from "../../env";
 import admin from "firebase-admin";
+
+import { ENV } from "../../env";
 
 const firebaseConfig: admin.AppOptions = {
   credential: admin.credential.cert({
@@ -10,16 +11,3 @@ const firebaseConfig: admin.AppOptions = {
 };
 
 export const app = admin.initializeApp(firebaseConfig);
-
-// TODO название типов
-// TODO роуты для админа
-// прогресс по одной категории
-// прогресс по одной лекции
-// прогресс по одному заданию
-
-// загрузка изображения
-// удаление изображения
-// статический файл
-
-// создание фотографий для урока
-// удаление комплитед лессонов и тасков

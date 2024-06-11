@@ -1,3 +1,4 @@
+import { FirebaseError } from "@firebase/util";
 import {
   Category,
   CompletedLesson,
@@ -6,13 +7,12 @@ import {
   PrismaClient,
   Role,
   Task,
+  User,
 } from "@prisma/client";
-
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { cleanEnv, str } from "envalid";
 import admin from "firebase-admin";
-import { FirebaseError } from "@firebase/util";
 import { v4 as uuidv4 } from "uuid";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
@@ -32,16 +32,37 @@ const firebaseConfig: admin.AppOptions = {
 
 export const app = admin.initializeApp(firebaseConfig);
 
-const users = [
-  { id: uuidv4(), email: "admin@mail.ru", password: "adminadmin", role: Role.admin },
-  { id: uuidv4(), email: "user@mail.ru", password: "useruser" },
-  { id: uuidv4(), email: "anotheruser@mail.ru", password: "anotheruser" },
+const users: (Omit<User, "uid"> & { email: string; password: string })[] = [
+  {
+    id: uuidv4(),
+    firstName: "Админ",
+    lastName: "Админ",
+    email: "admin@mail.ru",
+    password: "adminadmin",
+    role: Role.admin,
+  },
+  {
+    id: uuidv4(),
+    firstName: "Иван",
+    lastName: "Иванов",
+    email: "user@mail.ru",
+    password: "useruser",
+    role: Role.user,
+  },
+  {
+    id: uuidv4(),
+    firstName: "Петр",
+    lastName: "Петров",
+    email: "anotheruser@mail.ru",
+    password: "anotheruser",
+    role: Role.user,
+  },
 ];
 
 const categories: Category[] = [
-  { id: uuidv4(), name: "русский язык" },
-  { id: uuidv4(), name: "математика" },
-  { id: uuidv4(), name: "география" },
+  { id: uuidv4(), name: "русский язык", description: "Описание" },
+  { id: uuidv4(), name: "математика", description: "Описание" },
+  { id: uuidv4(), name: "география", description: "Описание" },
 ];
 
 const lessons: Lesson[] = [
@@ -149,23 +170,24 @@ const tasks: Task[] = [
   },
 ];
 
-const completedLessons: CompletedLesson[] = [
+const completedLessons: Omit<CompletedLesson, "completedAt">[] = [
   { userId: users[1].id, lessonId: lessons[2].id },
   { userId: users[1].id, lessonId: lessons[4].id },
   { userId: users[2].id, lessonId: lessons[0].id },
   { userId: users[2].id, lessonId: lessons[3].id },
 ];
 
-const completedTasks: CompletedTask[] = [
+const completedTasks: Omit<CompletedTask, "completedAt">[] = [
   { userId: users[1].id, taskId: tasks[3].id },
   { userId: users[1].id, taskId: tasks[4].id },
   { userId: users[2].id, taskId: tasks[0].id },
   { userId: users[2].id, taskId: tasks[1].id },
 ];
 
-const createUsersInDB = async (id: string, uid: string, role: Role | undefined) => {
+const createUsersInDB = async (user: User) => {
+  const { id, uid, role, firstName, lastName } = user;
   try {
-    await prisma.user.create({ data: { id, uid, role } });
+    await prisma.user.create({ data: { id, uid, role, firstName, lastName } });
   } catch (e) {
     if (e instanceof PrismaClientKnownRequestError) {
       console.log(e.code);
@@ -175,13 +197,22 @@ const createUsersInDB = async (id: string, uid: string, role: Role | undefined) 
 
 const createUserInFirebase = async () => {
   for (const item of users) {
+    const u: User = {
+      id: item.id,
+      uid: "",
+      role: item.role,
+      firstName: item.firstName,
+      lastName: item.lastName,
+    };
     try {
       const user = await admin.auth().getUserByEmail(item.email);
-      await createUsersInDB(item.id, user.uid, item.role);
+      u.uid = user.uid;
+      await createUsersInDB(u);
     } catch {
       try {
         const user = await admin.auth().createUser({ email: item.email, password: item.password });
-        await createUsersInDB(item.id, user.uid, item.role);
+        u.uid = user.uid;
+        await createUsersInDB(u);
       } catch (e) {
         if (e instanceof FirebaseError) {
           console.log(e.code);

@@ -1,16 +1,16 @@
-import express, { Application, json, Router } from "express";
 import cors from "cors";
-import { AdminHandler, Handler } from "./handlers/interfaces";
-import { errorMiddleware } from "./middleware/error";
+import express, { Express, json, Router } from "express";
+
 import { ENV } from "../env";
-import { AdminMiddleware, authMiddleware, tokenMiddleware } from "./middleware/auth";
+import { Handler } from "./handlers/interfaces";
+import { errorMiddleware } from "./middleware/error";
 
 export class App {
-  private _express: Application;
+  private _express: Express;
   private _router: Router;
   private _port: number;
 
-  constructor(port: number) {
+  constructor(port: number, ...handlers: Handler[]) {
     this._express = express();
     this._port = port;
 
@@ -18,45 +18,19 @@ export class App {
     this._express.use(json());
 
     this._router = Router();
-  }
-
-  private initHandlers = (handlers: Handler[]) => {
-    handlers.forEach((handler) => {
-      this._router.use(handler.path, handler.initRoutes());
-    });
-  };
-
-  private initAdminHandlers = (handlers: AdminHandler[]) => {
-    const router = Router();
-
-    handlers.forEach((handler) => {
-      router.use(handler.path, handler.initAdminRoutes());
-    });
-
-    this._router.use("/admin", router);
-  };
-
-  public addTokenMiddleware() {
-    this._router.use(tokenMiddleware());
-  }
-
-  public addRoutes(...handlers: Handler[]) {
-    this.initHandlers(handlers);
-  }
-
-  public addAuthRoutes(...handlers: Handler[]) {
-    this._router.use(authMiddleware());
 
     this.initHandlers(handlers);
   }
 
-  public addAdminRoutes(...handlers: AdminHandler[]) {
-    this._router.use(AdminMiddleware());
-    this.initAdminHandlers(handlers);
+  private initHandlers(handlers: Handler[]) {
+    handlers.forEach((handler) => {
+      this._router.use(handler.path, handler.getRouter());
+    });
   }
 
   public listen() {
     this._express.use("/api", this._router);
+
     this._express.use(errorMiddleware);
 
     this._express.listen(this._port, () => {

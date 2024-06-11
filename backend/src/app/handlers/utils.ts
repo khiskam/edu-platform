@@ -18,6 +18,14 @@ export const parsePage = (offset: QueryString) => {
   return toNumber(offset, 1);
 };
 
+export const parseQ = (q: QueryString) => {
+  if (typeof q === "string") {
+    return q;
+  }
+
+  return undefined;
+};
+
 export const toNumber = (num: QueryString, def: number) => {
   if (typeof num === "string" && Number.isInteger(+num)) {
     const result = +num;
