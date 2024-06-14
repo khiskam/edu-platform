@@ -1,5 +1,7 @@
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { Button, Flex, Form } from "antd";
+import Button from "antd/es/button";
+import Flex from "antd/es/flex";
+import Form from "antd/es/form";
 import { FieldValues, useFieldArray } from "react-hook-form";
 
 import { Fields } from "@/components";

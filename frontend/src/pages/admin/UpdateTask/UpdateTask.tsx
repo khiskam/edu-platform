@@ -1,4 +1,4 @@
-import { Typography } from "antd";
+import Typography from "antd/es/typography";
 
 import { Container, PageLayout } from "@/components";
 import { Admin } from "@/widgets";

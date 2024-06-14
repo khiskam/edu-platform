@@ -1,5 +1,6 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { Button, Space } from "antd";
+import Button from "antd/es/button";
+import Space from "antd/es/space";
 import { NavLink } from "react-router-dom";
 
 import { TableButtonsProps } from "./types";

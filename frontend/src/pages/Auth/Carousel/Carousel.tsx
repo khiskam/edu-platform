@@ -1,4 +1,4 @@
-import { Carousel as AntdCarousel, CarouselProps } from "antd";
+import AntdCarousel, { CarouselProps } from "antd/es/carousel";
 
 import EducationIcon from "@/assets/icons/education.svg?react";
 import LessonIcon from "@/assets/icons/lesson.svg?react";

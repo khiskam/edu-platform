@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import Spin from "antd/es/spin";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 

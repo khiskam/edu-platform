@@ -1,5 +1,6 @@
 import { Editor, IAllProps } from "@tinymce/tinymce-react";
-import { Form, Spin } from "antd";
+import Form from "antd/es/form";
+import Spin from "antd/es/spin";
 import { useLayoutEffect, useRef, useState } from "react";
 import { FieldValues, useController } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";

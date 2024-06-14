@@ -1,4 +1,4 @@
-import { CheckboxProps } from "antd";
+import { CheckboxProps } from "antd/es/checkbox";
 import { FieldValues } from "react-hook-form";
 
 import { FormFieldProps } from "../types";

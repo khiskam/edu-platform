@@ -1,5 +1,7 @@
 import { useTheme } from "@emotion/react";
-import { Flex, Layout, Typography } from "antd";
+import Flex from "antd/es/flex";
+import Layout from "antd/es/layout";
+import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
 import Logo from "@/assets/icons/logo.svg?react";

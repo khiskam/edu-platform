@@ -1,5 +1,5 @@
 import { HomeOutlined } from "@ant-design/icons";
-import { BreadcrumbProps } from "antd";
+import { BreadcrumbProps } from "antd/es/breadcrumb";
 import { matchRoutes, NavLink, useLocation } from "react-router-dom";
 
 import { ROUTES_TITLE, RoutesTitleKeys } from "@/shared/routes";

@@ -1,10 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Flex, Form, Tag, Typography } from "antd";
+import Button from "antd/es/button";
+import Flex from "antd/es/flex";
+import Form from "antd/es/form";
+import Tag from "antd/es/tag";
+import Typography from "antd/es/typography";
 import { useForm } from "react-hook-form";
 
+import { Fields } from "@/components";
 import { GAP } from "@/shared/theme";
 import { AnswerData } from "@/shared/types";
-import { Fields } from "@/components";
 import { answersSchema } from "@/shared/validation";
 
 import { TaskProps } from "./types";

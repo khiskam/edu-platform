@@ -1,4 +1,5 @@
-import { List, Typography } from "antd";
+import List from "antd/es/list";
+import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
 import { Container, PageLayout } from "@/components";

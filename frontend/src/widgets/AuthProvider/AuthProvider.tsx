@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import Spin from "antd/es/spin";
 import { onAuthStateChanged } from "firebase/auth";
 import { useLayoutEffect, useState } from "react";
 
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 };
 
 export const ServerAuthProvider = ({ token, children }: ServerAuthProviderProps) => {
-  const { data, isLoading } = useUserCheckQuery(token);
+  const { data, isLoading, isError } = useUserCheckQuery(token);
   const auth = useUserStore(({ auth }) => auth);
 
   useLayoutEffect(() => {
@@ -49,9 +49,13 @@ export const ServerAuthProvider = ({ token, children }: ServerAuthProviderProps)
     }
   }, [data, token]);
 
-  if (isLoading || !auth) {
+  if (isLoading) {
     return <Spin size="large" className={fullscreen} />;
+  } else if (isError) {
+    return <>{children}</>;
+  } else if (!auth) {
+    return <Spin size="large" className={fullscreen} />;
+  } else {
+    return <>{children}</>;
   }
-
-  return <>{children}</>;
 };

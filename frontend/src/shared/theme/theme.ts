@@ -1,4 +1,5 @@
-import { theme, ThemeConfig } from "antd";
+import { ThemeConfig } from "antd/es/config-provider";
+import theme from "antd/es/theme";
 
 import { COLORS, HEADER_HEIGHT } from "./constants";
 
@@ -48,7 +49,7 @@ export const config: ThemeConfig = {
       borderRadiusSM: 4,
     },
     Statistic: {
-      contentFontSize: 24,
+      contentFontSize: 20,
       colorTextHeading: theme.getDesignToken().colorPrimary,
     },
     Carousel: {

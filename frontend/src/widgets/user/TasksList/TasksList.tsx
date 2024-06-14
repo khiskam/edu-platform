@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import Spin from "antd/es/spin";
 import { useSearchParams } from "react-router-dom";
 
 import { User } from "@/features";

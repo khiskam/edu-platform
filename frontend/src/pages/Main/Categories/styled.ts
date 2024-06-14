@@ -8,3 +8,12 @@ export const tag = css`
 
   font-size: 16px;
 `;
+
+export const skeletonTitle = css`
+  height: 24px !important;
+  margin: 0;
+`;
+
+export const skeleton = css`
+  width: auto;
+`;

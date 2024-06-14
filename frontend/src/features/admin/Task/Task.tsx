@@ -1,5 +1,6 @@
 import { BorderOutlined, CheckSquareOutlined } from "@ant-design/icons";
-import { Flex, Typography } from "antd";
+import Flex from "antd/es/flex";
+import Typography from "antd/es/typography";
 
 import { Data } from "@/features/types";
 import { GAP } from "@/shared/theme";

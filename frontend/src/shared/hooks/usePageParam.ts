@@ -1,4 +1,4 @@
-import { PaginationProps } from "antd";
+import { PaginationProps } from "antd/es/pagination";
 import { useLayoutEffect, useMemo } from "react";
 import { FieldValues } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";

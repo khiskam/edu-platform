@@ -1,4 +1,4 @@
-import { Typography } from "antd";
+import Typography from "antd/es/typography";
 import { Navigate, useParams } from "react-router-dom";
 
 import { Container, PageLayout } from "@/components";

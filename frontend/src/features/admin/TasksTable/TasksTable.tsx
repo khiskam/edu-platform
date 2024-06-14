@@ -1,8 +1,9 @@
-import { ConfigProvider, Table } from "antd";
+import ConfigProvider from "antd/es/config-provider";
+import Table from "antd/es/table";
 import { useState } from "react";
 
 import { DeleteModal } from "@/components";
-import { getCurrentPage, usePageParam } from "@/shared/hooks";
+import { usePageParam } from "@/shared/hooks";
 import { Task } from "@/shared/types";
 
 import { TableProps } from "../types";
@@ -10,7 +11,7 @@ import { useColumns } from "./hooks";
 
 export const TasksTable = ({ data, onDelete, pagesCount }: TableProps<Task>) => {
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);
-  const { searchParams, onChange } = usePageParam<Task>(data);
+  const { config } = usePageParam<Task>(data, pagesCount);
 
   const onOk = () => {
     setDeleteId(undefined);
@@ -28,12 +29,7 @@ export const TasksTable = ({ data, onDelete, pagesCount }: TableProps<Task>) => 
           rowKey="id"
           scroll={{ x: true }}
           bordered
-          pagination={{
-            hideOnSinglePage: true,
-            total: pagesCount,
-            defaultCurrent: getCurrentPage(searchParams),
-            onChange: onChange,
-          }}
+          pagination={config}
         />
       </ConfigProvider>
 

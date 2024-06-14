@@ -1,4 +1,7 @@
-import { Col, Collapse, Row, Typography } from "antd";
+import Col from "antd/es/col";
+import Collapse from "antd/es/collapse";
+import Row from "antd/es/row";
+import Typography from "antd/es/typography";
 
 import ProcessIcon from "@/assets/icons/process.svg?react";
 import { GAP } from "@/shared/theme";

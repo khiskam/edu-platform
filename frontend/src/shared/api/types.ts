@@ -103,3 +103,12 @@ export type CompletedLessonResponse = {
 export type CompletedTaskResponse = {
   task: { taskId: string; userId: string };
 };
+
+export type StatisticsResponse = {
+  statistics: {
+    usersCount: number;
+    categoriesCount: number;
+    lessonsCount: number;
+    tasksCount: number;
+  };
+};

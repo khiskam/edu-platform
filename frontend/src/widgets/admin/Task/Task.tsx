@@ -1,4 +1,5 @@
-import { Spin, Typography } from "antd";
+import Spin from "antd/es/spin";
+import Typography from "antd/es/typography";
 import { Navigate } from "react-router-dom";
 
 import { Container, PageLayout } from "@/components";

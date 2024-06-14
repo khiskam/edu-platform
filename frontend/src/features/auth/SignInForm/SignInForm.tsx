@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Form } from "antd";
+import Button from "antd/es/button";
+import Form from "antd/es/form";
 import { useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 

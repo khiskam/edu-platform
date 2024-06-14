@@ -1,5 +1,8 @@
 import { useTheme } from "@emotion/react";
-import { Button, Col, Row, Typography } from "antd";
+import Button from "antd/es/button";
+import Col from "antd/es/col";
+import Row from "antd/es/row";
+import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
 import BannerImage from "@/assets/icons/banner.svg?react";

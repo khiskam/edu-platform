@@ -1,4 +1,5 @@
-import { CollapseProps, Typography } from "antd";
+import { CollapseProps } from "antd/es/collapse";
+import Typography from "antd/es/typography";
 
 export const FAQ: CollapseProps["items"] = [
   {

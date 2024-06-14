@@ -1,4 +1,4 @@
-import { MenuProps } from "antd";
+import { MenuProps } from "antd/es/menu";
 import { NavLink } from "react-router-dom";
 
 import { ROUTES } from "@/shared/routes";

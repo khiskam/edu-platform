@@ -1,4 +1,5 @@
-import { Layout, Menu } from "antd";
+import Layout from "antd/es/layout";
+import Menu from "antd/es/menu";
 import { NavLink, useLocation } from "react-router-dom";
 
 import Logo from "@/assets/icons/logo.svg?react";

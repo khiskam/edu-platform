@@ -1,5 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Collapse, Typography } from "antd";
+import Collapse from "antd/es/collapse";
+import Typography from "antd/es/typography";
 
 import { Section } from "../styled";
 import { FAQ } from "./constants";

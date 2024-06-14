@@ -1,4 +1,5 @@
-import { Form, Input } from "antd";
+import Form from "antd/es/form";
+import Input from "antd/es/input";
 import { FieldValues, useController } from "react-hook-form";
 
 import { formItem } from "./styled";

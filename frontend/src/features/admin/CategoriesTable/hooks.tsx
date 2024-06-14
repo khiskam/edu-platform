@@ -1,4 +1,4 @@
-import { TableProps } from "antd";
+import { TableProps } from "antd/es/table";
 import { useMemo } from "react";
 
 import { TableButtons } from "@/components";

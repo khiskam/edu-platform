@@ -1,6 +1,6 @@
 import "@emotion/react";
 
-import { theme } from "antd";
+import theme from "antd/es/theme";
 
 const { token } = theme.useToken();
 

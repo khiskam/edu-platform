@@ -1,4 +1,5 @@
-import { Divider, Typography } from "antd";
+import Divider from "antd/es/divider";
+import Typography from "antd/es/typography";
 
 import { Container } from "@/components";
 import { SignInForm } from "@/widgets";

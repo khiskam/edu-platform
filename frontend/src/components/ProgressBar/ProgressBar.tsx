@@ -1,4 +1,4 @@
-import { Progress } from "antd";
+import Progress from "antd/es/progress";
 
 import { Container } from "./styled";
 import { ProgressBarProps } from "./types";

@@ -1,4 +1,7 @@
-import { Button, Flex, Tag, Typography } from "antd";
+import Button from "antd/es/button";
+import Flex from "antd/es/flex";
+import Tag from "antd/es/tag";
+import Typography from "antd/es/typography";
 import parse from "html-react-parser";
 import { forwardRef } from "react";
 import { NavLink } from "react-router-dom";

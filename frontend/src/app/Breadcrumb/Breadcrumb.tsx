@@ -1,4 +1,4 @@
-import { Breadcrumb as AntdBreadcrumb } from "antd";
+import AntdBreadcrumb from "antd/es/breadcrumb";
 
 import { useBreadcrumb } from "./hooks";
 

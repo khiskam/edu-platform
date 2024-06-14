@@ -1,4 +1,8 @@
-import { Col, List, Row, Space, Typography } from "antd";
+import Col from "antd/es/col";
+import List from "antd/es/list";
+import Row from "antd/es/row";
+import Space from "antd/es/space";
+import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
 import { Container, PageLayout } from "@/components";

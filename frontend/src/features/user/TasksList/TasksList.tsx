@@ -1,4 +1,8 @@
-import { Card, Empty, Flex, Pagination, Tag } from "antd";
+import Card from "antd/es/card";
+import Empty from "antd/es/empty";
+import Flex from "antd/es/flex";
+import Pagination from "antd/es/pagination";
+import Tag from "antd/es/tag";
 import { NavLink } from "react-router-dom";
 
 import { TaskWithProgress } from "@/shared/api";

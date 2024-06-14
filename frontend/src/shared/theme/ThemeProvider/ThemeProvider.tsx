@@ -1,5 +1,6 @@
 import { Global, ThemeProvider as StyledThemeProvider } from "@emotion/react";
-import { ConfigProvider, theme } from "antd";
+import ConfigProvider from "antd/es/config-provider";
+import theme from "antd/es/theme";
 
 import { config } from "../theme";
 import { global } from "./styled";

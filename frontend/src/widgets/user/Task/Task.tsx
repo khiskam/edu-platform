@@ -1,5 +1,8 @@
 import { SmileOutlined } from "@ant-design/icons";
-import { Button, Modal, Result, Spin } from "antd";
+import Button from "antd/es/button";
+import Modal from "antd/es/modal";
+import Result from "antd/es/result";
+import Spin from "antd/es/spin";
 import Confetti from "react-confetti";
 import { NavLink } from "react-router-dom";
 

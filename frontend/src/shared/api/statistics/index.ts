@@ -1,0 +1,1 @@
+export { useGetOneQuery } from "./getOne";

@@ -1,4 +1,4 @@
-import { message } from "antd";
+import message from "antd/es/message";
 import { NoticeType } from "antd/es/message/interface";
 import { useCallback, useLayoutEffect } from "react";
 

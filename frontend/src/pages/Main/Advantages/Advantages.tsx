@@ -1,5 +1,8 @@
 import { useTheme } from "@emotion/react";
-import { Col, Flex, Row, Typography } from "antd";
+import Col from "antd/es/col";
+import Flex from "antd/es/flex";
+import Row from "antd/es/row";
+import Typography from "antd/es/typography";
 
 import { GAP } from "@/shared/theme";
 
