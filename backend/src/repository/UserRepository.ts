@@ -16,22 +16,39 @@ export class UserRepository implements IUserRepository, IUserStatisticsRepositor
   constructor(private readonly _client: PrismaClient) {}
 
   async getTotalCount(search?: string): Promise<number> {
-    console.log(search);
+    if (!search) {
+      return await this._client.user.count({
+        where: { role: "user" },
+      });
+    }
+
     return await this._client.user.count({
       where: {
         role: "user",
-        OR: [{ firstName: { contains: search } }, { lastName: { contains: search } }],
+        OR: [
+          { firstName: { startsWith: search, mode: "insensitive" } },
+          { lastName: { startsWith: search, mode: "insensitive" } },
+        ],
       },
     });
   }
 
   async getAll(limit: number, offset: number, search?: string): Promise<User[]> {
+    if (!search) {
+      return await this._client.user.findMany({
+        where: { role: "user" },
+      });
+    }
+
     return await this._client.user.findMany({
       take: limit,
       skip: offset,
       where: {
         role: "user",
-        OR: [{ firstName: { contains: search } }, { lastName: { contains: search } }],
+        OR: [
+          { firstName: { startsWith: search, mode: "insensitive" } },
+          { lastName: { startsWith: search, mode: "insensitive" } },
+        ],
       },
     });
   }

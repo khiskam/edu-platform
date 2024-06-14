@@ -36,12 +36,20 @@ export class UserHandler implements Handler {
     router.get("/", this.getOneDetails);
     router.put("/", validateMiddleware(updateUserSchema), this.update);
 
-    router.use("/admin", adminMiddleware());
-    router.get("/profiles", this.getAllDetails);
-    router.get("/profiles/userId", this.getUserDetails);
+    router.use("/admin", this.getAdminRouter());
 
     return router;
   };
+
+  getAdminRouter(): Router {
+    const router = Router();
+    router.use(adminMiddleware());
+
+    router.get("/profiles", this.getAll);
+    router.get("/profiles/:userId", this.getUserDetails);
+
+    return router;
+  }
 
   /**
    * @swagger
@@ -106,7 +114,7 @@ export class UserHandler implements Handler {
     }
   };
 
-  private getAllDetails: RequestHandler = async (req, res, next) => {
+  private getAll: RequestHandler = async (req, res, next) => {
     const { limit, page, q } = req.query;
 
     try {
@@ -118,10 +126,10 @@ export class UserHandler implements Handler {
   };
 
   private getUserDetails: RequestHandler = async (req, res, next) => {
-    const { id } = req.params;
+    const { userId } = req.params;
 
     try {
-      const token = await this._service.getOneDetails(id);
+      const token = await this._service.getOneDetails(userId);
       return res.status(200).json({ token });
     } catch (e) {
       return next(e);
