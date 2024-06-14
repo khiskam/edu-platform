@@ -3,7 +3,7 @@ import { array, object, string } from "yup";
 export const taskSchema = object({
   title: string().trim().required("Поле Наименование обязательно для заполнения"),
   description: string().trim().required("Поле Описание обязательно для заполнения"),
-  lessonId: string().required("Поле категория обязательна для заполнения"),
+  lessonId: string().required("Поле Задание обязательна для заполнения"),
   answers: array()
     .required("Поле Ответы обязательно для заполнения")
     .min(2, "Минимальное количество варинтов ответа 2")

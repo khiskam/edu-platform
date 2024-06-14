@@ -1,6 +1,7 @@
 import { CompletedTask, Task, TaskProgress } from "@domain/task";
 import { Prisma, PrismaClient } from "@prisma/client";
 import {
+  CreateCompletedTaskDTO,
   CreateTaskDTO,
   ICompletedTaskRepository,
   ITaskProgressRepository,
@@ -77,7 +78,7 @@ export class TaskRepository
     };
   }
 
-  async createCompleted(data: CompletedTask): Promise<CompletedTask> {
+  async createCompleted(data: CreateCompletedTaskDTO): Promise<CompletedTask> {
     try {
       return await this._client.completedTask.create({ data });
     } catch (e) {
@@ -91,7 +92,9 @@ export class TaskRepository
     }
   }
 
-  async deleteAllCompleted(taskId: string): Promise<void> {
-    await this._client.completedTask.deleteMany({ where: { taskId } });
+  async checkCompleted(data: CreateCompletedTaskDTO): Promise<CompletedTask | null> {
+    return await this._client.completedTask.findFirst({
+      where: { taskId: data.taskId, userId: data.userId },
+    });
   }
 }

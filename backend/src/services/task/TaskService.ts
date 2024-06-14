@@ -1,4 +1,4 @@
-import { Task } from "@domain/task";
+import { CompletedTask, Task } from "@domain/task";
 
 import { ClientError } from "../ClientError";
 import {
@@ -11,6 +11,7 @@ import {
 import { checkAnswers } from "./utils";
 
 type TaskKeys = keyof Task;
+type CompletedTaskKeys = keyof CompletedTask;
 
 export class TaskService {
   constructor(
@@ -37,7 +38,6 @@ export class TaskService {
     task.description = task.description.trim();
 
     const updatedTask = await this._repo.update(task);
-    await this._repo.deleteAllCompleted(task.id);
 
     return updatedTask;
   }
@@ -51,6 +51,12 @@ export class TaskService {
 
     if (!task) {
       throw new ClientError<TaskKeys>("Задания не существует", "id");
+    }
+
+    const completedTask = await this._repo.checkCompleted(data);
+
+    if (completedTask) {
+      throw new ClientError<CompletedTaskKeys>("Задание уже выполнено", "taskId");
     }
 
     if (!checkAnswers(data.answers, task.correctAnswers)) {

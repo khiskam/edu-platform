@@ -36,5 +36,4 @@ export interface ITasksByLessonRepository {
 
 export interface ICompletedLessonRepository {
   createCompleted(data: CreateCompletedLessonDTO): Promise<CompletedLesson>;
-  deleteAllCompleted(lessonId: string): Promise<void>;
 }

@@ -26,7 +26,9 @@ export class LessonRepository
   constructor(private readonly _client: PrismaClient) {}
 
   async getTasksCount(lessonId: string, search?: string): Promise<number> {
-    return await this._client.task.count({ where: { lessonId, title: { contains: search } } });
+    return await this._client.task.count({
+      where: { lessonId, title: { startsWith: search, mode: "insensitive" } },
+    });
   }
 
   async getOne(lessonId: string): Promise<Lesson | null> {
@@ -135,7 +137,7 @@ export class LessonRepository
     search?: string | undefined
   ): Promise<Task[]> {
     return await this._client.task.findMany({
-      where: { lessonId, title: { contains: search } },
+      where: { lessonId, title: { startsWith: search, mode: "insensitive" } },
       take: limit,
       skip: offset,
     });
@@ -151,7 +153,7 @@ export class LessonRepository
     const tasks = await this._client.task.findMany({
       skip: offset,
       take: limit,
-      where: { lessonId, title: { contains: search } },
+      where: { lessonId, title: { startsWith: search, mode: "insensitive" } },
       include: { completedTask: { where: { userId } } },
     });
 
@@ -182,9 +184,5 @@ export class LessonRepository
 
       throw e;
     }
-  }
-
-  async deleteAllCompleted(lessonId: string): Promise<void> {
-    await this._client.completedLesson.deleteMany({ where: { lessonId } });
   }
 }

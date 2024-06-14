@@ -1,5 +1,5 @@
 import { prisma } from "@app/config/db";
-import { adminMiddleware } from "@app/middleware/auth";
+import { adminMiddleware, authMiddleware, tokenMiddleware } from "@app/middleware/auth";
 import { LessonImageRepository } from "@repository/LessonImageRepository";
 import { LessonImageService } from "@services/lessonImage/LessonImageService";
 import { RequestHandler, Router } from "express";
@@ -22,7 +22,19 @@ export class LessonImageHandler implements Handler {
   public getRouter = (): Router => {
     const router = Router();
 
+    router.use(tokenMiddleware());
+    router.use(authMiddleware());
+
+    router.use("/user", this.getUserRouter());
     router.use("/admin", this.getAdminRouter());
+
+    return router;
+  };
+
+  public getUserRouter = (): Router => {
+    const router = Router();
+
+    router.get("/:id", this.getOne);
 
     return router;
   };
@@ -32,7 +44,6 @@ export class LessonImageHandler implements Handler {
 
     router.use(adminMiddleware());
 
-    router.get("/:id", this.getOne);
     router.post("/", upload.single("file"), this.create);
     return router;
   };

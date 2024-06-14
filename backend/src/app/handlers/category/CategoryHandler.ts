@@ -26,11 +26,18 @@ export class CategoryHandler implements Handler {
     router.use(tokenMiddleware());
     router.use(authMiddleware());
 
+    router.use("/user", this.getUserRouter());
+    router.use("/admin", this.getAdminRouter());
+
+    return router;
+  };
+
+  public getUserRouter = () => {
+    const router = Router();
+
+    router.get("/", this.getAllProgress);
     router.get("/:id", this.getOneProgress);
     router.get("/:id/lessons", this.getAllLessonsProgress);
-    router.get("/progress", this.getAllProgress);
-
-    router.use("/admin", this.getAdminRouter());
 
     return router;
   };

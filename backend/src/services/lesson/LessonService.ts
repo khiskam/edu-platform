@@ -64,7 +64,6 @@ export class LessonService {
     const images = getImageIdsFromLayout(lesson.layout);
 
     const updatedLesson = await this._repo.update({ ...lesson, images });
-    await this._repo.deleteAllCompleted(lesson.id);
 
     return updatedLesson;
   }

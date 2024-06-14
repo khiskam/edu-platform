@@ -23,7 +23,7 @@ export class CategoryRepository
     return await this._client.category.findMany({
       skip: offset,
       take: limit,
-      where: { name: { contains: search } },
+      where: { name: { startsWith: search, mode: "insensitive" } },
     });
   }
 
@@ -76,7 +76,9 @@ export class CategoryRepository
   }
 
   async getTotalCount(search?: string): Promise<number> {
-    return await this._client.category.count({ where: { name: { contains: search } } });
+    return await this._client.category.count({
+      where: { name: { startsWith: search, mode: "insensitive" } },
+    });
   }
 
   async getAllProgress(
@@ -86,7 +88,7 @@ export class CategoryRepository
     search?: string
   ): Promise<CategoryProgress[]> {
     const categories = await this._client.category.findMany({
-      where: { name: { contains: search } },
+      where: { name: { startsWith: search, mode: "insensitive" } },
       skip: offset,
       take: limit,
       include: {
@@ -165,7 +167,7 @@ export class CategoryRepository
     search?: string | undefined
   ): Promise<Lesson[]> {
     return await this._client.lesson.findMany({
-      where: { categoryId, title: { contains: search } },
+      where: { categoryId, title: { startsWith: search, mode: "insensitive" } },
       skip: offset,
       take: limit,
     });
@@ -178,7 +180,7 @@ export class CategoryRepository
     search?: string | undefined
   ): Promise<LessonProgress[]> {
     const lessons = await this._client.lesson.findMany({
-      where: { categoryId, title: { contains: search } },
+      where: { categoryId, title: { startsWith: search, mode: "insensitive" } },
       skip: offset,
       take: limit,
       include: {
@@ -206,6 +208,8 @@ export class CategoryRepository
   }
 
   async getLessonsCount(categoryId: string, search?: string | undefined): Promise<number> {
-    return await this._client.lesson.count({ where: { categoryId, title: { contains: search } } });
+    return await this._client.lesson.count({
+      where: { categoryId, title: { startsWith: search, mode: "insensitive" } },
+    });
   }
 }

@@ -19,6 +19,5 @@ export interface ITaskProgressRepository {
 
 export interface ICompletedTaskRepository {
   createCompleted(data: CreateCompletedTaskDTO): Promise<CompletedTask>;
-
-  deleteAllCompleted(taskId: string): Promise<void>;
+  checkCompleted(data: CreateCompletedTaskDTO): Promise<CompletedTask | null>;
 }

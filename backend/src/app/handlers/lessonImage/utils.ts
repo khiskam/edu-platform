@@ -26,15 +26,15 @@ const imageTypesList = ["image/png", "image/jpeg", "image/jpg", "image/webp", "i
 function checkFileType(file: Express.Multer.File, cb: multer.FileFilterCallback) {
   file.originalname = Buffer.from(file.originalname, "latin1").toString("utf8");
 
-  imageTypesList.forEach((value) => {
-    if (value === file.mimetype) {
+  for (let i = 0; i < imageTypesList.length; ++i) {
+    if (imageTypesList[i] === file.mimetype) {
       if (file.size > 1024 * 1024 * 3) {
         return cb(new ClientError<LessonImageKeys>("Файл не должен весить больше 3Мб", "size"));
       }
 
       return cb(null, true);
     }
-  });
+  }
 
   return cb(
     new ClientError<LessonImageKeys>("Файл должен быть формата изображения", "contentType")

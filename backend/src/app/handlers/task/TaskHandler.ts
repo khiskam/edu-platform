@@ -1,5 +1,5 @@
 import { prisma } from "@app/config/db";
-import { adminMiddleware } from "@app/middleware/auth";
+import { adminMiddleware, authMiddleware, tokenMiddleware } from "@app/middleware/auth";
 import { validateMiddleware } from "@app/middleware/validate";
 import { TaskRepository } from "@repository/TaskRepository";
 import { TaskService } from "@services/task/TaskService";
@@ -21,13 +21,23 @@ export class TaskHandler implements Handler {
   public getRouter = () => {
     const router = Router();
 
-    router.get("/:id", this.getOneProgress);
-    router.post("/:id", validateMiddleware(createTaskSchema), this.createCompleted);
+    router.use(tokenMiddleware());
+    router.use(authMiddleware());
 
+    router.use("/user", this.getUserRouter());
     router.use("/admin", this.getAdminRouter());
 
     return router;
   };
+
+  getUserRouter(): Router {
+    const router = Router();
+
+    router.get("/:id", this.getOneProgress);
+    router.post("/:id", validateMiddleware(createTaskSchema), this.createCompleted);
+
+    return router;
+  }
 
   getAdminRouter(): Router {
     const router = Router();

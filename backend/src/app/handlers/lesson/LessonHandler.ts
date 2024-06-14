@@ -1,5 +1,5 @@
 import { prisma } from "@app/config/db";
-import { adminMiddleware } from "@app/middleware/auth";
+import { adminMiddleware, authMiddleware, tokenMiddleware } from "@app/middleware/auth";
 import { validateMiddleware } from "@app/middleware/validate";
 import { LessonRepository } from "@repository/LessonRepository";
 import { LessonService } from "@services/lesson/LessonService";
@@ -21,14 +21,25 @@ export class LessonHandler implements Handler {
   public getRouter = () => {
     const router = Router();
 
-    router.get("/:id/tasks", this.getAllTasksProgress);
-    router.get("/:id", this.getOneProgress);
+    router.use(tokenMiddleware());
+    router.use(authMiddleware());
 
-    router.post("/:id", this.createCompleted);
+    router.use("/user", this.getUserRouter());
     router.use("/admin", this.getAdminRouter());
 
     return router;
   };
+
+  getUserRouter(): Router {
+    const router = Router();
+
+    router.get("/:id/tasks", this.getAllTasksProgress);
+    router.get("/:id", this.getOneProgress);
+
+    router.post("/:id", this.createCompleted);
+
+    return router;
+  }
 
   getAdminRouter(): Router {
     const router = Router();
