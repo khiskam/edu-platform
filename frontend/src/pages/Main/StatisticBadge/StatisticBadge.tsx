@@ -16,8 +16,6 @@ const formatter: StatisticProps["formatter"] = (value) => {
 export const StatisticBadge = () => {
   const { data, isLoading } = StatisticsApi.useGetOneQuery();
 
-  console.log(data, data?.statistics);
-
   return (
     <Layout>
       <StatisticsElement

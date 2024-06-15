@@ -1,22 +1,17 @@
 import { SmileOutlined } from "@ant-design/icons";
-import Button from "antd/es/button";
-import Modal from "antd/es/modal";
-import Result from "antd/es/result";
-import Spin from "antd/es/spin";
+import { Button, Modal, Result, Spin } from "antd";
 import Confetti from "react-confetti";
 import { NavLink } from "react-router-dom";
 
-import { User } from "@/features";
+import { User } from "@/layouts";
 import { TaskApi } from "@/shared/api";
 import { Id } from "@/shared/types";
 
+import { CONGRATULATORY_PHRASES } from "./constants";
 import { useSound, useSubmit, useTasksPage } from "./hooks";
-import { CONGRATULATORY_PHRASES } from "./utils";
-
-const { Task: TaskLayout } = User;
 
 export const Task = ({ id }: Id) => {
-  const { isLoading, data, isRefetching } = TaskApi.useOneWithProgress(id);
+  const { isLoading, data, isRefetching } = TaskApi.useOneProgressQuery(id);
   const { onSubmit, isPending, success, onSuccess, failure, onFailure } = useSubmit();
   const taskPageRoute = useTasksPage();
   useSound(success, failure, onFailure);
@@ -29,7 +24,7 @@ export const Task = ({ id }: Id) => {
     <>
       {success && <Confetti recycle={true} gravity={0.2} />}
       <Spin spinning={isPending || isRefetching}>
-        <TaskLayout data={data.task} onSubmit={onSubmit} />
+        <User.Task data={data.task} onSubmit={onSubmit} />
 
         <Modal open={success} onCancel={onSuccess} footer={[]}>
           <Result

@@ -1,3 +1,4 @@
+export * from "./Carousel";
 export * from "./Container";
 export * from "./DeleteModal";
 export * from "./Description";
@@ -6,6 +7,7 @@ export * from "./Footer";
 export * from "./Header";
 export * from "./PageLayout";
 export * from "./ProgressBar";
+export * from "./Search";
 export * from "./TableButtons";
 export * from "./TitleWithButton";
 export * from "./Tracker";

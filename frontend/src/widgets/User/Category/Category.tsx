@@ -1,15 +1,13 @@
-import Spin from "antd/es/spin";
+import { Spin } from "antd";
 import { Navigate } from "react-router-dom";
 
-import { User } from "@/features";
+import { User } from "@/layouts";
 import { CategoryApi } from "@/shared/api";
 import { ROUTES } from "@/shared/routes";
 import { Id } from "@/shared/types";
 
-const { Category: CategoryLayout } = User;
-
 export const Category = ({ id }: Id) => {
-  const { isLoading, isError, data } = CategoryApi.useGetOneWithProgressQuery(id);
+  const { isLoading, isError, data } = CategoryApi.useGetOneProgressQuery(id);
 
   if (isError) {
     return <Navigate to={ROUTES.categories.path} />;
@@ -19,5 +17,5 @@ export const Category = ({ id }: Id) => {
     return <Spin />;
   }
 
-  return <CategoryLayout data={data.category} />;
+  return <User.Category data={data.category} />;
 };

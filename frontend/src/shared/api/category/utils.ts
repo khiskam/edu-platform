@@ -1,5 +1,5 @@
 import { Category, CategoryData } from "@/shared/types";
 
 export const categoryToCategoryData = (data: Category): CategoryData => {
-  return { name: data.name };
+  return { name: data.name, description: data.description };
 };

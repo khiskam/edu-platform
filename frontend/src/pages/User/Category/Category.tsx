@@ -1,11 +1,9 @@
-import Typography from "antd/es/typography";
+import { Typography } from "antd";
 import { Navigate, useParams } from "react-router-dom";
 
 import { Container, PageLayout } from "@/components";
 import { ROUTES } from "@/shared/routes";
 import { User } from "@/widgets";
-
-const { Category: CategoryWidget } = User;
 
 export const Category = () => {
   const { categoryId } = useParams();
@@ -17,7 +15,7 @@ export const Category = () => {
     <Container>
       <PageLayout>
         <Typography.Title level={2}>Категория</Typography.Title>
-        <CategoryWidget id={categoryId} />
+        <User.Category id={categoryId} />
       </PageLayout>
     </Container>
   );

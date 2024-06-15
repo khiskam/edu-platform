@@ -12,7 +12,7 @@ import { skeleton, skeletonTitle, tag } from "./styled";
 import { CategoriesListProps } from "./types";
 
 export const Categories = () => {
-  const { data, isLoading } = CategoryApi.useGetAllQuery("0");
+  const { data, isLoading } = CategoryApi.useGetAllQuery({ limit: "30" });
 
   return (
     <Section>

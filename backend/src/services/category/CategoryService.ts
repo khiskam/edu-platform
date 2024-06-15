@@ -41,7 +41,6 @@ export class CategoryService {
   }
 
   async getAllProgress(userId: string, limit: number, page: number, search?: string) {
-    console.log("here");
     const offset = (page - 1) * limit;
     const categories = await this._repo.getAllProgress(userId, limit, offset, search);
     const totalCount = await this._repo.getTotalCount(search);

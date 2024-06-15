@@ -16,4 +16,5 @@ export const queryKeys = {
   progress: "progress",
   statistics: "statistics",
   users: "users",
+  profile: "profile",
 };

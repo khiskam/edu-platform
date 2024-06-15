@@ -1,10 +1,9 @@
 import Divider from "antd/es/divider";
 import Typography from "antd/es/typography";
 
-import { Container } from "@/components";
-import { SignInForm } from "@/widgets";
+import { Carousel, Container } from "@/components";
+import { Auth } from "@/widgets";
 
-import { Carousel } from "../Carousel";
 import { useMatchMedia } from "../hooks";
 import { divider, Form, Layout } from "../styled";
 
@@ -22,7 +21,7 @@ export const SignIn = () => {
         )}
         <Form>
           <Typography.Title level={2}>Вход</Typography.Title>
-          <SignInForm />
+          <Auth.SignInForm />
         </Form>
       </Layout>
     </Container>

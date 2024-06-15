@@ -1,5 +1,4 @@
-export * as Admin from "./Admin";
-export * from "./Auth";
+export * as Auth from "./Auth";
 export * from "./AuthProvider";
 export * from "./MessageProvider";
 export * from "./ProtectedRoutes";

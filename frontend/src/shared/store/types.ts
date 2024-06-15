@@ -7,6 +7,7 @@ export type User = {
     token: string;
     role: UserRole;
   };
+  isLoading: boolean;
 };
 
 export type Message = {

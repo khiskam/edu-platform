@@ -19,8 +19,8 @@ export const signInSchema = object({
 });
 
 export const signUpSchema = object({
-  firstName: string().trim().required("Поле Имя пароль обязательно для заполнения"),
-  lastName: string().trim().required("Поле Фамилия пароль обязательно для заполнения"),
+  firstName: string().trim().required("Поле Имя обязательно для заполнения"),
+  lastName: string().trim().required("Поле Фамилия обязательно для заполнения"),
   email: string()
     .trim()
     .required(AUTH_VALIDATION_ERRORS.EMAIL_REQUIRED)
@@ -33,4 +33,9 @@ export const signUpSchema = object({
     .trim()
     .required(AUTH_VALIDATION_ERRORS.CONFIRM_PASSWORD_REQUIRED)
     .oneOf([ref("password")], AUTH_VALIDATION_ERRORS.CONFIRM_PASSWORD_UNMATCH),
+});
+
+export const updateSchema = object({
+  firstName: string().trim().required("Поле Имя обязательно для заполнения"),
+  lastName: string().trim().required("Поле Фамилия обязательно для заполнения"),
 });

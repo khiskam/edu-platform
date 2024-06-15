@@ -1,22 +1,19 @@
 import { useLayoutEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import correctSound from "@/assets/audio/correct.wav";
+import incorrectSound from "@/assets/audio/incorrect.mp3";
 import { TaskApi } from "@/shared/api";
 import { AnswerData } from "@/shared/types";
-
-import correctSound from "./assets/correct.wav";
-import incorrectSound from "./assets/incorrect.mp3";
-import { toAnswers } from "./utils";
 
 export const useSubmit = () => {
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
-  const { mutateAsync, isPending } = TaskApi.useCreateAnswerMutation();
+  const { mutateAsync, isPending } = TaskApi.useCreateCompletedMutation();
 
   const onSubmit = (id: string, reset: () => void) => async (data: AnswerData) => {
     try {
-      const answers = toAnswers(data);
-      await mutateAsync({ answers, id });
+      await mutateAsync({ answers: data.answers, id });
       setSuccess(true);
     } catch (e) {
       setFailure(true);

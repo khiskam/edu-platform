@@ -105,6 +105,7 @@ export class CategoryRepository
       return {
         id: category.id,
         name: category.name,
+        description: category.description,
         completedCount: category.lessons.reduce((acc, lesson) => {
           return (
             acc +
@@ -142,6 +143,7 @@ export class CategoryRepository
     return {
       id: category.id,
       name: category.name,
+      description: category.description,
       completedCount: category.lessons.reduce((acc, lesson) => {
         return (
           acc +

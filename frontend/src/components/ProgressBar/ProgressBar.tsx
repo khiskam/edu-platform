@@ -6,7 +6,7 @@ import { ProgressBarProps } from "./types";
 export const ProgressBar = ({ completedCount, totalCount, fullWidth }: ProgressBarProps) => {
   return (
     <Container fullWidth={fullWidth}>
-      <Progress percent={(completedCount / totalCount) * 100} />
+      <Progress percent={Math.round((completedCount / totalCount) * 100)} />
     </Container>
   );
 };

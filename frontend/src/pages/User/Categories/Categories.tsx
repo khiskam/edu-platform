@@ -1,17 +1,15 @@
-import Typography from "antd/es/typography";
+import { Typography } from "antd";
 
 import { Container, PageLayout } from "@/components";
 import { User } from "@/widgets";
 
-const { CategoriesList } = User;
-
 export const Categories = () => {
   return (
     <Container>
-      <PageLayout height="full-height">
+      <PageLayout height="fit-content">
         <Typography.Title level={2}>Категории</Typography.Title>
 
-        <CategoriesList />
+        <User.Categories />
       </PageLayout>
     </Container>
   );

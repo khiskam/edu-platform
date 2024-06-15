@@ -3,7 +3,7 @@ import { Lesson, LessonProgress } from "@domain/lesson";
 
 export type CreateCategoryDTO = Omit<Category, "id">;
 
-export type CategoryProgress = Pick<Category, "id" | "name"> & {
+export type CategoryProgress = Category & {
   completedCount: number;
   totalCount: number;
 };

@@ -1,1 +1,1 @@
-export { useGetOneQuery } from "./getOne";
+export { useGetOneQuery } from "./useGetOneQuery";

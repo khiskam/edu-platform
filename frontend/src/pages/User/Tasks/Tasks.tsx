@@ -1,11 +1,9 @@
-import Typography from "antd/es/typography";
+import { Typography } from "antd";
 import { Navigate, useParams } from "react-router-dom";
 
 import { Container, PageLayout } from "@/components";
 import { ROUTES } from "@/shared/routes";
 import { User } from "@/widgets";
-
-const { TasksList } = User;
 
 export const Tasks = () => {
   const { lessonId } = useParams();
@@ -19,7 +17,7 @@ export const Tasks = () => {
       <PageLayout>
         <Typography.Title level={2}>Задания</Typography.Title>
 
-        <TasksList id={lessonId} />
+        <User.Tasks id={lessonId} />
       </PageLayout>
     </Container>
   );

@@ -1,33 +1,17 @@
-import { signOut, User } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { UseFormSetError } from "react-hook-form";
 
 import { auth, UserApi } from "@/shared/api";
-import { useUserStore } from "@/shared/store";
 import { SignInData } from "@/shared/types";
 
 import { getAuthError } from "../utils";
 
-const { firebase, server } = UserApi;
-
 export const useFormSubmit = () => {
-  const firebaseMutation = firebase.useSignInMutation();
-  const serverMutation = server.useSignInMutation();
+  const { submit, isPending, isSuccess } = UserApi.useSigninMutation();
 
   const onSubmit = (setError: UseFormSetError<SignInData>) => async (data: SignInData) => {
-    data.email = data.email.trim();
-    data.password = data.password.trim();
-
-    let userCred: User | undefined = undefined;
-
     try {
-      userCred = await firebaseMutation.mutateAsync(data);
-      const token = await userCred.getIdToken();
-      console.log(token);
-      const {
-        data: { user },
-      } = await serverMutation.mutateAsync(token);
-
-      useUserStore.setState({ auth: { token, role: user.role } });
+      await submit(data);
     } catch (e) {
       await signOut(auth);
 
@@ -38,9 +22,5 @@ export const useFormSubmit = () => {
     }
   };
 
-  return {
-    onSubmit,
-    isLoading: firebaseMutation.isPending || serverMutation.isPending,
-    isSuccess: firebaseMutation.isSuccess && serverMutation.isSuccess,
-  };
+  return { onSubmit, isPending, isSuccess };
 };

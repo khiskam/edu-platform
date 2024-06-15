@@ -55,5 +55,13 @@ export const config: ThemeConfig = {
     Carousel: {
       colorBgContainer: COLORS.orange,
     },
+    Progress: {
+      defaultColor: theme.getDesignToken().colorPrimary,
+      colorSuccess: "#2BAE86",
+    },
+    Typography: {
+      fontSizeHeading2: 24,
+      fontSizeHeading3: 20,
+    },
   },
 } as const;

@@ -2,8 +2,7 @@ import Spin from "antd/es/spin";
 import { onAuthStateChanged } from "firebase/auth";
 import { useLayoutEffect, useState } from "react";
 
-import { auth } from "@/shared/api";
-import { useUserCheckQuery } from "@/shared/api/user/server";
+import { auth, UserApi } from "@/shared/api";
 import { useUserStore } from "@/shared/store";
 
 import { fullscreen } from "./styled";
@@ -15,12 +14,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useLayoutEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const token = await user.getIdToken();
-        setToken(token);
-      } else {
-        setToken(undefined);
-      }
+      setToken(user ? await user.getIdToken() : undefined);
       setIsLoading(false);
     });
 
@@ -29,17 +23,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   if (isLoading) {
     return <Spin size="large" className={fullscreen} />;
-  }
-
-  if (!token) {
+  } else if (!token) {
     return <>{children}</>;
+  } else {
+    return <ServerAuthProvider token={token}>{children}</ServerAuthProvider>;
   }
-
-  return <ServerAuthProvider token={token}>{children}</ServerAuthProvider>;
 };
 
 export const ServerAuthProvider = ({ token, children }: ServerAuthProviderProps) => {
-  const { data, isLoading, isError } = useUserCheckQuery(token);
+  const { data, isLoading, isError } = UserApi.useCheckQuery(token);
   const auth = useUserStore(({ auth }) => auth);
 
   useLayoutEffect(() => {

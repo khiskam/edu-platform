@@ -12,9 +12,7 @@ export const useSubmit = (isCompleted: boolean) => {
   const onSubmit = (taskId: string) => async () => {
     try {
       await mutateAsync(taskId);
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   return onSubmit;
@@ -22,20 +20,19 @@ export const useSubmit = (isCompleted: boolean) => {
 
 export const useIntersectionObserver = (ref: React.RefObject<HTMLDivElement>, cb?: () => void) => {
   useLayoutEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          cb?.();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.8 }
-    );
+    const onIntersection = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        cb?.();
+        io.disconnect();
+      }
+    };
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    const io = new IntersectionObserver(onIntersection, { threshold: 0.8 });
+    if (ref.current) io.observe(ref.current);
 
-    return () => observer.disconnect();
+    return () => {
+      io.disconnect();
+    };
   }, [ref, cb]);
 };

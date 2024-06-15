@@ -1,19 +1,17 @@
-import Spin from "antd/es/spin";
+import { Spin } from "antd";
 import { useRef } from "react";
 import { Navigate } from "react-router-dom";
 
-import { User } from "@/features";
+import { User } from "@/layouts";
 import { LessonApi } from "@/shared/api";
+import { LessonProgress } from "@/shared/api/types";
 import { ROUTES } from "@/shared/routes";
 import { Id } from "@/shared/types";
 
 import { useIntersectionObserver, useSubmit } from "./hooks";
-import { LessonWithDataProps } from "./types";
-
-const { Lesson: LessonLayout } = User;
 
 export const Lesson = ({ id }: Id) => {
-  const { isLoading, isError, data } = LessonApi.useOneWithProgress(id);
+  const { isLoading, isError, data } = LessonApi.useGetOneProgressQuery(id);
 
   if (isError) {
     return <Navigate to={ROUTES.categories.path} />;
@@ -26,10 +24,10 @@ export const Lesson = ({ id }: Id) => {
   return <LessonWithData data={data.lesson} />;
 };
 
-const LessonWithData = ({ data }: LessonWithDataProps) => {
+const LessonWithData = ({ data }: { data: LessonProgress }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const onSubmit = useSubmit(data.isCompleted);
   useIntersectionObserver(ref, onSubmit?.(data.id));
 
-  return <LessonLayout data={data} ref={ref} />;
+  return <User.Lesson data={data} ref={ref} />;
 };
