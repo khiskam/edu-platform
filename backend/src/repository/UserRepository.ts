@@ -115,7 +115,7 @@ export class UserRepository implements IUserRepository, IUserStatisticsRepositor
     SELECT (DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month - 1 day')::DATE
   )
   SELECT
-    TO_CHAR(currDate, 'DD-MM-YYYY') AS "date",
+    TO_CHAR(currDate, 'YYYY.MM.DD') AS "date",
     (
         SELECT COUNT(*)
         FROM public."CompletedLesson"

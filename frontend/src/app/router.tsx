@@ -16,8 +16,6 @@ const {
   Admin: AdminPanel,
 } = Admin;
 
-const { Profile } = User;
-
 export const routesList: RouteObject[] = [
   {
     path: ROUTES.main.name,
@@ -139,11 +137,15 @@ export const routesList: RouteObject[] = [
         element: <AuthProtectedRoutes />,
         children: [
           {
-            path: ROUTES.profile.name,
+            path: ROUTES.account.name,
             children: [
               {
                 path: ROUTES.main.name,
-                element: <Profile />,
+                element: <User.Account />,
+              },
+              {
+                path: ROUTES.profile.name,
+                element: <User.Profile />,
               },
               {
                 path: ROUTES.categories.name,

@@ -14,7 +14,7 @@ export const ProfileLink = () => {
   if (!auth) return <NavLink to={ROUTES.profile.path}>Профиль</NavLink>;
 
   return auth.role === "user" ? (
-    <NavLink to={ROUTES.profile.path}>Профиль</NavLink>
+    <NavLink to={ROUTES.account.path}>Личный кабинет</NavLink>
   ) : (
     <NavLink to={ROUTES.admin.path}>Админ-панель</NavLink>
   );

@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
+import { useMessageStore } from "@/shared/store";
 import { SignInData, SignUpData } from "@/shared/types";
 
 import { auth } from "../firebase";
@@ -18,5 +19,12 @@ export const useSignUpMutation = () => {
 };
 
 export const useSignInMutation = () => {
-  return useMutation({ mutationFn: signIn });
+  return useMutation({
+    mutationFn: signIn,
+    onError: () => {
+      useMessageStore.setState({
+        content: { message: "Ошибка сервера. Не получилось войти в систему", type: "error" },
+      });
+    },
+  });
 };

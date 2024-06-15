@@ -1,3 +1,3 @@
-export * as Admin from "./admin";
-export * from "./auth";
-export * as User from "./user";
+export * as Admin from "./Admin";
+export * from "./Auth";
+export * as User from "./User";

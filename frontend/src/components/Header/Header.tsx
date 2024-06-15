@@ -7,8 +7,8 @@ import { Container } from "@/components";
 import { ROUTES } from "@/shared/routes";
 import { useUserStore } from "@/shared/store";
 
-import { AUTH_NAV_LINKS, UNAUTH_NAV_LINKS } from "./constants";
 import { inner, logo, menu } from "./styled";
+import { getLinks } from "./utils";
 
 export const Header = () => {
   const location = useLocation();
@@ -26,7 +26,7 @@ export const Header = () => {
             className={menu}
             mode="horizontal"
             selectedKeys={[location.pathname]}
-            items={auth ? AUTH_NAV_LINKS : UNAUTH_NAV_LINKS}
+            items={getLinks(auth)}
           />
         </div>
       </Container>

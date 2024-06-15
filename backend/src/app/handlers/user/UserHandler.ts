@@ -96,8 +96,8 @@ export class UserHandler implements Handler {
     const uid = res.locals.uid;
 
     try {
-      const token = await this._service.update({ uid, firstName, lastName });
-      return res.status(200).json({ token });
+      const user = await this._service.update({ uid, firstName, lastName });
+      return res.status(200).json({ user });
     } catch (e) {
       return next(e);
     }
@@ -107,8 +107,8 @@ export class UserHandler implements Handler {
     const id = res.locals.id;
 
     try {
-      const token = await this._service.getOneDetails(id);
-      return res.status(200).json({ token });
+      const user = await this._service.getOneDetails(id);
+      return res.status(200).json({ user });
     } catch (e) {
       return next(e);
     }
@@ -129,8 +129,8 @@ export class UserHandler implements Handler {
     const { userId } = req.params;
 
     try {
-      const token = await this._service.getOneDetails(userId);
-      return res.status(200).json({ token });
+      const user = await this._service.getOneDetails(userId);
+      return res.status(200).json({ user });
     } catch (e) {
       return next(e);
     }

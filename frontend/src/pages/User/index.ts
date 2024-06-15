@@ -1,3 +1,4 @@
+export * from "./Account";
 export * from "./Categories";
 export * from "./Category";
 export * from "./Lesson";

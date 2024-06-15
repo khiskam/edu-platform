@@ -2,9 +2,8 @@ import { MenuProps } from "antd/es/menu";
 import { NavLink } from "react-router-dom";
 
 import { ROUTES } from "@/shared/routes";
-import { useUserStore } from "@/shared/store";
 
-import { ProfileLink, SignOutLink } from "./components";
+import { SignOutLink } from "./components";
 
 export const COMMON_NAV_LINKS: MenuProps["items"] = [
   {
@@ -27,9 +26,10 @@ export const UNAUTH_NAV_LINKS: MenuProps["items"] = [
 
 export const AUTH_NAV_LINKS = [
   ...COMMON_NAV_LINKS,
+
   {
-    key: useUserStore.getState().auth?.role === "user" ? ROUTES.profile.path : ROUTES.admin.path,
-    label: <ProfileLink />,
+    key: ROUTES.account.path,
+    label: <NavLink to={ROUTES.account.path}>Личный кабинет</NavLink>,
   },
   {
     key: "signout",

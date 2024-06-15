@@ -7,5 +7,5 @@ export * as LessonApi from "./lesson";
 export * as StatisticsApi from "./statistics";
 export * as TaskApi from "./task";
 export type { TaskWithAnswersReponse, TaskWithProgress } from "./types";
-export * from "./user";
+export * as UserApi from "./user";
 export { getApiError, getTask } from "./utils";

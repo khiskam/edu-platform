@@ -12,12 +12,10 @@ export const Admin = () => {
       <PageLayout>
         <Typography.Title level={2}>Админ-панель</Typography.Title>
         <List
-          bordered
           dataSource={ADMIN_PAGES}
           renderItem={(item) => (
-            <List.Item>
-              <Typography.Text>{item.title}</Typography.Text>
-              <NavLink to={item.route}>Перейти</NavLink>
+            <List.Item extra={<NavLink to={item.path}>Перейти</NavLink>}>
+              <Typography.Text>{item.label}</Typography.Text>
             </List.Item>
           )}
         />

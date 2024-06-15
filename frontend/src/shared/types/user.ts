@@ -9,5 +9,5 @@ export type SignInData = InferType<typeof signInSchema>;
 export type UserRole = "user" | "admin";
 
 export type User = {
-  user: Id & { uid: string; role: UserRole };
+  user: Id & { uid: string; role: UserRole; firstName: string; lastName: string };
 };

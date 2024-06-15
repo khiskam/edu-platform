@@ -1,4 +1,4 @@
-import { Category, Image, Lesson, Task } from "@/shared/types";
+import { Category, Image, Lesson, Task, User } from "@/shared/types";
 
 export type CategoriesResponse = {
   categories: Category[];
@@ -111,4 +111,10 @@ export type StatisticsResponse = {
     lessonsCount: number;
     tasksCount: number;
   };
+};
+
+export type UserDetailsResponse = {
+  user: User["user"] & {
+    statistics: { lessonsCompleted: number; tasksCompleted: number };
+  } & { monthlyActions: { date: string; lessonsCompleted: number; tasksCompleted: number }[] };
 };

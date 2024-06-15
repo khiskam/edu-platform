@@ -17,7 +17,7 @@ export const Layout = () => {
     <LayoutContainer>
       <MessageProvider />
       <Header />
-      <ContentContainer>
+      <ContentContainer isBackground={!PAGES_WITHOUT_BREADCRUMB.includes(location.pathname)}>
         {needBreadcrumb ? (
           <Container>
             <Breadcrumb />

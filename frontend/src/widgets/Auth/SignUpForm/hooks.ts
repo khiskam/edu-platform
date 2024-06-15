@@ -1,17 +1,19 @@
-import { signOut, User } from "firebase/auth";
+import { User } from "firebase/auth";
 import { UseFormSetError } from "react-hook-form";
 
-import { auth, firebase, server } from "@/shared/api";
+import { UserApi } from "@/shared/api";
 import { useUserStore } from "@/shared/store";
-import { SignInData } from "@/shared/types";
+import { SignUpData } from "@/shared/types";
 
 import { getAuthError } from "../utils";
 
-export const useFormSubmit = () => {
-  const firebaseMutation = firebase.useSignInMutation();
-  const serverMutation = server.useSignInMutation();
+const { firebase, server } = UserApi;
 
-  const onSubmit = (setError: UseFormSetError<SignInData>) => async (data: SignInData) => {
+export const useFormSubmit = () => {
+  const firebaseMutation = firebase.useSignUpMutation();
+  const serverMutation = server.useSignUpMutation();
+
+  const onSubmit = (setError: UseFormSetError<SignUpData>) => async (data: SignUpData) => {
     data.email = data.email.trim();
     data.password = data.password.trim();
 
@@ -26,7 +28,7 @@ export const useFormSubmit = () => {
 
       useUserStore.setState({ auth: { token, role: user.role } });
     } catch (e) {
-      await signOut(auth);
+      if (userCred) await userCred.delete();
 
       const error = getAuthError(e);
       if (error) {

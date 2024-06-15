@@ -4,7 +4,6 @@ import { GAP } from "@/shared/theme";
 
 export const Layout = styled.div`
   display: grid;
-  margin-top: 32px;
 
   gap: ${GAP[80]}px;
 

@@ -27,6 +27,10 @@ export const ROUTES = {
     name: "profile",
     path: "/profile",
   },
+  account: {
+    name: "account",
+    path: "/account",
+  },
   admin: {
     name: "admin",
     path: "/admin",
@@ -39,6 +43,10 @@ export const ROUTES = {
     name: "edit",
     path: "/edit",
   },
+  users: {
+    name: "users",
+    path: "/users",
+  },
 };
 
 export const ROUTES_TITLE: Omit<
@@ -50,8 +58,10 @@ export const ROUTES_TITLE: Omit<
   lessons: "Занятия",
   admin: "Админ-панель",
   profile: "Профиль",
+  account: "Личный кабинет",
   create: "Добавить",
   edit: "Редактировать",
+  users: "Пользователи",
 };
 
 export type RoutesTitleKeys = keyof typeof ROUTES_TITLE;

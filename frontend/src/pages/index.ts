@@ -1,4 +1,4 @@
-export * as Admin from "./admin";
+export * as Admin from "./Admin";
 export * from "./Auth";
 export * from "./Main";
-export * as User from "./user";
+export * as User from "./User";

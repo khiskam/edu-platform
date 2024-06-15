@@ -1,17 +1,19 @@
-import { User } from "firebase/auth";
+import { signOut, User } from "firebase/auth";
 import { UseFormSetError } from "react-hook-form";
 
-import { firebase, server } from "@/shared/api";
+import { auth, UserApi } from "@/shared/api";
 import { useUserStore } from "@/shared/store";
-import { SignUpData } from "@/shared/types";
+import { SignInData } from "@/shared/types";
 
 import { getAuthError } from "../utils";
 
-export const useFormSubmit = () => {
-  const firebaseMutation = firebase.useSignUpMutation();
-  const serverMutation = server.useSignUpMutation();
+const { firebase, server } = UserApi;
 
-  const onSubmit = (setError: UseFormSetError<SignUpData>) => async (data: SignUpData) => {
+export const useFormSubmit = () => {
+  const firebaseMutation = firebase.useSignInMutation();
+  const serverMutation = server.useSignInMutation();
+
+  const onSubmit = (setError: UseFormSetError<SignInData>) => async (data: SignInData) => {
     data.email = data.email.trim();
     data.password = data.password.trim();
 
@@ -20,13 +22,14 @@ export const useFormSubmit = () => {
     try {
       userCred = await firebaseMutation.mutateAsync(data);
       const token = await userCred.getIdToken();
+      console.log(token);
       const {
         data: { user },
       } = await serverMutation.mutateAsync(token);
 
       useUserStore.setState({ auth: { token, role: user.role } });
     } catch (e) {
-      if (userCred) await userCred.delete();
+      await signOut(auth);
 
       const error = getAuthError(e);
       if (error) {
