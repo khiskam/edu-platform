@@ -1,0 +1,21 @@
+generatorOptions:
+  disableNameSuffixHash: true
+
+namespace: edu-stage
+namePrefix: stage-
+
+secretGenerator:
+  - name: edu-api-secret
+    envs:
+      - .env
+
+commonLabels:
+  env: stage
+
+commonAnnotations:
+  kubernetes.io/service-account.name: stage-edu-deployer
+
+resources:
+  - ./deployment.edu-api.yaml
+  - ./deployment.edu-db.yaml
+  - ./namespace.yaml

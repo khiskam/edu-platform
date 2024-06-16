@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edu-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edu-db-pod
+  template:
+    metadata:
+      labels:
+        app: edu-db-pod
+    spec:
+      containers:
+        - name: edu-db
+          image: postgres:16.2-alpine3.19
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: edu-db-storage
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: UPLOAD_FOLDER
+      volumes:
+        - name: edu-db-storage
+          hostPath:
+            path: /var/cluster/edu-stage-db
+            type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edu-db-svc
+spec:
+  selector:
+    app: edu-db-pod
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

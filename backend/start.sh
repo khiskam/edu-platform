@@ -2,4 +2,4 @@
 echo "RUN MIGRATION"
 npx prisma migrate deploy
 echo "START NODE"
-node dist/main.js
+node dist/index.js

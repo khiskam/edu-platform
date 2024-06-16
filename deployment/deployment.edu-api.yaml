@@ -1,0 +1,93 @@
+# webcam backend
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edu-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edu-api-pod
+  template:
+    metadata:
+      labels:
+        app: edu-api-pod
+    spec:
+      containers:
+        - name: edu-api-pod
+          image: ayratkhisamiev/edu-platform-backend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: DATABASE_URL
+            - name: BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: BASE_URL
+            - name: UPLOAD_FOLDER
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: UPLOAD_FOLDER
+            - name: FIREBASE_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: FIREBASE_PRIVATE_KEY
+            - name: FIREBASE_PROJECT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: FIREBASE_PROJECT_ID
+            - name: FIREBASE_CLIENT_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: edu-api-secret
+                  key: FIREBASE_CLIENT_EMAIL
+          volumeMounts:
+            - name: edu-api-file-storage
+              mountPath: /files
+      volumes:
+        - name: edu-api-file-storage
+          hostPath:
+            path: /var/cluster/edu-stage-api-files
+            type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edu-api-svc
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+  selector:
+    app: edu-api-pod
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: accounts-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: https://edu-api.thin-box.online
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: edu-api-svc
+                port:
+                  number: 3000
+  tls:
+    - secretName: thin-box.online
+      hosts:
+        - edu-api.thin-box.online

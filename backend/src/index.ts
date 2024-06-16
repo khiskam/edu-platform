@@ -12,7 +12,7 @@ import { UserHandler } from "@app/handlers/user/UserHandler";
 import { ENV } from "./env";
 
 const app = new App(
-  ENV.API_PORT,
+  ENV.API_PORT ?? 3000,
   new HealthCheckHandler(),
   new StatisticsHandler(),
   new UserHandler(),

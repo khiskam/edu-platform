@@ -1,7 +1,6 @@
 import cors from "cors";
 import express, { Express, json, Router } from "express";
 
-import { ENV } from "../env";
 import { Handler } from "./handlers/interfaces";
 import { errorMiddleware } from "./middleware/error";
 
@@ -14,7 +13,7 @@ export class App {
     this._express = express();
     this._port = port;
 
-    this._express.use(cors({ origin: ENV.CLIENT_ORIGIN }));
+    this._express.use(cors());
     this._express.use(json());
 
     this._router = Router();
