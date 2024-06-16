@@ -6,7 +6,7 @@ import multer from "multer";
 type LessonImageKeys = keyof LessonImage;
 
 const storage = multer.diskStorage({
-  destination: "./uploads",
+  destination: process.env.UPLOAD_FOLDER,
   filename: function (_req, _, cb) {
     cb(null, randomUUID());
   },
