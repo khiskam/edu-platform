@@ -52,7 +52,7 @@ spec:
                   key: FIREBASE_CLIENT_EMAIL
           volumeMounts:
             - name: edu-api-file-storage
-              mountPath: /files
+              mountPath: /app/files
       volumes:
         - name: edu-api-file-storage
           hostPath:
