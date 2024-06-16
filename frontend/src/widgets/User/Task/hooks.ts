@@ -4,14 +4,14 @@ import { useLocation } from "react-router-dom";
 import correctSound from "@/assets/audio/correct.wav";
 import incorrectSound from "@/assets/audio/incorrect.mp3";
 import { TaskApi } from "@/shared/api";
-import { AnswerData } from "@/shared/types";
+import { CompletedAnswerData } from "@/shared/types";
 
 export const useSubmit = () => {
   const [success, setSuccess] = useState(false);
   const [failure, setFailure] = useState(false);
   const { mutateAsync, isPending } = TaskApi.useCreateCompletedMutation();
 
-  const onSubmit = (id: string, reset: () => void) => async (data: AnswerData) => {
+  const onSubmit = (id: string, reset: () => void) => async (data: CompletedAnswerData) => {
     try {
       await mutateAsync({ answers: data.answers, id });
       setSuccess(true);

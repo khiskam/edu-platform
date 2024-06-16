@@ -1,4 +1,7 @@
+import { InferType } from "yup";
+
 import { Task } from "@/shared/types";
+import { taskSchema } from "@/shared/validation";
 
 export type TaskAnswers = Pick<Task, "id" | "title" | "description" | "lessonId"> & {
   answers: string[];
@@ -23,7 +26,7 @@ export type TasksProgressResponse = {
 };
 
 export type TaskProgressResponse = {
-  task: TaskProgress & { answers: string[] };
+  task: TaskProgress;
 };
 
 export type TasksResponse = {
@@ -34,3 +37,5 @@ export type TasksResponse = {
 export type TaskResponse = {
   task: Task;
 };
+
+export type TaskData = InferType<typeof taskSchema>;

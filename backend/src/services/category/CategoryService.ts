@@ -28,11 +28,15 @@ export class CategoryService {
 
   async create(category: CreateCategoryDTO) {
     category.name = category.name.trim();
+    category.description = category.description.trim();
+
     return await this._repo.create(category);
   }
 
   async update(category: Category) {
     category.name = category.name.trim();
+    category.description = category.description.trim();
+
     return await this._repo.update(category);
   }
 

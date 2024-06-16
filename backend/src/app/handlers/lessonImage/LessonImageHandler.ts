@@ -22,19 +22,11 @@ export class LessonImageHandler implements Handler {
   public getRouter = (): Router => {
     const router = Router();
 
+    router.get("/:id", this.getOne);
     router.use(tokenMiddleware());
     router.use(authMiddleware());
 
-    router.use("/user", this.getUserRouter());
     router.use("/admin", this.getAdminRouter());
-
-    return router;
-  };
-
-  public getUserRouter = (): Router => {
-    const router = Router();
-
-    router.get("/:id", this.getOne);
 
     return router;
   };

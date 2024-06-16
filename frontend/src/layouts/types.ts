@@ -18,3 +18,14 @@ export type ListProps<T> = {
   isLoading: boolean;
   totalCount: number | undefined;
 };
+
+export type TableProps<T> = {
+  data?: T[];
+  onDelete: (id?: string) => void;
+  pagesCount: number;
+  isLoading: boolean;
+};
+
+export type useColumnsProps = {
+  onDelete: (id?: string) => void;
+};

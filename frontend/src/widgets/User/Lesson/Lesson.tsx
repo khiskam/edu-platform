@@ -1,10 +1,10 @@
-import { Spin } from "antd";
+import Spin from "antd/es/spin";
 import { useRef } from "react";
 import { Navigate } from "react-router-dom";
 
 import { User } from "@/layouts";
 import { LessonApi } from "@/shared/api";
-import { LessonProgress } from "@/shared/api/types";
+import { LessonProgress } from "@/shared/api/lesson/types";
 import { ROUTES } from "@/shared/routes";
 import { Id } from "@/shared/types";
 

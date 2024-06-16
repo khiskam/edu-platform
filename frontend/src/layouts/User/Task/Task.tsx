@@ -1,10 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Checkbox, Flex, Form, Tag, Typography } from "antd";
+import Button from "antd/es/button";
+import Checkbox from "antd/es/checkbox";
+import Flex from "antd/es/flex";
+import Form from "antd/es/form";
+import Tag from "antd/es/tag";
+import Typography from "antd/es/typography";
 import { Controller, useForm } from "react-hook-form";
 
 import { Description } from "@/components";
 import { GAP } from "@/shared/theme";
-import { AnswerData } from "@/shared/types";
+import { CompletedAnswerData } from "@/shared/types";
 import { answersSchema } from "@/shared/validation";
 
 import { TaskProps } from "./types";
@@ -15,7 +20,7 @@ export const Task = ({ data, onSubmit }: TaskProps) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<AnswerData>({
+  } = useForm<CompletedAnswerData>({
     mode: "onChange",
     resolver: yupResolver(answersSchema),
     defaultValues: { answers: [] },

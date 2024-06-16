@@ -15,6 +15,9 @@ export const queryKeys = {
   userCheck: "userCheck",
   progress: "progress",
   statistics: "statistics",
-  users: "users",
+  users: {
+    all: "users",
+    one: "user",
+  },
   profile: "profile",
 };

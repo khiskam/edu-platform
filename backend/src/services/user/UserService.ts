@@ -1,5 +1,5 @@
 import { app } from "@app/config/auth";
-import { UserDetails } from "@domain/user";
+import { User, UserDetails } from "@domain/user";
 
 import {
   CreateUserDTO,
@@ -53,6 +53,7 @@ export class UserService {
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
+      email: (await app.auth().getUser(user.uid)).email,
       statistics: { lessonsCompleted, tasksCompleted },
       monthlyActions,
     };
@@ -63,8 +64,14 @@ export class UserService {
 
     const users = await this._repo.getAll(limit, offset, search);
 
+    const data: (User & { email?: string })[] = [];
+
+    for (const user of users) {
+      data.push({ ...user, email: (await app.auth().getUser(user.uid)).email });
+    }
+
     const count = await this._repo.getTotalCount(search);
 
-    return { users, total: count };
+    return { users: data, total: count };
   }
 }

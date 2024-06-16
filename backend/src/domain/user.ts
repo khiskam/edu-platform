@@ -15,7 +15,7 @@ export type UnitProgress = {
 
 export type MontlyUnitProgress = { date: string } & UnitProgress;
 
-export type UserDetails = User & {
+export type UserDetails = User & { email?: string } & {
   statistics: UnitProgress;
   monthlyActions: MontlyUnitProgress;
 };

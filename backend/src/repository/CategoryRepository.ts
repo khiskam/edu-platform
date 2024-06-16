@@ -46,10 +46,10 @@ export class CategoryRepository
   }
 
   async update(category: Category): Promise<Category> {
-    const { id, name } = category;
+    const { id, name, description } = category;
 
     try {
-      return await this._client.category.update({ where: { id }, data: { name } });
+      return await this._client.category.update({ where: { id }, data: { name, description } });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === PRISMA_CODES.notFound) {

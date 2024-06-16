@@ -7,9 +7,14 @@ import { DescriptionProps } from "./types";
 
 export const Description = ({ layout, label, value }: DescriptionProps) => {
   return (
-    <Flex gap={GAP[4]} vertical={layout === "vertical"}>
+    <Flex
+      gap={GAP[4]}
+      vertical={layout === "vertical"}
+      style={{ width: "100%" }}
+      align={layout === "vertical" ? "start" : "un"}
+    >
       <Typography.Text type="secondary">{label}:</Typography.Text>
-      <Typography.Text>{value}</Typography.Text>
+      {value}
     </Flex>
   );
 };

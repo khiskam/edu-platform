@@ -3,14 +3,13 @@ import Flex from "antd/es/flex";
 import Typography from "antd/es/typography";
 
 import { Description } from "@/components";
-import { auth } from "@/shared/api";
 import { GAP } from "@/shared/theme";
 
 import { avatar, DescriptionLayout, Layout } from "./styled";
 import { ProfileDataProps } from "./types";
 
 export const ProfileData = ({ data }: ProfileDataProps) => {
-  const { firstName, lastName, role } = data;
+  const { firstName, lastName, role, email } = data;
 
   return (
     <Flex gap={GAP[24]} vertical>
@@ -24,7 +23,7 @@ export const ProfileData = ({ data }: ProfileDataProps) => {
         <DescriptionLayout>
           <Description layout="vertical" label="Имя" value={firstName} />
           <Description layout="vertical" label="Фамилия" value={lastName} />
-          <Description layout="vertical" label="Email" value={auth.currentUser?.email} />
+          {email && <Description layout="vertical" label="Email" value={email} />}
           <Description
             layout="vertical"
             label="Роль"

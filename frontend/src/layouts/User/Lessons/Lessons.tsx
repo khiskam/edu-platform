@@ -1,4 +1,8 @@
-import { Empty, Flex, List, Pagination, Typography } from "antd";
+import Empty from "antd/es/empty";
+import Flex from "antd/es/flex";
+import List from "antd/es/list";
+import Pagination from "antd/es/pagination";
+import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
 import { ProgressBar, Search } from "@/components";

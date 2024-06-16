@@ -22,5 +22,6 @@ export const errorMiddleware: func = (err, req, res, next) => {
     return res.status(400).json({ errors: { message: err.message } });
   }
 
+  console.log(err);
   return res.sendStatus(500);
 };

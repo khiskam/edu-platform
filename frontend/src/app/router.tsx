@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 
-import { Auth, Main, User } from "@/pages";
+import { Crumbs } from "@/components";
+import { Admin, Auth, Main, User } from "@/pages";
 import { ROUTES } from "@/shared/routes";
-import { AuthProtectedRoutes, UnauthProtectedRoutes } from "@/widgets";
+import { AdminProtectedRoutes, AuthProtectedRoutes, UnauthProtectedRoutes } from "@/widgets";
 
 import { Layout } from "./Layout";
 
@@ -12,7 +13,7 @@ export const routesList: RouteObject[] = [
     element: <Layout />,
     children: [
       {
-        path: ROUTES.main.name,
+        index: true,
         element: <Main />,
       },
       {
@@ -28,103 +29,123 @@ export const routesList: RouteObject[] = [
           },
         ],
       },
-      // {
-      //   element: <AdminProtectedRoutes />,
-      //   children: [
-      //     {
-      //       path: ROUTES.admin.name,
-      //       children: [
-      //         {
-      //           path: ROUTES.main.name,
-      //           element: <AdminPanel />,
-      //         },
-      //         {
-      //           path: ROUTES.users.name,
-      //           element: <></>,
-      //         },
-      //         {
-      //           path: ROUTES.categories.name,
-      //           children: [
-      //             {
-      //               path: ROUTES.main.name,
-      //               element: <Admin.Categories />,
-      //             },
-      //             {
-      //               path: "create",
-      //               element: <CreateCategory />,
-      //             },
-      //             {
-      //               path: ":categoryId",
-      //               children: [
-      //                 {
-      //                   path: ROUTES.main.name,
-      //                   element: <Admin.Category />,
-      //                 },
-      //                 {
-      //                   path: ROUTES.edit.name,
-      //                   element: <UpdateCategory />,
-      //                 },
-      //                 {
-      //                   path: ROUTES.lessons.name,
-      //                   children: [
-      //                     {
-      //                       path: ROUTES.main.name,
-      //                       element: <Admin.Lessons></Admin.Lessons>,
-      //                     },
-      //                     {
-      //                       path: "create",
-      //                       element: <CreateLesson />,
-      //                     },
-      //                     {
-      //                       path: ":lessonId",
-      //                       children: [
-      //                         {
-      //                           path: ROUTES.main.name,
-      //                           element: <Admin.Lesson></Admin.Lesson>,
-      //                         },
-      //                         {
-      //                           path: ROUTES.edit.name,
-      //                           element: <UpdateLesson />,
-      //                         },
-      //                         {
-      //                           path: ROUTES.tasks.name,
-      //                           children: [
-      //                             {
-      //                               path: ROUTES.main.name,
-      //                               element: <Admin.Tasks />,
-      //                             },
-      //                             {
-      //                               path: "create",
-      //                               element: <CreateTask />,
-      //                             },
-      //                             {
-      //                               path: ":taskId",
-      //                               children: [
-      //                                 {
-      //                                   path: ROUTES.main.name,
-      //                                   element: <Admin.Task></Admin.Task>,
-      //                                 },
-      //                                 {
-      //                                   path: "edit",
-      //                                   element: <UpdateTask />,
-      //                                 },
-      //                               ],
-      //                             },
-      //                           ],
-      //                         },
-      //                       ],
-      //                     },
-      //                   ],
-      //                 },
-      //               ],
-      //             },
-      //           ],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-
+      {
+        element: <AdminProtectedRoutes />,
+        children: [
+          {
+            path: ROUTES.admin.name,
+            children: [
+              {
+                index: true,
+                element: <Admin.Panel />,
+              },
+              {
+                path: ROUTES.users.name,
+                children: [
+                  {
+                    index: true,
+                    element: <Admin.Users />,
+                  },
+                  {
+                    path: ":userId",
+                    element: <Admin.User />,
+                    handle: {
+                      crumb: <Crumbs.User />,
+                    },
+                  },
+                ],
+              },
+              {
+                path: ROUTES.categories.name,
+                children: [
+                  {
+                    index: true,
+                    element: <Admin.Categories />,
+                  },
+                  {
+                    path: ROUTES.create.name,
+                    element: <Admin.CreateCategory />,
+                  },
+                  {
+                    path: ":categoryId",
+                    handle: {
+                      crumb: <Crumbs.Category />,
+                    },
+                    children: [
+                      {
+                        index: true,
+                        element: <Admin.Category />,
+                      },
+                      {
+                        path: ROUTES.edit.name,
+                        element: <Admin.UpdateCategory />,
+                      },
+                      {
+                        path: ROUTES.lessons.name,
+                        children: [
+                          {
+                            index: true,
+                            element: <Admin.Lessons />,
+                          },
+                          {
+                            path: ROUTES.create.name,
+                            element: <Admin.CreateLesson />,
+                          },
+                          {
+                            path: ":lessonId",
+                            handle: {
+                              crumb: <Crumbs.Lesson />,
+                            },
+                            children: [
+                              {
+                                index: true,
+                                element: <Admin.Lesson />,
+                              },
+                              {
+                                path: ROUTES.edit.name,
+                                element: <Admin.UpdateLesson />,
+                              },
+                              {
+                                path: ROUTES.tasks.name,
+                                children: [
+                                  {
+                                    index: true,
+                                    element: <Admin.Tasks />,
+                                  },
+                                  {
+                                    path: ROUTES.create.name,
+                                    element: <Admin.CreateTask />,
+                                  },
+                                  {
+                                    path: ":taskId",
+                                    handle: {
+                                      crumb: <Crumbs.Task />,
+                                    },
+                                    children: [
+                                      {
+                                        index: true,
+                                        element: <Admin.Task />,
+                                      },
+                                      {
+                                        path: ROUTES.edit.name,
+                                        element: <Admin.UpdateTask />,
+                                      },
+                                    ],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       {
         element: <AuthProtectedRoutes />,
         children: [
@@ -132,7 +153,7 @@ export const routesList: RouteObject[] = [
             path: ROUTES.account.name,
             children: [
               {
-                path: ROUTES.main.name,
+                index: true,
                 element: <User.Account />,
               },
               {
@@ -143,37 +164,48 @@ export const routesList: RouteObject[] = [
                 path: ROUTES.categories.name,
                 children: [
                   {
-                    path: ROUTES.main.name,
+                    index: true,
                     element: <User.Categories />,
                   },
                   {
                     path: ":categoryId",
+                    handle: {
+                      crumb: <Crumbs.Category />,
+                    },
                     children: [
                       {
-                        path: ROUTES.main.name,
+                        index: true,
                         element: <User.Category />,
                       },
                       {
                         path: ROUTES.lessons.name,
                         children: [
                           {
-                            path: ROUTES.main.name,
+                            index: true,
                             element: <User.Lessons />,
                           },
                           {
                             path: ":lessonId",
+                            handle: {
+                              crumb: <Crumbs.Lesson />,
+                            },
                             children: [
                               {
-                                path: ROUTES.main.name,
+                                index: true,
                                 element: <User.Lesson />,
                               },
                               {
                                 path: ROUTES.tasks.name,
-                                element: <User.Tasks />,
-                              },
-                              {
-                                path: `${ROUTES.tasks.name}/:taskId`,
-                                element: <User.Task />,
+                                children: [
+                                  {
+                                    index: true,
+                                    element: <User.Tasks />,
+                                  },
+                                  {
+                                    path: ":taskId",
+                                    element: <User.Task />,
+                                  },
+                                ],
                               },
                             ],
                           },

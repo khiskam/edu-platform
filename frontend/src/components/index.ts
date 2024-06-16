@@ -1,5 +1,6 @@
 export * from "./Carousel";
 export * from "./Container";
+export * as Crumbs from "./Crumbs";
 export * from "./DeleteModal";
 export * from "./Description";
 export * as Fields from "./Fields";

@@ -4,10 +4,10 @@ import { axiosClient } from "../client";
 import { queryKeys } from "../keys";
 import { UserDetailsResponse } from "./types";
 
-const getOneDetails = async () => {
-  return (await axiosClient.get<UserDetailsResponse>("/users")).data;
+const getOneDetails = async (userId: string) => {
+  return (await axiosClient.get<UserDetailsResponse>(`/users/admin/profiles/${userId}`)).data;
 };
 
-export const useGetOneQuery = () => {
-  return useQuery({ queryKey: [queryKeys.profile], queryFn: () => getOneDetails() });
+export const useGetOneQuery = (userId: string) => {
+  return useQuery({ queryKey: [queryKeys.users.one], queryFn: () => getOneDetails(userId) });
 };

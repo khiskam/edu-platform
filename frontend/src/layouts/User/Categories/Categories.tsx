@@ -1,4 +1,8 @@
-import { Empty, Flex, List, Pagination, Typography } from "antd";
+import Empty from "antd/es/empty";
+import Flex from "antd/es/flex";
+import List from "antd/es/list";
+import Pagination from "antd/es/pagination";
+import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
 import { ProgressBar, Search } from "@/components";
@@ -23,11 +27,14 @@ export const Categories = ({ data, totalCount, isLoading }: ListProps<CategoryPr
               <List.Item.Meta
                 title={<Typography.Text style={{ fontSize: "20px" }}>{item.name}</Typography.Text>}
                 description={
-                  <ProgressBar
-                    fullWidth
-                    completedCount={item.completedCount}
-                    totalCount={item.totalCount}
-                  />
+                  <Flex vertical gap={GAP[4]} style={{ margin: "12px 0 0" }}>
+                    <Typography.Text>{item.description}</Typography.Text>
+                    <ProgressBar
+                      fullWidth
+                      completedCount={item.completedCount}
+                      totalCount={item.totalCount}
+                    />
+                  </Flex>
                 }
               />
             </List.Item>

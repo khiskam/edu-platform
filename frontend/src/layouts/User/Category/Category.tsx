@@ -1,4 +1,5 @@
-import { Button, Flex } from "antd";
+import Button from "antd/es/button";
+import Flex from "antd/es/flex";
 import { NavLink } from "react-router-dom";
 
 import { Description, ProgressBar } from "@/components";

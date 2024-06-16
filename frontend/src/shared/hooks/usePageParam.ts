@@ -32,5 +32,5 @@ export const usePageParam = <T extends FieldValues>(
     [searchParams, setSearchParams, totalCount]
   );
 
-  return { searchParams, config };
+  return { config };
 };

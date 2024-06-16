@@ -1,4 +1,7 @@
-import { Button, Flex, Tag, Typography } from "antd";
+import Button from "antd/es/button";
+import Flex from "antd/es/flex";
+import Tag from "antd/es/tag";
+import Typography from "antd/es/typography";
 import parse from "html-react-parser";
 import { forwardRef } from "react";
 import { NavLink } from "react-router-dom";
@@ -12,7 +15,7 @@ import { GAP } from "@/shared/theme";
 export const Lesson = forwardRef<HTMLDivElement, Data<LessonProgress>>(({ data }, ref) => {
   return (
     <>
-      <Flex vertical ref={ref} gap={GAP[24]}>
+      <Flex vertical ref={ref} gap={GAP[24]} align="start">
         <Description
           layout="vertical"
           label="Просмотр"

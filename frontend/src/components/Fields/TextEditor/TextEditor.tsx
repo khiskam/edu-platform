@@ -5,8 +5,8 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { FieldValues, useController } from "react-hook-form";
 import { Editor as TinyMCEEditor } from "tinymce";
 
-// import { initConfig } from "./config";
-// import { useImageUpload } from "./hooks";
+import { initConfig } from "./config";
+import { useImageUpload } from "./hooks";
 import { EditorContainer } from "./styled";
 import { TextEditorFieldProps } from "./types";
 
@@ -16,7 +16,7 @@ export const TextEditor = <T extends FieldValues>(props: TextEditorFieldProps<T>
   const [isLoading, setIsLoading] = useState(true);
   const editorRef = useRef<TinyMCEEditor | null>(null);
 
-  // const { upload } = useImageUpload();
+  const { upload } = useImageUpload();
 
   const {
     field: { onChange },
@@ -46,14 +46,14 @@ export const TextEditor = <T extends FieldValues>(props: TextEditorFieldProps<T>
           <Editor
             apiKey={import.meta.env.VITE_MCE_API_KEY}
             onInit={handleInit}
-            // init={{
-            //   ...initConfig,
-            //   image_dimensions: false,
-            //   image_class_list: [{ title: "Responsive", value: "img-responsive" }],
-            //   images_upload_handler: async (blobInfo) => {
-            //     return await upload(blobInfo.blob(), blobInfo.filename());
-            //   },
-            // }}
+            init={{
+              ...initConfig,
+              image_dimensions: false,
+              image_class_list: [{ title: "Responsive", value: "img-responsive" }],
+              images_upload_handler: async (blobInfo) => {
+                return await upload(blobInfo.blob(), blobInfo.filename());
+              },
+            }}
             onChange={handleChange}
             initialValue={initValue}
           />
