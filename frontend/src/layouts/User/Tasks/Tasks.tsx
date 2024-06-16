@@ -1,4 +1,4 @@
-import { CheckCircleOutlined } from "@ant-design/icons";
+import CheckCircleOutlined from "@ant-design/icons/CheckCircleOutlined";
 import { useTheme } from "@emotion/react";
 import Empty from "antd/es/empty";
 import Flex from "antd/es/flex";

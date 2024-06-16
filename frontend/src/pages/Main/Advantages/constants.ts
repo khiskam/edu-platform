@@ -1,7 +1,7 @@
-import CodingIcon from "@/assets/icons/coding.svg?react";
-import GraduationIcon from "@/assets/icons/graduation.svg?react";
-import KnowledgeIcon from "@/assets/icons/knowledge.svg?react";
-import SupportIcon from "@/assets/icons/support.svg?react";
+import CodingIcon from "@/assets/icons/coding.svg";
+import GraduationIcon from "@/assets/icons/graduation.svg";
+import KnowledgeIcon from "@/assets/icons/knowledge.svg";
+import SupportIcon from "@/assets/icons/support.svg";
 
 export const ADVANTAGES = [
   {

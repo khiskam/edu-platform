@@ -5,7 +5,7 @@ import Row from "antd/es/row";
 import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
-import BannerImage from "@/assets/icons/banner.svg?react";
+import BannerImage from "@/assets/icons/banner.svg";
 import { ROUTES } from "@/shared/routes";
 import { GAP } from "@/shared/theme";
 
@@ -37,7 +37,7 @@ export const Banner = () => {
           </ContentLayout>
         </Col>
         <Col xs={24} lg={12}>
-          <BannerImage width="100%" />
+          <img src={BannerImage} style={{ width: "100%" }} />
         </Col>
       </Row>
     </Section>

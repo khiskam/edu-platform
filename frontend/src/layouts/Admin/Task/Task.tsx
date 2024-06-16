@@ -1,4 +1,5 @@
-import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import MinusCircleOutlined from "@ant-design/icons/MinusCircleOutlined";
+import PlusCircleOutlined from "@ant-design/icons/PlusCircleOutlined";
 import Flex from "antd/es/flex";
 import Typography from "antd/es/typography";
 

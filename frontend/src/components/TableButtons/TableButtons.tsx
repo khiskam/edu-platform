@@ -1,4 +1,6 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import DeleteOutlined from "@ant-design/icons/DeleteOutlined";
+import EditOutlined from "@ant-design/icons/EditOutlined";
+import EyeOutlined from "@ant-design/icons/EyeOutlined";
 import Button from "antd/es/button";
 import Space from "antd/es/space";
 import { NavLink } from "react-router-dom";

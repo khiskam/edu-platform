@@ -1,4 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
+import PlusOutlined from "@ant-design/icons/PlusOutlined";
 import Collapse from "antd/es/collapse";
 import Typography from "antd/es/typography";
 

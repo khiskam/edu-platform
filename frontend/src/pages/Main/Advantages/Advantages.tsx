@@ -20,7 +20,7 @@ export const Advantages = () => {
         {ADVANTAGES.map(({ key, icon: Icon, title, description }) => (
           <Col xs={24} lg={12} key={key}>
             <Flex vertical align="start" gap={GAP[12]}>
-              <Icon className={icon(theme)} />
+              <img src={Icon} className={icon(theme)} />
               <Typography.Text strong>{title}</Typography.Text>
               <Typography.Text>{description}</Typography.Text>
             </Flex>

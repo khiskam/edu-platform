@@ -1,4 +1,4 @@
-import { HomeOutlined } from "@ant-design/icons";
+import HomeOutlined from "@ant-design/icons/HomeOutlined";
 import { BreadcrumbProps } from "antd/es/breadcrumb";
 import { NavLink, useLocation, useMatches } from "react-router-dom";
 

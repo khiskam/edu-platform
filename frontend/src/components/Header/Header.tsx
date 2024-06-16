@@ -2,7 +2,7 @@ import Layout from "antd/es/layout";
 import Menu from "antd/es/menu";
 import { NavLink, useLocation } from "react-router-dom";
 
-import Logo from "@/assets/icons/logo.svg?react";
+import Logo from "@/assets/icons/logo.svg";
 import { Container } from "@/components";
 import { ROUTES } from "@/shared/routes";
 import { useUserStore } from "@/shared/store";
@@ -19,7 +19,7 @@ export const Header = () => {
       <Container>
         <div className={inner}>
           <NavLink to={ROUTES.main.path} className={logo}>
-            <Logo height={24} />
+            <img src={Logo} style={{ height: "24px" }} />
           </NavLink>
 
           <Menu

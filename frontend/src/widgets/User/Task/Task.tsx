@@ -1,4 +1,4 @@
-import { SmileOutlined } from "@ant-design/icons";
+import SmileOutlined from "@ant-design/icons/SmileOutlined";
 import Button from "antd/es/button";
 import Modal from "antd/es/modal";
 import Result from "antd/es/result";
