@@ -19,3 +19,4 @@ resources:
   - ./deployment.edu-api.yaml
   - ./deployment.edu-db.yaml
   - ./namespace.yaml
+  - ./deployment.edu-frontend.yaml

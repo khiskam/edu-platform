@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edu-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edu-frontend-pod
+  template:
+    metadata:
+      labels:
+        app: edu-frontend-pod
+    spec:
+      containers:
+        - name: edu-frontend
+          image: ayratkhisamiev/edu-platform-frontend
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: edu-frontend-svc
+spec:
+  selector:
+    app: edu-frontend-pod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: edu-frontend-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: edu.thin-box.online
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: edu-frontend-svc
+                port:
+                  number: 80
+  tls:
+    - secretName: thin-box.online
+      hosts:
+        - edu.thin-box.online
