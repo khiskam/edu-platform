@@ -7,7 +7,7 @@ export const Panel = () => {
   return (
     <Container>
       <PageLayout>
-        <Typography.Title level={2}>Профиль</Typography.Title>
+        <Typography.Title level={2}>Админ-панель</Typography.Title>
 
         <Admin.Panel />
       </PageLayout>
