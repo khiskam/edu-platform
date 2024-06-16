@@ -3,7 +3,6 @@ import { adminMiddleware, authMiddleware, tokenMiddleware } from "@app/middlewar
 import { LessonImageRepository } from "@repository/LessonImageRepository";
 import { LessonImageService } from "@services/lessonImage/LessonImageService";
 import { RequestHandler, Router } from "express";
-import { cwd } from "process";
 
 import { Handler } from "../interfaces";
 import { upload } from "./utils";
@@ -61,7 +60,7 @@ export class LessonImageHandler implements Handler {
         `inline; filename*=UTF-8''${encodeURIComponent(image.fileName)}`
       );
 
-      return res.sendFile(cwd() + `/${image.path}`);
+      return res.sendFile(process.env.UPLOAD_FOLDER + `/${image.path}`);
     } catch (e) {
       return next(e);
     }
@@ -81,7 +80,7 @@ export class LessonImageHandler implements Handler {
         fileName: originalname,
         size,
         contentType: mimetype,
-        path,
+        path: path.replace(process.env.UPLOAD_FOLDER ?? "", ""),
       });
 
       res.status(201).json({ image });
