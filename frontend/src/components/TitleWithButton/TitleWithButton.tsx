@@ -1,7 +1,7 @@
 import PlusOutlined from "@ant-design/icons/PlusOutlined";
+import Button from "antd/es/button";
 import Flex from "antd/es/flex";
 import Typography from "antd/es/typography";
-import Button from "antd/lib/button";
 import { NavLink } from "react-router-dom";
 
 import { GAP } from "@/shared/theme";

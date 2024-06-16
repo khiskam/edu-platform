@@ -1,54 +1,77 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 
 import { Crumbs } from "@/components";
-import { Admin, Auth, Main, User } from "@/pages";
 import { ROUTES } from "@/shared/routes";
-import { AdminProtectedRoutes, AuthProtectedRoutes, UnauthProtectedRoutes } from "@/widgets";
-
-import { Layout } from "./Layout";
 
 export const routesList: RouteObject[] = [
   {
     path: ROUTES.main.name,
-    element: <Layout />,
+    async lazy() {
+      const { Layout } = await import("./Layout");
+      return { Component: Layout };
+    },
     children: [
       {
         index: true,
-        element: <Main />,
+        async lazy() {
+          const { Main } = await import("@/pages/Main");
+          return { Component: Main };
+        },
       },
       {
-        element: <UnauthProtectedRoutes />,
+        async lazy() {
+          const { UnauthProtectedRoutes } = await import("@/widgets/ProtectedRoutes");
+          return { Component: UnauthProtectedRoutes };
+        },
         children: [
           {
             path: ROUTES.signin.name,
-            element: <Auth.SignIn />,
+            async lazy() {
+              const { SignIn } = await import("@/pages/Auth/SignIn");
+              return { Component: SignIn };
+            },
           },
           {
             path: ROUTES.signup.name,
-            element: <Auth.SignUp />,
+            async lazy() {
+              const { SignUp } = await import("@/pages/Auth/SignUp");
+              return { Component: SignUp };
+            },
           },
         ],
       },
       {
-        element: <AdminProtectedRoutes />,
+        async lazy() {
+          const { AdminProtectedRoutes } = await import("@/widgets/ProtectedRoutes");
+          return { Component: AdminProtectedRoutes };
+        },
         children: [
           {
             path: ROUTES.admin.name,
             children: [
               {
                 index: true,
-                element: <Admin.Panel />,
+                async lazy() {
+                  const { Panel } = await import("@/pages/Admin/Panel");
+                  return { Component: Panel };
+                },
               },
               {
                 path: ROUTES.users.name,
                 children: [
                   {
                     index: true,
-                    element: <Admin.Users />,
+                    async lazy() {
+                      const { Users } = await import("@/pages/Admin/Users");
+                      return { Component: Users };
+                    },
                   },
                   {
                     path: ":userId",
-                    element: <Admin.User />,
+                    async lazy() {
+                      const { User } = await import("@/pages/Admin/User");
+                      return { Component: User };
+                    },
                     handle: {
                       crumb: <Crumbs.User />,
                     },
@@ -60,11 +83,17 @@ export const routesList: RouteObject[] = [
                 children: [
                   {
                     index: true,
-                    element: <Admin.Categories />,
+                    async lazy() {
+                      const { Categories } = await import("@/pages/Admin/Categories");
+                      return { Component: Categories };
+                    },
                   },
                   {
                     path: ROUTES.create.name,
-                    element: <Admin.CreateCategory />,
+                    async lazy() {
+                      const { CreateCategory } = await import("@/pages/Admin/CreateCategory");
+                      return { Component: CreateCategory };
+                    },
                   },
                   {
                     path: ":categoryId",
@@ -74,22 +103,34 @@ export const routesList: RouteObject[] = [
                     children: [
                       {
                         index: true,
-                        element: <Admin.Category />,
+                        async lazy() {
+                          const { Category } = await import("@/pages/Admin/Category");
+                          return { Component: Category };
+                        },
                       },
                       {
                         path: ROUTES.edit.name,
-                        element: <Admin.UpdateCategory />,
+                        async lazy() {
+                          const { UpdateCategory } = await import("@/pages/Admin/UpdateCategory");
+                          return { Component: UpdateCategory };
+                        },
                       },
                       {
                         path: ROUTES.lessons.name,
                         children: [
                           {
                             index: true,
-                            element: <Admin.Lessons />,
+                            async lazy() {
+                              const { Lessons } = await import("@/pages/Admin/Lessons");
+                              return { Component: Lessons };
+                            },
                           },
                           {
                             path: ROUTES.create.name,
-                            element: <Admin.CreateLesson />,
+                            async lazy() {
+                              const { CreateLesson } = await import("@/pages/Admin/CreateLesson");
+                              return { Component: CreateLesson };
+                            },
                           },
                           {
                             path: ":lessonId",
@@ -99,22 +140,38 @@ export const routesList: RouteObject[] = [
                             children: [
                               {
                                 index: true,
-                                element: <Admin.Lesson />,
+                                async lazy() {
+                                  const { Lesson } = await import("@/pages/Admin/Lesson");
+                                  return { Component: Lesson };
+                                },
                               },
                               {
                                 path: ROUTES.edit.name,
-                                element: <Admin.UpdateLesson />,
+                                async lazy() {
+                                  const { UpdateLesson } = await import(
+                                    "@/pages/Admin/UpdateLesson"
+                                  );
+                                  return { Component: UpdateLesson };
+                                },
                               },
                               {
                                 path: ROUTES.tasks.name,
                                 children: [
                                   {
-                                    index: true,
-                                    element: <Admin.Tasks />,
+                                    path: ROUTES.main.name,
+                                    async lazy() {
+                                      const { Tasks } = await import("@/pages/Admin/Tasks");
+                                      return { Component: Tasks };
+                                    },
                                   },
                                   {
                                     path: ROUTES.create.name,
-                                    element: <Admin.CreateTask />,
+                                    async lazy() {
+                                      const { CreateTask } = await import(
+                                        "@/pages/Admin/CreateTask"
+                                      );
+                                      return { Component: CreateTask };
+                                    },
                                   },
                                   {
                                     path: ":taskId",
@@ -124,11 +181,19 @@ export const routesList: RouteObject[] = [
                                     children: [
                                       {
                                         index: true,
-                                        element: <Admin.Task />,
+                                        async lazy() {
+                                          const { Task } = await import("@/pages/Admin/Task");
+                                          return { Component: Task };
+                                        },
                                       },
                                       {
                                         path: ROUTES.edit.name,
-                                        element: <Admin.UpdateTask />,
+                                        async lazy() {
+                                          const { UpdateTask } = await import(
+                                            "@/pages/Admin/UpdateTask"
+                                          );
+                                          return { Component: UpdateTask };
+                                        },
                                       },
                                     ],
                                   },
@@ -147,25 +212,37 @@ export const routesList: RouteObject[] = [
         ],
       },
       {
-        element: <AuthProtectedRoutes />,
+        async lazy() {
+          const { AuthProtectedRoutes } = await import("@/widgets/ProtectedRoutes");
+          return { Component: AuthProtectedRoutes };
+        },
         children: [
           {
             path: ROUTES.account.name,
             children: [
               {
                 index: true,
-                element: <User.Account />,
+                async lazy() {
+                  const { Account } = await import("@/pages/User/Account");
+                  return { Component: Account };
+                },
               },
               {
                 path: ROUTES.profile.name,
-                element: <User.Profile />,
+                async lazy() {
+                  const { Profile } = await import("@/pages/User/Profile");
+                  return { Component: Profile };
+                },
               },
               {
                 path: ROUTES.categories.name,
                 children: [
                   {
                     index: true,
-                    element: <User.Categories />,
+                    async lazy() {
+                      const { Categories } = await import("@/pages/User/Categories");
+                      return { Component: Categories };
+                    },
                   },
                   {
                     path: ":categoryId",
@@ -175,14 +252,20 @@ export const routesList: RouteObject[] = [
                     children: [
                       {
                         index: true,
-                        element: <User.Category />,
+                        async lazy() {
+                          const { Category } = await import("@/pages/User/Category");
+                          return { Component: Category };
+                        },
                       },
                       {
                         path: ROUTES.lessons.name,
                         children: [
                           {
                             index: true,
-                            element: <User.Lessons />,
+                            async lazy() {
+                              const { Lessons } = await import("@/pages/User/Lessons");
+                              return { Component: Lessons };
+                            },
                           },
                           {
                             path: ":lessonId",
@@ -192,18 +275,27 @@ export const routesList: RouteObject[] = [
                             children: [
                               {
                                 index: true,
-                                element: <User.Lesson />,
+                                async lazy() {
+                                  const { Lesson } = await import("@/pages/User/Lesson");
+                                  return { Component: Lesson };
+                                },
                               },
                               {
                                 path: ROUTES.tasks.name,
                                 children: [
                                   {
                                     index: true,
-                                    element: <User.Tasks />,
+                                    async lazy() {
+                                      const { Tasks } = await import("@/pages/User/Tasks");
+                                      return { Component: Tasks };
+                                    },
                                   },
                                   {
                                     path: ":taskId",
-                                    element: <User.Task />,
+                                    async lazy() {
+                                      const { Task } = await import("@/pages/User/Task");
+                                      return { Component: Task };
+                                    },
                                   },
                                 ],
                               },
