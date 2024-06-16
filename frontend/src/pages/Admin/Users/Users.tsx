@@ -7,7 +7,7 @@ export const Users = () => {
   return (
     <Container>
       <PageLayout>
-        <Typography.Title level={2}>Профиль</Typography.Title>
+        <Typography.Title level={2}>Пользователи</Typography.Title>
 
         <Admin.Users />
       </PageLayout>
