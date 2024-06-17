@@ -296,6 +296,9 @@ export const routesList: RouteObject[] = [
                                       const { Task } = await import("@/pages/User/Task");
                                       return { Component: Task };
                                     },
+                                    handle: {
+                                      crumb: <Crumbs.Task />,
+                                    },
                                   },
                                 ],
                               },

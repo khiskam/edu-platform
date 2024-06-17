@@ -42,9 +42,17 @@ export const Lesson = forwardRef<HTMLDivElement, Data<LessonProgress>>(({ data }
           label="Описание"
           value={<Typography.Text>{data.description}</Typography.Text>}
         />
-        <Description layout="vertical" label="Разметка" value={<div>{parse(data.layout)}</div>} />
+        <Description
+          layout="vertical"
+          label="Разметка"
+          value={
+            <>
+              <div>{parse(data.layout)}</div>
+              <div ref={ref}></div>
+            </>
+          }
+        />
       </Flex>
-      <div ref={ref}></div>
       <NavLink to={`${ROUTES.tasks.name}`}>
         <Button>Перейти к заданиям</Button>
       </NavLink>
