@@ -16,7 +16,7 @@ export const useImageUpload = () => {
       }
 
       useMessageStore.setState({
-        content: { message: "Изображение агружено", type: "success" },
+        content: { message: "Изображение загружено", type: "success" },
       });
 
       return `${API_URL}/images/${response.data.image.id}`;

@@ -19,7 +19,7 @@ export const Task = () => {
 };
 
 export const TaskCrumb = ({ id }: Id) => {
-  const { isLoading, data, isError } = TaskApi.useGetOneQuery(id);
+  const { isLoading, data, isError } = TaskApi.useOneProgressQuery(id);
 
   if (isLoading) {
     return <Skeleton />;

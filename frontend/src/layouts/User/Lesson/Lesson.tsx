@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import Button from "antd/es/button";
 import Flex from "antd/es/flex";
 import Tag from "antd/es/tag";
@@ -12,7 +13,11 @@ import { LessonProgress } from "@/shared/api/lesson/types";
 import { ROUTES } from "@/shared/routes";
 import { GAP } from "@/shared/theme";
 
+import { text } from "./styled";
+
 export const Lesson = forwardRef<HTMLDivElement, Data<LessonProgress>>(({ data }, ref) => {
+  const theme = useTheme();
+
   return (
     <>
       <Flex vertical gap={GAP[24]} align="start">
@@ -46,10 +51,10 @@ export const Lesson = forwardRef<HTMLDivElement, Data<LessonProgress>>(({ data }
           layout="vertical"
           label="Разметка"
           value={
-            <>
+            <div className={text(theme)}>
               <div>{parse(data.layout)}</div>
               <div ref={ref}></div>
-            </>
+            </div>
           }
         />
       </Flex>

@@ -19,7 +19,7 @@ export const Lesson = () => {
 };
 
 export const LessonCrumb = ({ id }: Id) => {
-  const { isLoading, data, isError } = LessonApi.useGetOneQuery(id);
+  const { isLoading, data, isError } = LessonApi.useGetOneProgressQuery(id);
 
   if (isLoading) {
     return <Skeleton />;

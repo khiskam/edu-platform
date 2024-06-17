@@ -7,6 +7,7 @@ export const Categories = () => {
   const [searchParams] = useSearchParams();
 
   const { isLoading, data, isRefetching } = CategoryApi.useGetAllQuery({
+    page: searchParams.get("page"),
     q: searchParams.get("q"),
   });
   const { mutateAsync, isPending } = CategoryApi.useDeleteMutation();

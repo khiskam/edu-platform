@@ -31,7 +31,7 @@ export const AdminProtectedRoutes = () => {
   }
 
   if (auth.role !== "admin") {
-    return <Navigate to={ROUTES.profile.path} />;
+    return <Navigate to={ROUTES.account.path} />;
   }
 
   return <Outlet />;

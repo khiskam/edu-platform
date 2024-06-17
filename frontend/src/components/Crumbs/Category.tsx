@@ -19,7 +19,7 @@ export const Category = () => {
 };
 
 export const CategoryCrumb = ({ id }: Id) => {
-  const { isLoading, data, isError } = CategoryApi.useGetOneQuery(id);
+  const { isLoading, data, isError } = CategoryApi.useGetOneProgressQuery(id);
 
   if (isLoading) {
     return <Skeleton />;
