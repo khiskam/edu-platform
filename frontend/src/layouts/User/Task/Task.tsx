@@ -1,15 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "antd/es/button";
-import Checkbox from "antd/es/checkbox";
 import Flex from "antd/es/flex";
 import Form from "antd/es/form";
 import Tag from "antd/es/tag";
 import Typography from "antd/es/typography";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import { Description } from "@/components";
+import { Description, Fields } from "@/components";
 import { GAP } from "@/shared/theme";
-import { CompletedAnswerData } from "@/shared/types";
+import { AnswerData } from "@/shared/types";
 import { answersSchema } from "@/shared/validation";
 
 import { TaskProps } from "./types";
@@ -20,10 +19,10 @@ export const Task = ({ data, onSubmit }: TaskProps) => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<CompletedAnswerData>({
+  } = useForm<AnswerData>({
     mode: "onChange",
     resolver: yupResolver(answersSchema),
-    defaultValues: { answers: [] },
+    defaultValues: { answers: data.answers.map((item) => ({ isCorrect: false, value: item })) },
   });
 
   const onFinish = handleSubmit(onSubmit(data.id, reset));
@@ -54,23 +53,17 @@ export const Task = ({ data, onSubmit }: TaskProps) => {
             <Form layout="vertical" onFinish={onFinish}>
               <Form.Item
                 validateStatus={errors.answers ? "error" : "validating"}
-                help={errors.answers?.message}
+                help={errors.answers?.root?.message}
               >
-                <Controller
-                  control={control}
-                  name="answers"
-                  render={({ field }) => (
-                    <Checkbox.Group onChange={field.onChange} value={field.value}>
-                      <Flex vertical gap={GAP[4]}>
-                        {data.answers.map((value, idx) => (
-                          <Checkbox value={value} key={idx}>
-                            {value}
-                          </Checkbox>
-                        ))}
-                      </Flex>
-                    </Checkbox.Group>
-                  )}
-                />
+                <Flex vertical>
+                  {data.answers.map((item, idx) => (
+                    <Fields.Checkbox
+                      key={idx}
+                      control={{ control, name: `answers.${idx}.isCorrect` }}
+                      label={item}
+                    />
+                  ))}
+                </Flex>
               </Form.Item>
               <Button type="primary" htmlType="submit">
                 Ответить

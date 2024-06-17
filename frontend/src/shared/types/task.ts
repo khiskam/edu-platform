@@ -1,6 +1,6 @@
 import { InferType } from "yup";
 
-import { answersSchema, taskSchema } from "../validation";
+import { taskSchema } from "../validation";
 import { Id } from "./id";
 
 export type TaskData = {
@@ -17,7 +17,7 @@ export type AnswerData = {
   answers: { isCorrect: boolean; value: string }[];
 };
 
-export type CompletedAnswerData = InferType<typeof answersSchema>;
+export type CompletedAnswerData = { answers: string[] };
 
 export type Task = Id & TaskData;
 export type CorrectAnswer = { isCorrect: boolean; value: string };

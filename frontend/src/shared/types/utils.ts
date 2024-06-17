@@ -1,5 +1,14 @@
 import { AnswerData, TaskData, TaskDataWithAnswers } from "./task";
 
+export const getCompletedAnswerData = (data: AnswerData): string[] => {
+  return data.answers.reduce<string[]>((acc, curr) => {
+    if (curr.isCorrect) {
+      return [...acc, curr.value];
+    }
+    return acc;
+  }, []);
+};
+
 export const toTaskData = (data: TaskDataWithAnswers): TaskData => {
   return {
     title: data.title,
