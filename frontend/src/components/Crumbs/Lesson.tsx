@@ -19,11 +19,13 @@ export const Lesson = () => {
 };
 
 export const LessonCrumb = ({ id }: Id) => {
-  const { isLoading, data } = LessonApi.useGetOneQuery(id);
+  const { isLoading, data, isError } = LessonApi.useGetOneQuery(id);
 
   if (isLoading) {
     return <Skeleton />;
+  } else if (isError) {
+    return <Navigate to={`${ROUTES.admin.path}${ROUTES.categories.path}`} />;
+  } else {
+    return <>{data?.lesson.title}</>;
   }
-
-  return <>{data?.lesson.title}</>;
 };

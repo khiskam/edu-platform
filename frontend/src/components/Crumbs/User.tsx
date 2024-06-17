@@ -17,15 +17,17 @@ export const User = () => {
 };
 
 export const UserCrumb = ({ id }: Id) => {
-  const { isLoading, data } = UserApi.useGetOneQuery(id);
+  const { isLoading, data, isError } = UserApi.useGetOneQuery(id);
 
   if (isLoading) {
     return <Skeleton />;
+  } else if (isError) {
+    return <Navigate to={ROUTES.admin.path} />;
+  } else {
+    return (
+      <>
+        {data?.user.firstName} {data?.user.lastName}
+      </>
+    );
   }
-
-  return (
-    <>
-      {data?.user.firstName} {data?.user.lastName}
-    </>
-  );
 };

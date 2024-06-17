@@ -15,7 +15,7 @@ import { GAP } from "@/shared/theme";
 export const Lesson = forwardRef<HTMLDivElement, Data<LessonProgress>>(({ data }, ref) => {
   return (
     <>
-      <Flex vertical ref={ref} gap={GAP[24]} align="start">
+      <Flex vertical gap={GAP[24]} align="start">
         <Description
           layout="vertical"
           label="Просмотр"
@@ -44,6 +44,7 @@ export const Lesson = forwardRef<HTMLDivElement, Data<LessonProgress>>(({ data }
         />
         <Description layout="vertical" label="Разметка" value={<div>{parse(data.layout)}</div>} />
       </Flex>
+      <div ref={ref}></div>
       <NavLink to={`${ROUTES.tasks.name}`}>
         <Button>Перейти к заданиям</Button>
       </NavLink>

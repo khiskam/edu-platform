@@ -19,11 +19,13 @@ export const Category = () => {
 };
 
 export const CategoryCrumb = ({ id }: Id) => {
-  const { isLoading, data } = CategoryApi.useGetOneQuery(id);
+  const { isLoading, data, isError } = CategoryApi.useGetOneQuery(id);
 
   if (isLoading) {
     return <Skeleton />;
+  } else if (isError) {
+    return <Navigate to={`${ROUTES.admin.path}${ROUTES.categories.path}`} />;
+  } else {
+    return <>{data?.category.name}</>;
   }
-
-  return <>{data?.category.name}</>;
 };

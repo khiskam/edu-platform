@@ -27,7 +27,7 @@ export const ProfileData = ({ data }: ProfileDataProps) => {
           <Description
             layout="vertical"
             label="Роль"
-            value={role === "admin" ? "Админимстратор" : "Студент"}
+            value={role === "admin" ? "Администратор" : "Студент"}
           />
         </DescriptionLayout>
       </Layout>

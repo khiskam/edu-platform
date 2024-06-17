@@ -19,11 +19,13 @@ export const Task = () => {
 };
 
 export const TaskCrumb = ({ id }: Id) => {
-  const { isLoading, data } = TaskApi.useGetOneQuery(id);
+  const { isLoading, data, isError } = TaskApi.useGetOneQuery(id);
 
   if (isLoading) {
     return <Skeleton />;
+  } else if (isError) {
+    return <Navigate to={`${ROUTES.admin.path}${ROUTES.categories.path}`} />;
+  } else {
+    return <>{data?.task.title}</>;
   }
-
-  return <>{data?.task.title}</>;
 };
