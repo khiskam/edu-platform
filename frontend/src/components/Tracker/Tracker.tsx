@@ -36,9 +36,18 @@ export const Tracker = ({ data }: TrackerProps) => {
               color="white"
               title={
                 <Flex vertical style={{ padding: "8px" }}>
-                  <Description label="Дата" value={value.date} />
-                  <Description label="Пройдено занятий" value={value.lessonsCompleted} />
-                  <Description label="Сделано заданий" value={value.tasksCompleted} />
+                  <Description
+                    label="Дата"
+                    value={<Typography.Text>{value.date}</Typography.Text>}
+                  />
+                  <Description
+                    label="Пройдено занятий"
+                    value={<Typography.Text>{value.lessonsCompleted}</Typography.Text>}
+                  />
+                  <Description
+                    label="Сделано заданий"
+                    value={<Typography.Text>{value.tasksCompleted}</Typography.Text>}
+                  />
                 </Flex>
               }
               key={value.date}

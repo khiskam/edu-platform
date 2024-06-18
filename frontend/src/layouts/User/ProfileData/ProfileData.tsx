@@ -21,13 +21,29 @@ export const ProfileData = ({ data }: ProfileDataProps) => {
         </Avatar>
 
         <DescriptionLayout>
-          <Description layout="vertical" label="Имя" value={firstName} />
-          <Description layout="vertical" label="Фамилия" value={lastName} />
-          {email && <Description layout="vertical" label="Email" value={email} />}
+          <Description
+            layout="vertical"
+            label="Имя"
+            value={<Typography.Text>{firstName}</Typography.Text>}
+          />
+          <Description
+            layout="vertical"
+            label="Фамилия"
+            value={<Typography.Text>{lastName}</Typography.Text>}
+          />
+          {email && (
+            <Description
+              layout="vertical"
+              label="Email"
+              value={<Typography.Text>{email}</Typography.Text>}
+            />
+          )}
           <Description
             layout="vertical"
             label="Роль"
-            value={role === "admin" ? "Администратор" : "Студент"}
+            value={
+              <Typography.Text>{role === "admin" ? "Администратор" : "Студент"}</Typography.Text>
+            }
           />
         </DescriptionLayout>
       </Layout>

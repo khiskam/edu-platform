@@ -11,13 +11,14 @@ import { LessonProgress } from "@/shared/api/lesson/types";
 import { usePageParam } from "@/shared/hooks";
 import { GAP } from "@/shared/theme";
 
-export const Lessons = ({ data, totalCount }: ListProps<LessonProgress>) => {
+export const Lessons = ({ data, totalCount, isLoading }: ListProps<LessonProgress>) => {
   const { config } = usePageParam(data, totalCount);
 
   return (
     <Flex vertical gap={GAP[24]}>
       <Search />
       <List
+        loading={isLoading}
         dataSource={data}
         locale={{ emptyText: <Empty description="Здесь пока нет занятий..." /> }}
         renderItem={(item) => (

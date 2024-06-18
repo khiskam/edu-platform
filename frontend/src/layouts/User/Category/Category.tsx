@@ -1,5 +1,6 @@
 import Button from "antd/es/button";
 import Flex from "antd/es/flex";
+import Typography from "antd/es/typography";
 import { NavLink } from "react-router-dom";
 
 import { Description, ProgressBar } from "@/components";
@@ -12,8 +13,16 @@ export const Category = ({ data }: Data<CategoryProgress>) => {
   return (
     <>
       <Flex vertical gap={GAP[24]}>
-        <Description layout="vertical" label="Название" value={data.name} />
-        <Description layout="vertical" label="Описание" value={data.description} />
+        <Description
+          layout="vertical"
+          label="Название"
+          value={<Typography.Text>{data.name}</Typography.Text>}
+        />
+        <Description
+          layout="vertical"
+          label="Описание"
+          value={<Typography.Text>{data.description}</Typography.Text>}
+        />
         <Description
           layout="vertical"
           label="Прогресс"

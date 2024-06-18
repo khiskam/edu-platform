@@ -13,7 +13,7 @@ import { TaskProgress } from "@/shared/api/task/types";
 import { usePageParam } from "@/shared/hooks";
 import { GAP } from "@/shared/theme";
 
-export const Tasks = ({ data, totalCount }: ListProps<TaskProgress>) => {
+export const Tasks = ({ data, totalCount, isLoading }: ListProps<TaskProgress>) => {
   const { config } = usePageParam(data, totalCount);
   const theme = useTheme();
 
@@ -21,6 +21,7 @@ export const Tasks = ({ data, totalCount }: ListProps<TaskProgress>) => {
     <Flex vertical gap={GAP[24]}>
       <Search />
       <List
+        loading={isLoading}
         dataSource={data}
         locale={{ emptyText: <Empty description="Здесь пока нет заданий..." /> }}
         renderItem={(item) => (

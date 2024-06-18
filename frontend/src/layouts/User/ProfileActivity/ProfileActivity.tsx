@@ -20,22 +20,22 @@ export const ProfileActivity = ({ data }: ProfileActivityProps) => {
           <Description
             layout="vertical"
             label="Пройдено занятий за месяц"
-            value={statistics.lessonsCompleted}
+            value={<Typography.Text>{statistics.lessonsCompleted}</Typography.Text>}
           />
           <Description
             layout="vertical"
             label="Выполнено заданий за месяц"
-            value={statistics.tasksCompleted}
+            value={<Typography.Text>{statistics.tasksCompleted}</Typography.Text>}
           />
           <Description
             layout="vertical"
             label="Пройдено занятий всего"
-            value={statistics.lessonsCompleted}
+            value={<Typography.Text>{statistics.lessonsCompleted}</Typography.Text>}
           />
           <Description
             layout="vertical"
             label="Выполнено заданий всего"
-            value={statistics.tasksCompleted}
+            value={<Typography.Text>{statistics.tasksCompleted}</Typography.Text>}
           />
         </DescriptionLayout>
       </Layout>
