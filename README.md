@@ -4,10 +4,10 @@
 
 Приложение для управления задачами
 
-## Client
+## Frontend
 
 [Здесь](./frontend/README.md) можно прочитать README для клиентской части
 
-## Server
+## Backend
 
 [Здесь](./backend/README.md) можно прочитать README для серверной части
