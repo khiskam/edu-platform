@@ -1,4 +1,4 @@
-# Server
+# Backend
 
 REST API для образовательной платформы на Node.js (Express.js) и TypeScript
 
