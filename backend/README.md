@@ -1,6 +1,6 @@
 # Server
 
-REST API для приложения управления задачами на Node.js (Express.js) и TypeScript
+REST API для образовательной платформы на Node.js (Express.js) и TypeScript
 
 ## Переменные окружения
 
