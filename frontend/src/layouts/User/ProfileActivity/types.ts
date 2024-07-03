@@ -6,3 +6,5 @@ export type ProfileActivityProps = {
     statistics: { lessonsCompleted: number; tasksCompleted: number };
   };
 };
+
+export type Progress = Pick<TrackerProps["data"][number], "lessonsCompleted" | "tasksCompleted">;

@@ -1,11 +1,11 @@
 import { useLayoutEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import correctSound from "@/assets/audio/correct.wav";
-import incorrectSound from "@/assets/audio/incorrect.mp3";
 import { TaskApi } from "@/shared/api";
 import { AnswerData } from "@/shared/types";
 import { getCompletedAnswerData } from "@/shared/types/utils";
+
+import { FAILURE_AUDIO, SUCCESS_AUDIO } from "./constants";
 
 export const useSubmit = () => {
   const [success, setSuccess] = useState(false);
@@ -40,11 +40,11 @@ export const useTasksPage = () => {
 export const useSound = (success: boolean, failure: boolean, onFailure: () => void) => {
   useLayoutEffect(() => {
     if (success) {
-      new Audio(correctSound).play();
+      SUCCESS_AUDIO.play();
     }
 
     if (failure) {
-      new Audio(incorrectSound).play();
+      FAILURE_AUDIO.play();
       onFailure();
     }
   }, [success, failure, onFailure]);

@@ -44,7 +44,7 @@ export class UserService {
     }
 
     const lessonsCompleted = await this._repo.getOneCompletedLessons(user.id);
-    const tasksCompleted = await this._repo.getOneCompletedLessons(user.id);
+    const tasksCompleted = await this._repo.getOneCompletedTasks(user.id);
     const monthlyActions = await this._repo.getOneMontlyProgress(user.id);
 
     return {
